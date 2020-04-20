@@ -70,6 +70,7 @@ extractive text summarization, a pretrained BERT model is used.
   This paper proposes a new probabilistic approach to information retrieval based upon the ideas of statistical machine         translation. The main approach is a statistical model on how a document can be translated into a query.
   
  * [Statistical Language Modeling For Information Retrieval](http://ciir.cs.umass.edu/pubfiles/ir-318.pdf)
+  
   This paper reviews research and applications in statistical language modelling for information retrieval (IR) that has  emerged within the past several years as a new probabilistic framework for describing information retrieval processes.
 
 * [Unsupervised Question Answering by Cloze Translation](https://research.fb.com/wp-content/uploads/2019/07/Unsupervised-Question-Answering-by-Cloze-Translation.pdf)
