@@ -23,3 +23,7 @@ yarn-error.log*
 .idea
 apis/__pycache__
 __pycache__
+
+glove
+Covid_Data.json
+Data_Covid.csv
