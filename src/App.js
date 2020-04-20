@@ -194,9 +194,9 @@ function App() {
         </div>
 
         <div className="row justify-content-center">
-          <h1 className="display-4">
+          <p className="lead text-center text-justify">
             {filename}
-          </h1>
+          </p>
         </div>
 
         <div className="row justify-content-center">
