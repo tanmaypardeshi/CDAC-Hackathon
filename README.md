@@ -33,7 +33,9 @@ data = json.load(f)
 print(data)
 ```
 
-**2. Data_Covid.csv:** Dataset created by using Kaggle open Research data.<br> Follow the following steps to open the file:
+**2. Data_Covid.csv:** Dataset created by using Kaggle open Research data.<br> 
+
+Follow the following steps to open the file:
 
 ```
 import pandas as pd
@@ -62,6 +64,7 @@ extractive text summarization, a pretrained BERT model is used.
 * [Supervised Machine Learning for Extractive Query Based Summarisation of Biomedical Data](https://www.aclweb.org/anthology/W18-5604.pdf):
 
   This paper explores the impact of several supervised machine learning approaches for extracting multi-document summaries      for given queries. It compares classification and regression approaches for query-based extractive summarisation using        data provided by the BioASQ Challenge.
+  
 * [Information Retrieval as Statistical Translation](https://www.cse.iitb.ac.in/~soumen/readings/papers/BergerL1999xlate.pdf):
 
   This paper proposes a new probabilistic approach to information retrieval based upon the ideas of statistical machine         translation. The main approach is a statistical model on how a document can be translated into a query.
@@ -70,6 +73,7 @@ extractive text summarization, a pretrained BERT model is used.
   This paper reviews research and applications in statistical language modelling for information retrieval (IR) that has  emerged within the past several years as a new probabilistic framework for describing information retrieval processes.
 
 * [Unsupervised Question Answering by Cloze Translation](https://research.fb.com/wp-content/uploads/2019/07/Unsupervised-Question-Answering-by-Cloze-Translation.pdf)
+  This research paper explores to what extent high quality training data is actually required for Extractive QA, and investigates the possibility of unsupervised Extractive QA. This problem is approached by first learning to generate context, question and answer triples in an unsupervised manner, which we then use to synthesize Extractive QA training data automatically.
 
 #### [Click here to open the text file used in the screen recording](/Crystallization and preliminary crystallographic study of Feline infectious peritonitis virus main protease in complex with an inhibitor.txt)
 
