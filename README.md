@@ -76,7 +76,7 @@ extractive text summarization, a pretrained BERT model is used.
 * [Unsupervised Question Answering by Cloze Translation](https://research.fb.com/wp-content/uploads/2019/07/Unsupervised-Question-Answering-by-Cloze-Translation.pdf)
   This research paper explores to what extent high quality training data is actually required for Extractive QA, and investigates the possibility of unsupervised Extractive QA. This problem is approached by first learning to generate context, question and answer triples in an unsupervised manner, which we then use to synthesize Extractive QA training data automatically.
 
-#### [Click here to open the text file used in the screen recording](/Crystallization and preliminary crystallographic study of Feline infectious peritonitis virus main protease in complex with an inhibitor.txt)
+#### [Click here to open the text file used in the screen recording](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Crystallization%20and%20preliminary%20crystallographic%20study%20of%20Feline%20infectious%20peritonitis%20virus%20main%20protease%20in%20complex%20with%20an%20inhibitor.txt)
 
 ### Snippets of the platform:
 
