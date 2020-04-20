@@ -33,7 +33,7 @@ data = json.load(f)
 print(data)
 ```
 
-**2. Data_Covid.csv:** Dataset created by using Kaggle open Research data. Follow the following steps to open the file:
+**2. Data_Covid.csv:** Dataset created by using Kaggle open Research data.<br> Follow the following steps to open the file:
 
 ```
 import pandas as pd
