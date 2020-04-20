@@ -14,7 +14,7 @@
   2. Use command **pipenv shell** to activate pipenv
   3. For the first time, use **pipenv install** to install all dependencies<br>
   This will only be for the first time to install the packages.
-  4. Use **npm i** for the first time to install all javascript dependencies
+  4. Use **npm i** for the first time to install all node modules for React.
   5. To run the flask server use **python run.py**
   6. Run **npm start** to start development server and use the platform while keeping 
   the flask server running as well
@@ -33,7 +33,7 @@ data = json.load(f)
 print(data)
 ```
 
-**2. Data_Covid.csv:** Dataset created by using Kaggle open Research data. It is advisable to use pd.read_csv in order to open the file, as the size of the file is too large
+**2. Data_Covid.csv:** Dataset created by using Kaggle open Research data. Follow the following steps to open the file:
 
 ```
 import pandas as pd
@@ -41,7 +41,7 @@ data=pd.read_csv('Data_Covid.csv')
 print(data)
 ```
 
-**3. glove:** Embeddings used to create the dataset.
+**3. glove:** Embeddings used to perform text summarization
 
 **4. data_script.ipynb:** The script written in order to extract data from the source data in the required format
 
@@ -53,16 +53,17 @@ print(data)
 
 * [Unsupervised Text Summarization Using Sentence Embeddings](https://www.cs.utexas.edu/~asaran/reports/summarization.pdf):
 
-    This research paper explains the process of text summarization using unsupervised methods. It is done by clustering sentence embeddings trained to embed paraphrases near each other. 
+  This research paper explains the process of text summarization using unsupervised methods. It is done by clustering           sentence embeddings trained to embed paraphrases near each other. 
 * [Application and analysis of text summarization for biomedical domain content](http://cs229.stanford.edu/proj2019spr/report/77.pdf):
     
     Application and analysis of text summarization for biomedical domain content 
+    
 * [Supervised Machine Learning for Extractive Query Based Summarisation of Biomedical Data](https://www.aclweb.org/anthology/W18-5604.pdf):
 
-This paper explores the impact of several supervised machine learning approaches for extracting multi-document summaries for given queries. It compares classification and regression approaches for query-based extractive summarisation using data provided by the BioASQ Challenge.
+  This paper explores the impact of several supervised machine learning approaches for extracting multi-document summaries      for given queries. It compares classification and regression approaches for query-based extractive summarisation using        data provided by the BioASQ Challenge.
 * [Information Retrieval as Statistical Translation](Information Retrieval as Statistical Translation):
 
-This paper proposes a new probabilistic approach to information retrieval based upon the ideas of statistical machine translation. The main approach is a statistical model on how a document can be translated into a query.
+  This paper proposes a new probabilistic approach to information retrieval based upon the ideas of statistical machine         translation. The main approach is a statistical model on how a document can be translated into a query.
 
 
 #### [Click here to open the text file used in the screen recording](Crystallization and preliminary crystallographic study of Feline infectious peritonitis virus main protease in complex with an inhibitor.txt)
