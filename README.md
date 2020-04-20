@@ -3,7 +3,7 @@
 
 #### [Use this link to access the google drive which contains our dataset and word embeddings](https://drive.google.com/drive/folders/1nKAo8oWqPuq39ky15duuhpt3sWEhyV-7)
 
-<h4><a href="https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Crystallization%20and%20preliminary%20crystallographic%20study%20of%20Feline%20infectious%20peritonitis%20virus%20main%20protease%20in%20complex%20with%20an%20inhibitor.txt" target="_blank">Click here to open the text file used in the screen recording</a></h4>
+#### [Click here to open the text file used in the video recording](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Crystallization%20and%20preliminary%20crystallographic%20study%20of%20Feline%20infectious%20peritonitis%20virus%20main%20protease%20in%20complex%20with%20an%20inhibitor.txt)
 
 ### Steps to run the project:
 
@@ -15,12 +15,13 @@
  
 * **Steps:**
   1. Clone the repository using<br> **git clone https://github.com/tanmaypardeshi/CDAC-Hackathon.git**
-  2. Use command **pipenv shell** to activate pipenv
-  3. For the first time, use **pipenv install** to install all dependencies<br>
+  2. Download the **glove** folder from the google drive link provided above and save it in the project directory
+  3. Use command **pipenv shell** to activate pipenv
+  4. For the first time, use **pipenv install** to install all dependencies<br>
   This will only be for the first time to install the packages.
-  4. Use **npm i** for the first time to install all node modules for React.
-  5. To run the flask server use **python run.py**
-  6. Run **npm start** to start development server and use the platform while keeping 
+  5. Use **npm i** for the first time to install all node modules for React.
+  6. To run the flask server use **python run.py**
+  7. Run **npm start** to start development server and use the platform while keeping 
   the flask server running as well
  
   
@@ -60,6 +61,7 @@ print(data)
 * [Unsupervised Text Summarization Using Sentence Embeddings](https://www.cs.utexas.edu/~asaran/reports/summarization.pdf):
 
   This research paper explains the process of text summarization using unsupervised methods. It is done by clustering           sentence embeddings trained to embed paraphrases near each other. 
+  
 * [Application and analysis of text summarization for biomedical domain content](http://cs229.stanford.edu/proj2019spr/report/77.pdf):
     
     In this research paper, the approach is to implement and analyse abstractive and extractive text summarization machine learning models forgeneral language as well as biomedical domain-specific text. For abstractive text summarization, a sequence-to-sequence model that utilizes recurrent neural networks (RNNs) for biomedical text summarization. For
