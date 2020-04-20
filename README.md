@@ -1,6 +1,10 @@
 # CDAC Hackathon
 ## COVID-19 LITERATURE ANALYSIS AND SUMMARIZATION PLATFORM
 
+#### [Use this link to access the google drive which contains our dataset and word embeddings](https://drive.google.com/drive/folders/1nKAo8oWqPuq39ky15duuhpt3sWEhyV-7)
+
+<h4><a href="https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Crystallization%20and%20preliminary%20crystallographic%20study%20of%20Feline%20infectious%20peritonitis%20virus%20main%20protease%20in%20complex%20with%20an%20inhibitor.txt" target="_blank">Click here to open the text file used in the screen recording</a></h4>
+
 ### Steps to run the project:
 
 * **Requirements:**<br>
@@ -77,7 +81,6 @@ extractive text summarization, a pretrained BERT model is used.
 
   This research paper explores to what extent high quality training data is actually required for Extractive QA, and investigates the possibility of unsupervised Extractive QA. This problem is approached by first learning to generate context, question and answer triples in an unsupervised manner, which we then use to synthesize Extractive QA training data automatically.
 
-<h4><a href="https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Crystallization%20and%20preliminary%20crystallographic%20study%20of%20Feline%20infectious%20peritonitis%20virus%20main%20protease%20in%20complex%20with%20an%20inhibitor.txt" target=_blank>Click here to open the text file used in the screen recording</a></h4>
 
 ### Snippets of the platform:
 
