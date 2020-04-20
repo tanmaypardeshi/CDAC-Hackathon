@@ -48,8 +48,8 @@ print(data)
 **5. Summarizer.py:** Makes use of the TextRank algorithm to summarize the input Biomedical Text.
 
 
-###Research papers referred while working for the TextRank algorithm:
-####(Click on the links to open the research paper)
+### Research papers referred while working for the TextRank algorithm:
+#### (Click on the links to open the research paper)
 
 * [Unsupervised Text Summarization Using Sentence Embeddings](https://www.cs.utexas.edu/~asaran/reports/summarization.pdf):
 
@@ -67,7 +67,7 @@ This paper proposes a new probabilistic approach to information retrieval based 
 
 #### [Click here to open the text file used in the screen recording](Crystallization and preliminary crystallographic study of Feline infectious peritonitis virus main protease in complex with an inhibitor.txt)
 
-###Snippets of the platform:
+### Snippets of the platform:
 
 ![clasp_1](/screenshots/clasp_1.png)
 ![clasp_2](/screenshots/clasp_2.png)
