@@ -11,8 +11,8 @@
 
 * **Requirements:**<br>
   1. python: version 3.7.x
-  2. npm: version 6.13.4
-  3. node: version 12.16.0
+  2. npm: version 6.13.x
+  3. node: version 12.16.x
   4. pip and pipenv
  
 * **Steps:**
