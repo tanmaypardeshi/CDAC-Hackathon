@@ -31,7 +31,7 @@
 ### Documentation about the files in the repository
 #### (Click on the links to open the folder)
 
-**1. [Covid_Data.json:](data/Covid_Data.json)** Dataset in the json format.<br> 
+**1. [Covid_Data.json:](https://drive.google.com/drive/folders/1nKAo8oWqPuq39ky15duuhpt3sWEhyV-7)** Dataset in the json format.<br> 
 
 Follow the following steps to open the file:
 
@@ -42,7 +42,7 @@ data = json.load(f)
 print(data)
 ```
 
-**2. [Data_Covid.csv:](data/Data_Covid.csv)** Dataset created by using Kaggle open Research data.<br> 
+**2. [Data_Covid.csv:](https://drive.google.com/drive/folders/1nKAo8oWqPuq39ky15duuhpt3sWEhyV-7)** Dataset created by using Kaggle open Research data.<br> 
 
 Follow the following steps to open the file:
 
@@ -52,11 +52,19 @@ data=pd.read_csv('Data_Covid.csv')
 print(data)
 ```
 
-**3. [glove:](glove)** Embeddings used to perform text summarization
+**3. [glove:](https://drive.google.com/drive/folders/1nKAo8oWqPuq39ky15duuhpt3sWEhyV-7)** Embeddings used to perform text summarization
 
 **4. [data_script.ipynb:](data/data_script.ipynb)** The script written in order to extract data from the source data in the required format
 
 **5. [Summarizer.py:](Summarizer.py)** Makes use of the TextRank algorithm to summarize the input Biomedical Text.
+
+**6. [Info_Retrieval_Author_Fuzzy.py:](Info_Retrieval_Author_Fuzzy.py)** Makes use of levenshtein distance to generate a similarity score between the author based query and documents
+
+**7. [Info_Retrieval_Title_Fuzzy.py:](Info_Retrieval_Title_Fuzzy.py)** Makes use of levenshtein distance to generate a similarity score between the title based query and documents 
+
+**8. [Info_Retrieval_Data.csv:](https://drive.google.com/drive/folders/1nKAo8oWqPuq39ky15duuhpt3sWEhyV-7)** Info_Retrieval_Data.csv
+
+**9. [Info_Retrieval_Data_Selenium_New.csv:](https://drive.google.com/drive/folders/1nKAo8oWqPuq39ky15duuhpt3sWEhyV-7)** Dataset created by using Kaggle open Research data.
 
 
 ### Research papers referred while working for the TextRank algorithm:
