@@ -96,10 +96,39 @@ extractive text summarization, a pretrained BERT model is used.
 
 ### Snippets of the platform:
 
-![clasp_1](/screenshots/clasp_1.png)
-![clasp_2](/screenshots/clasp_2.png)
-![clasp_3](/screenshots/clasp_3.png)
-![clasp_4](/screenshots/clasp_4.png)
-![clasp_5](/screenshots/clasp_5.png)
-![clasp_6](/screenshots/clasp_6.png)
- 
+* ### Home page
+
+<p float="left">
+    <img src="screenshots/clasp1.png" alt="701.png" width="500" height="400">
+    <img src="screenshots/clasp2.png" alt="702.png" width="500" height="400">
+</p>
+
+* ### Login and Signup
+
+<p float="left">
+    <img src="screenshots/clasp3.png" alt="701.png" width="500" height="400">
+    <img src="screenshots/clasp4.png" alt="702.png" width="500" height="400">
+</p>
+
+* ### Summarization and My Summaries
+
+<p float="left">
+    <img src="screenshots/clasp5.png" alt="701.png" width="500" height="400">
+    <img src="screenshots/clasp6.png" alt="702.png" width="500" height="400">
+    <img src="screenshots/clasp7.png" alt="702.png" width="500" height="400">
+</p>
+
+* ### Information Retrieval by Title
+
+<p float="left">
+    <img src="screenshots/clasp8.png" alt="701.png" width="500" height="400">
+    <img src="screenshots/clasp9.png" alt="702.png" width="500" height="400">
+</p>
+
+* ### Information Retrieval by Author Name
+
+<p float="left">
+    <img src="screenshots/clasp10.png" alt="701.png" width="500" height="400">
+    <img src="screenshots/clasp11.png" alt="702.png" width="500" height="400">
+</p>
+
