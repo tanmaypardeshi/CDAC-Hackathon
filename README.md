@@ -21,9 +21,9 @@
   3. Use command **pipenv shell** to activate pipenv
   4. For the first time, use **pipenv install** to install all dependencies<br>
   This will only be for the first time to install the packages.
-  5. Use **npm i** for the first time to install all javascript dependencies for React.
-  6. To run the flask server use **python run.py**
-  7. Run **npm start** to start development server and use the platform while keeping 
+  5. Navigate to the frontend folder and run **npm i** for the first time to install all javascript dependencies for React.
+  6. To run the flask server use **python run.py** in the main project directory.
+  7. Navigate to the frontend folder and run **npm start** to start development server and use the platform while keeping 
   the flask server running as well
  
   
