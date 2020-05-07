@@ -62,9 +62,7 @@ print(data)
 
 **7. [Info_Retrieval_Title_Fuzzy.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Info_Retrieval_Title_Fuzzy.py)** Makes use of levenshtein distance to generate a similarity score between the title based query and documents 
 
-**8. [Info_Retrieval_Data.csv:](https://drive.google.com/drive/folders/1nKAo8oWqPuq39ky15duuhpt3sWEhyV-7)** Info_Retrieval_Data.csv
-
-**9. [Info_Retrieval_Data_Selenium_New.csv:](https://drive.google.com/drive/folders/1nKAo8oWqPuq39ky15duuhpt3sWEhyV-7)** Dataset created by using Kaggle open Research data.
+**9. [Info_Retrieval_Data.csv:](https://drive.google.com/drive/folders/1nKAo8oWqPuq39ky15duuhpt3sWEhyV-7)** Dataset created by using Kaggle open Research data.
 
 
 ### Research papers referred while working for the TextRank algorithm:
