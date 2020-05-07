@@ -25,4 +25,8 @@ apis/__pycache__
 __pycache__
 
 glove
-data
+data/Info_Retrieval_Data.csv
+data/Info_Retrieval_Data_Selenium_New.csv
+data/Covid_Data.json
+data/Data_Covid.csv
+
