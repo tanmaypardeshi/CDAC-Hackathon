@@ -99,36 +99,36 @@ extractive text summarization, a pretrained BERT model is used.
 * ### Home page
 
 <p float="left">
-    <img src="screenshots/clasp1.png" alt="701.png" width="500" height="400">
-    <img src="screenshots/clasp2.png" alt="702.png" width="500" height="400">
+    <img src="screenshots/clasp1.png" alt="701.png" width="700" height="400">
+    <img src="screenshots/clasp2.png" alt="702.png" width="700" height="400">
 </p>
 
 * ### Login and Signup
 
 <p float="left">
-    <img src="screenshots/clasp3.png" alt="701.png" width="500" height="400">
-    <img src="screenshots/clasp4.png" alt="702.png" width="500" height="400">
+    <img src="screenshots/clasp3.png" alt="701.png" width="700" height="400">
+    <img src="screenshots/clasp4.png" alt="702.png" width="700" height="400">
 </p>
 
 * ### Summarization and My Summaries
 
 <p float="left">
-    <img src="screenshots/clasp5.png" alt="701.png" width="500" height="400">
-    <img src="screenshots/clasp6.png" alt="702.png" width="500" height="400">
-    <img src="screenshots/clasp7.png" alt="702.png" width="500" height="400">
+    <img src="screenshots/clasp5.png" alt="701.png" width="700" height="400">
+    <img src="screenshots/clasp6.png" alt="702.png" width="700" height="400">
+    <img src="screenshots/clasp7.png" alt="702.png" width="700" height="400">
 </p>
 
 * ### Information Retrieval by Title
 
 <p float="left">
-    <img src="screenshots/clasp8.png" alt="701.png" width="500" height="400">
-    <img src="screenshots/clasp9.png" alt="702.png" width="500" height="400">
+    <img src="screenshots/clasp8.png" alt="701.png" width="700" height="400">
+    <img src="screenshots/clasp9.png" alt="702.png" width="700" height="400">
 </p>
 
 * ### Information Retrieval by Author Name
 
 <p float="left">
-    <img src="screenshots/clasp10.png" alt="701.png" width="500" height="400">
-    <img src="screenshots/clasp11.png" alt="702.png" width="500" height="400">
+    <img src="screenshots/clasp10.png" alt="701.png" width="700" height="400">
+    <img src="screenshots/clasp11.png" alt="702.png" width="700" height="400">
 </p>
 
