@@ -26,7 +26,7 @@ __pycache__
 
 glove
 data/Info_Retrieval_Data.csv
-data/Info_Retrieval_Data_Selenium_New.csv
+data/Info_Retrieval_Data.csv
 data/Covid_Data.json
 data/Data_Covid.csv
 frontend/node_modules

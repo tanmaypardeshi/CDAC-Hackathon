@@ -53,7 +53,7 @@ def similarity_score_title(query, data):
 
 
 def get_info_title(query):
-    data = pd.read_csv('./data/Info_Retrieval_Data_Selenium_New.csv')
+    data = pd.read_csv('data/Info_Retrieval_Data.csv')
     similarity_score_title(query, data)
     df = data.sort_values(by='similarity_score', ascending=False)
     df = df.iloc[:20, :]
