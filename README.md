@@ -17,8 +17,9 @@
  
 * **Steps:**
   1. Clone the repository using<br> **git clone https://github.com/tanmaypardeshi/CDAC-Hackathon.git**
-  2. Download the **glove** folder from the google drive link provided above and save it in the project directory
-  3. Use command **pipenv shell** to activate pipenv
+  2. Download the **glove** folder from the google drive link provided above and save it in the project directory.
+  3. Download all the other csv and json files and store it in the **data** folder of the project.
+  3. Use command **pipenv shell** to activate pipenv.
   4. For the first time, use **pipenv install** to install all dependencies<br>
   This will only be for the first time to install the packages.
   5. Navigate to the frontend folder and run **npm i** for the first time to install all javascript dependencies for React.
