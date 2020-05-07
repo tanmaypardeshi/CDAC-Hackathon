@@ -23,7 +23,7 @@ def remove_stopwords(sen):
 
 def create_summary(s):
     word_embeddings = {}
-    f = open('./glove/glove.200d.txt', encoding='utf-8')
+    f = open('./glove/glove.6B.200d.txt', encoding='utf-8')
     for line in f:
         values = line.split()
         word = values[0]

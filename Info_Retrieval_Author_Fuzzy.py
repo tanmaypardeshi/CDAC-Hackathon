@@ -25,7 +25,7 @@ def lemmatize_text(text):
         string = string.join(words1)
         refined_sentences_list.append(string)
     refined_text = " "
-    return (refined_text.join(refined_sentences_list))
+    return refined_text.join(refined_sentences_list)
 
 
 def remove_special_chars(text):
@@ -42,9 +42,11 @@ def pre_processing(text):
 
 
 def similarity_score(query, data):
+    indices = []
+    indices = data.index.values
     score = []
     for i in range(len(data)):
-        sent = re.sub(r'[^A-Za-z]', " ", str(data['authors'][i]))
+        sent = re.sub(r'[^A-Za-z]', " ", str(data['authors'][indices[i]]))
         score.append(fuzz.token_sort_ratio(query.lower(), sent.lower()))
     data['similarity_score'] = score
 
@@ -55,4 +57,3 @@ def get_info(query):
     df = data.sort_values(by='similarity_score', ascending=False)
     df = df.iloc[:20, :]
     return df
-

@@ -41,11 +41,13 @@ def pre_processing(text):
     return text
 
 
-def similarity_score_title(query,data):
+def similarity_score_title(query, data):
     score = []
+    indices = []
+    indices = data.index.values
     for i in range(len(data)):
         sent1 = pre_processing(str(query))
-        sent2 = pre_processing(str(data['title'][i]))
+        sent2 = pre_processing(str(data['title'][indices[i]]))
         score.append(fuzz.token_sort_ratio(str(sent1), str(sent2)))
     data['similarity_score'] = score
 
@@ -56,4 +58,3 @@ def get_info_title(query):
     df = data.sort_values(by='similarity_score', ascending=False)
     df = df.iloc[:20, :]
     return df
-

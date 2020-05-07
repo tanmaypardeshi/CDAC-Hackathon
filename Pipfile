@@ -16,6 +16,9 @@ pandas = "*"
 networkx = "*"
 nltk = "*"
 sklearn = "*"
+fuzzywuzzy = "*"
+gensim = "*"
+flask-jwt-extended = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.8"

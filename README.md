@@ -10,8 +10,8 @@
 ### Steps to run the project:
 
 * **Requirements:**<br>
-  1. python: version 3.7.x
-  2. npm: version 6.13.x
+  1. python: version 3.8.x
+  2. npm: version 6.14.x
   3. node: version 12.16.x
   4. pip and pipenv
  
