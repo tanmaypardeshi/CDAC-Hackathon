@@ -28,8 +28,9 @@
  
   
 ### Documentation about the files in the repository
+#### (Click on the links to open the folder)
 
-**1. Covid_Data.json:** Dataset in the json format.<br> 
+**1. [Covid_Data.json:](data/Covid_Data.json)** Dataset in the json format.<br> 
 
 Follow the following steps to open the file:
 
@@ -40,7 +41,7 @@ data = json.load(f)
 print(data)
 ```
 
-**2. Data_Covid.csv:** Dataset created by using Kaggle open Research data.<br> 
+**2. [Data_Covid.csv:](data/Data_Covid.csv)** Dataset created by using Kaggle open Research data.<br> 
 
 Follow the following steps to open the file:
 
@@ -50,11 +51,11 @@ data=pd.read_csv('Data_Covid.csv')
 print(data)
 ```
 
-**3. glove:** Embeddings used to perform text summarization
+**3. [glove:](glove)** Embeddings used to perform text summarization
 
-**4. data_script.ipynb:** The script written in order to extract data from the source data in the required format
+**4. [data_script.ipynb:](data/data_script.ipynb)** The script written in order to extract data from the source data in the required format
 
-**5. Summarizer.py:** Makes use of the TextRank algorithm to summarize the input Biomedical Text.
+**5. [Summarizer.py:](Summarizer.py)** Makes use of the TextRank algorithm to summarize the input Biomedical Text.
 
 
 ### Research papers referred while working for the TextRank algorithm:
