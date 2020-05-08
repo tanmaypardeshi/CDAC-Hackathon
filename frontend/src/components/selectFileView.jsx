@@ -359,7 +359,7 @@ function SelectFileView(props){
                                                     <blockquote className="blockquote mb-0">
                                                         <footer className="blockquote-footer"><cite title="Source Title">{result.author_name}</cite></footer>
                                                     </blockquote>
-                                                    <a href={result.link} target="_blank" className="card-link ml-auto">View Full Article</a>
+                                                    <a href={result.link} target="_blank" rel="noopener" className="card-link ml-auto">View Full Article</a>
                                                 </div>
                                             </div>
                                         )
