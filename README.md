@@ -1,13 +1,9 @@
 # CDAC Hackathon
 ## COVID-19 LITERATURE ANALYSIS AND SUMMARIZATION PLATFORM
 
-#### [Use this link to access the google drive which contains our dataset and word embeddings](https://drive.google.com/drive/folders/1nKAo8oWqPuq39ky15duuhpt3sWEhyV-7)
+#### [Use this link to access the google drive which contains our dataset,word embeddings, PPT for the project and the sample videos](https://drive.google.com/drive/folders/1nKAo8oWqPuq39ky15duuhpt3sWEhyV-7)
 
-#### [Click here to download the video for summariser](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/videos/summary.mp4)
-
-#### [Click here to download the video for information retrieval using title](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/videos/info_title.mp4)
-
-#### [Click here to download the video for information retrieval using author](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/videos/info_author.mp4)
+#### [Click here to access the videos](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/videos)
 
 #### [Click here to open the text file used in the video recording](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/data/Crystallization%20and%20preliminary%20crystallographic%20study%20of%20Feline%20infectious%20peritonitis%20virus%20main%20protease%20in%20complex%20with%20an%20inhibitor.txt)
 
