@@ -18,13 +18,15 @@ export default function summary() {
                             minHeight:"100vh",
                             minWidth: "100vw",
                         }}>
-                            <h1 className="display-4 pl-4">
-                                Your Summary
-                            </h1>
-                            <div className="row justify-content-center pt-3 pl-5 pr-5">
-                                <p className="text-justify">
-                                    {summContext.summary}
-                                </p>
+                            <div className="container pt-3">
+                                <h1 className="display-4 pl-4">
+                                    Your Summary
+                                </h1>
+                                <div className="row justify-content-center pt-3 pl-5 pr-5">
+                                    <p className="text-justify">
+                                        {summContext.summary}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     )}
