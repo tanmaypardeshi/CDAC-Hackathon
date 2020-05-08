@@ -102,7 +102,7 @@ export default function MySummaries(){
                                 :
                                 <div className="container pt-3">
                                     <h1 className="display-4 pl-4">
-                                        Nothing to see here!
+                                        Nothing to see here yet!
                                     </h1>
                                 </div>
                             }
