@@ -3,7 +3,7 @@
 
 #### [Use this link to access the google drive which contains our dataset and word embeddings](https://drive.google.com/drive/folders/1nKAo8oWqPuq39ky15duuhpt3sWEhyV-7)
 
-#### [Click here to download the video for summariser](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/videos/summaries.mp4)
+#### [Click here to download the video for summariser](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/videos/summary.mp4)
 
 #### [Click here to download the video for information retrieval using title](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/videos/info_title.mp4)
 
