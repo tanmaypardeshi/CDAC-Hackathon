@@ -6,11 +6,6 @@ import nltk
 import re
 from nltk.tokenize import sent_tokenize
 from sklearn.metrics.pairwise import cosine_similarity
-
-nltk.download('punkt')
-
-# Function to remove stopwords
-nltk.download('stopwords')
 from nltk.corpus import stopwords
 
 stop_words = stopwords.words('english')

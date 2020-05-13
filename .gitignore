@@ -29,5 +29,6 @@ data/Info_Retrieval_Data.csv
 data/Info_Retrieval_Data.csv
 data/Covid_Data.json
 data/Data_Covid.csv
+data/info_ret_textrank_new.csv
 frontend/node_modules
 

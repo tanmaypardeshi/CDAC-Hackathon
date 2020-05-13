@@ -52,7 +52,7 @@ def similarity_score(query, data):
 
 
 def get_info(query):
-    data = pd.read_csv('data/Info_Retrieval_Data.csv')
+    data = pd.read_csv('data/info_ret_textrank_new.csv')
     similarity_score(query, data)
     df = data.sort_values(by='similarity_score', ascending=False)
     df = df.iloc[:20, :]

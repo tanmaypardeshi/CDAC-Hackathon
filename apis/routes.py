@@ -31,7 +31,7 @@ def info_retrieval():
     filtertype = post_data['filter']
     if filtertype == 'Name':
         new_content = get_info_title(query)
-        new_content = new_content.drop(columns=['Unnamed: 0', 'Unnamed: 0.1', 'journal', 'similarity_score'])
+        new_content = new_content.drop(columns=['Unnamed: 0', 'publish_time', 'similarity_score'])
         l = []
         info = []
         objects = {}
@@ -45,7 +45,7 @@ def info_retrieval():
             objects = {}
         return jsonify({'data': info}), 200
     new_content = get_info(query)
-    new_content = new_content.drop(columns=['Unnamed: 0', 'Unnamed: 0.1', 'journal', 'similarity_score'])
+    new_content = new_content.drop(columns=['Unnamed: 0', 'publish_time', 'similarity_score'])
     l = []
     info = []
     objects = {}
