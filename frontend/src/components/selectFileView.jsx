@@ -59,7 +59,7 @@ function SelectFileView(props){
                 "content":text,
                 "email": (localStorage.length ? jwt_decode(localStorage.usertoken).identity.email : ""),
             },
-            url: "http://localhost:5000/summarise",
+            url: "/api/summarise",
             onUploadProgress: (ev) => {
                 const progress = Math.round(ev.loaded / ev.total * 100);
                 if(progress === 100) {
@@ -134,14 +134,7 @@ function SelectFileView(props){
                 "filter" : irFilter,
                 "email": (localStorage.length ? jwt_decode(localStorage.usertoken).identity.email : "")
             },
-            url: "http://localhost:5000/irquery",
-            // onUploadProgress: (ev) => {
-            //     const progress = Math.round(ev.loaded / ev.total * 100);
-            //     if(progress === 100) {
-            //         setUploading(false);
-            //         setSummarizing(true);
-            //     }
-            // }
+            url: "/api/irquery",      
         })
         .then((response) => {
             setResults(response.data.data);

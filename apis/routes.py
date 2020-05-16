@@ -8,7 +8,7 @@ from Info_Retrieval_Author_Fuzzy import get_info
 from Summariser import create_summary
 
 
-@app.route("/summarise", methods=['POST'])
+@app.route("/api/summarise", methods=['POST'])
 @cross_origin()
 def summarise():
     post_data = request.get_json()
@@ -23,7 +23,7 @@ def summarise():
     return jsonify({'data': new_content}), 200
 
 
-@app.route("/irquery", methods=['POST'])
+@app.route("/api/irquery", methods=['POST'])
 @cross_origin()
 def info_retrieval():
     post_data = request.get_json()
@@ -60,7 +60,7 @@ def info_retrieval():
     return jsonify({'data': info}), 200
 
 
-@app.route("/register", methods=['POST'])
+@app.route("/api/register", methods=['POST'])
 @cross_origin()
 def register():
     user_data = request.get_json()
@@ -95,7 +95,7 @@ def register():
         return jsonify({'error': 'User already exists'}), 401
 
 
-@app.route("/login", methods=['POST'])
+@app.route("/api/login", methods=['POST'])
 @cross_origin()
 def login():
     user_data = request.get_json()
@@ -122,7 +122,7 @@ def login():
         return jsonify({'error': 'User does not exist'}), 401
 
 
-@app.route('/mysummaries', methods=['GET'])
+@app.route('/api/mysummaries', methods=['GET'])
 @jwt_required
 def mysummaries():
     current_user = get_jwt_identity()

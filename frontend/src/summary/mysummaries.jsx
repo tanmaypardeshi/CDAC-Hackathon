@@ -19,7 +19,7 @@ export default function MySummaries(){
                 "Content-Type" : "application/json",
                 Authorization: `Bearer ${localStorage.usertoken}`
             },
-            url: "http://localhost:5000/mysummaries",
+            url: "/api/mysummaries",
         })
         .then((response) => {
             //console.log(response.data.mysummaries[0].title);

@@ -48,7 +48,7 @@ export default function NavBar(props) {
                     "email": emailAddr,
                     "password": password
                 },
-                url: "http://localhost:5000/login",
+                url: "/api/login",
             })
             .then((response) => {
                 localStorage.setItem('usertoken', response.data.data.token);
@@ -84,7 +84,7 @@ export default function NavBar(props) {
                     "password": password,
                     "profession": job
                 },
-                url: "http://localhost:5000/register",
+                url: "/api/register",
             })
             .then((response) => {
                 localStorage.setItem('usertoken', response.data.data.token);
