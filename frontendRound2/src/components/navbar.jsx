@@ -72,8 +72,8 @@ export default function ButtonAppBar(props) {
     const [open, setOpen] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
     const [showReg, setShowReg] = useState(false);
-    const [loggedIn, setLoggedIn] = useState(localStorage.usertoken.length ? true : false);
-    const [actions, setActions] = useState(localStorage.usertoken.length ? [...userActions, ...commonActions] : [...userNActions, ...commonActions])
+    const [loggedIn, setLoggedIn] = useState(typeof localStorage.usertoken !== 'undefined');
+    const [actions, setActions] = useState(typeof localStorage.usertoken !== 'undefined' ? [...userActions, ...commonActions] : [...userNActions, ...commonActions])
 
     const handleClose = () => {
         setOpen(false);
@@ -91,8 +91,10 @@ export default function ButtonAppBar(props) {
         } else if (event.currentTarget.id === 'register') {
             setShowReg(true);
         } else if (event.currentTarget.id === 'logout') {
-            localStorage.setItem('usertoken', '');
-            localStorage.setItem('summary', '');
+            localStorage.removeItem('usertoken');
+            localStorage.removeItem('summary');
+            //localStorage.setItem('usertoken', '');
+            //localStorage.setItem('summary', '');
             setLoggedIn(false);
             setActions([...userNActions, ...commonActions]);
             history.push('/');
@@ -113,7 +115,7 @@ export default function ButtonAppBar(props) {
     }
 
     const handleAuthChange = () => {
-        if(localStorage.usertoken.length){
+        if(typeof localStorage.usertoken !== 'undefined'){
             setLoggedIn(true);
             setActions([...userActions, ...commonActions]);
         }
@@ -151,7 +153,7 @@ export default function ButtonAppBar(props) {
                           
                           <Tooltip title = "Menu">
                               {
-                                  loggedIn && localStorage.usertoken.length
+                                  loggedIn && typeof localStorage.usertoken !== 'undefined'
                                   ?
                                   <Avatar className = {classes.avatar} onClick={handleOpen}>
                                       {jwt_decode(localStorage.usertoken).identity.name.split(" ").map((n)=>n[0]).join("")}
@@ -175,7 +177,7 @@ export default function ButtonAppBar(props) {
                                 color: themeContext.dark ? "white" : "black"
                               }}>
                               {
-                                  loggedIn && localStorage.usertoken.length
+                                  loggedIn && typeof localStorage.usertoken !== 'undefined'
                                   ? 
                                   <ListItem>
                                       <ListItemText primary = {jwt_decode(localStorage.usertoken).identity.name}/>
