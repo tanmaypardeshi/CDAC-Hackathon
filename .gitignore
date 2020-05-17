@@ -25,10 +25,7 @@ apis/__pycache__
 __pycache__
 
 glove
-data/Info_Retrieval_Data.csv
-data/Info_Retrieval_Data.csv
-data/Covid_Data.json
-data/Data_Covid.csv
-data/info_ret_textrank_new.csv
+data/*.csv
+data/*.json
 frontend/node_modules
 
