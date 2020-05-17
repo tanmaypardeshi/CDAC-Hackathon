@@ -1,11 +1,33 @@
+import pandas as pd
+
 from flask import jsonify, request
 from apis import app, bcrypt, db
 from flask_cors import cross_origin
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+
 from .models import User, Summary
-from Info_Retrieval_Title_Fuzzy import get_info_title
+
+from Info_Retrieval_Title_Fuzzy import get_info_abstract
 from Info_Retrieval_Author_Fuzzy import get_info
 from Summariser import create_summary
+from Real_Time_Research_News import get_news
+
+
+@app.route("/api/news", methods=['GET'])
+@cross_origin()
+def news():
+    data_frame = get_news()
+    data_frame = data_frame.drop(columns=['Datetime'])
+    info = []
+    objects = {}
+    for i in range(data_frame.shape[0]):
+        objects['Links'] = data_frame['Links'][i]
+        objects['Headlines'] = data_frame['Headlines'][i]
+        objects['Publisher'] = data_frame['Publisher'][i]
+        objects['Hours'] = data_frame['Hours'][i]
+        info.append(objects)
+        objects = {}
+    return jsonify({'data': info}), 200
 
 
 @app.route("/api/summarise", methods=['POST'])
@@ -30,17 +52,16 @@ def info_retrieval():
     query = post_data['query']
     filtertype = post_data['filter']
     if filtertype == 'Name':
-        new_content = get_info_title(query)
-        new_content = new_content.drop(columns=['Unnamed: 0', 'publish_time', 'similarity_score'])
+        new_content = get_info_abstract(query)
         l = []
         info = []
         objects = {}
         l = new_content.index.values
         for i in range(20):
-            objects['title'] = new_content['title'][l[i]]
-            objects['content'] = new_content['abstract'][l[i]]
-            objects['author_name'] = new_content['authors'][l[i]]
-            objects['link'] = new_content['url'][l[i]]
+            objects['title'] = new_content['Title'][l[i]]
+            objects['content'] = new_content['Abstract'][l[i]]
+            objects['author_name'] = new_content['Authors'][l[i]]
+            objects['link'] = new_content['URL'][l[i]]
             info.append(objects)
             objects = {}
         return jsonify({'data': info}), 200
