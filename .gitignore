@@ -27,5 +27,6 @@ __pycache__
 glove
 data/*.csv
 data/*.json
+data/keywords_list_legit.txt
 frontend/node_modules
 
