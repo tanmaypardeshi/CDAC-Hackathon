@@ -23,14 +23,16 @@ const useStyles = makeStyles((theme) => ({
 function App(props) {
 
   // Single time render handling for usertoken
-  const garbage = null;
+  // const garbage = null;
 
-  useEffect(() => {
-    if(!localStorage.length){
-      localStorage.setItem('usertoken', '');
-      localStorage.setItem('summary', '');
-    }
-  }, [garbage]);
+  // useEffect(() => {
+  //   localStorage.clear();
+  //   if(typeof localStorage.usertoken.length === 'undefined'){
+  //     localStorage.setItem('usertoken', '');
+  //     localStorage.setItem('summary', '');
+  //   }
+  //   console.log(localStorage);
+  // }, [garbage]);
 
   // Scroll FAB handler
   

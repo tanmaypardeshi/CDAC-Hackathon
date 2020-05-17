@@ -172,7 +172,7 @@ function MyApp(){
                 data: {
                     "title": fileName,
                     "content": preSummary,
-                    "email": (localStorage.usertoken.length ? jwt_decode(localStorage.usertoken).identity.email : ""),
+                    "email": (typeof localStorage.usertoken !== 'undefined' ? jwt_decode(localStorage.usertoken).identity.email : ""),
                 },
                 url: "/api/summarise",
                 onUploadProgress: (ev) => {

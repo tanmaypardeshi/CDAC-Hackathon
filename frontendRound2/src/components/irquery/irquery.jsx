@@ -101,7 +101,7 @@ function MyApp() {
                 data: {
                     "query" : search.query,
                     "filter" : ( (search.filter === 0 || search.filter === 1) ? "Name" : "Author"),
-                    "email": (localStorage.usertoken.length ? jwt_decode(localStorage.usertoken).identity.email : "")
+                    "email": (typeof localStorage.usertoken !== 'undefined' ? jwt_decode(localStorage.usertoken).identity.email : "")
                 },
                 url: "/api/irquery",
             })
@@ -234,7 +234,7 @@ function MyApp() {
                                         >
                                         <CardHeader
                                             action = {
-                                                localStorage.usertoken.length ?
+                                                typeof localStorage.usertoken !== 'undefined' ?
                                                 <IconButton aria-label = "bookmark" onClick = {handleBookmark} id = {index}>
                                                     <Bookmark style = {{
                                                         color: themeContext.dark ? 'white' : 'grey'

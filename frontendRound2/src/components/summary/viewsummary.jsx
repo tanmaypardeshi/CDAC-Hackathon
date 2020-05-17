@@ -1,9 +1,13 @@
 import React from 'react';
 import { Container, Typography } from '@material-ui/core';
 import { ThemeContextConsumer } from '../../context/themer';
+import { Redirect } from 'react-router-dom';
 
 export default function ViewSummary() {
+
+
     return(
+        typeof localStorage.summary !== 'undefined' ?
         <ThemeContextConsumer>
             {(themeContext) => (
                 <div style = {{
@@ -19,6 +23,7 @@ export default function ViewSummary() {
                     </Container>
                 </div>
             )}
-        </ThemeContextConsumer>
+        </ThemeContextConsumer> :
+        <Redirect to = '/summarizer'/>
     )
 }

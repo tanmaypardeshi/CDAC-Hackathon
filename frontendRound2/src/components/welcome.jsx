@@ -18,7 +18,8 @@ export const Welcome = () => {
     }
 
     return(
-        !localStorage.usertoken.length && 
+        //!localStorage.usertoken.length && 
+        typeof localStorage.usertoken !== 'undefined' &&
         <div /* style = {{ position: "relative", width: '100%', height: 500}} */>
             <AutoRotatingCarousel
                 label = "Get Started"
