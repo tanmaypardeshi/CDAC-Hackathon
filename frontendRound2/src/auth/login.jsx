@@ -3,7 +3,6 @@ import {Button, Dialog, DialogActions, DialogTitle, DialogContent, TextField, In
 import {Visibility, VisibilityOff} from '@material-ui/icons';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import jwt_decode from 'jwt-decode';
 
 export const Login = ({isOpen, handleClose}) => {
 
@@ -51,7 +50,6 @@ export const Login = ({isOpen, handleClose}) => {
                 url: "/api/login",
             })
             .then((response) => {
-				//console.log(jwt_decode(response.data.data.token));
 				localStorage.setItem('usertoken', response.data.data.token);
 				handleClose();
             })

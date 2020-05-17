@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {makeStyles, AppBar, Avatar, Toolbar, Typography, Grid, IconButton, Tooltip, List, ListItem, ListItemIcon, ListItemText, SwipeableDrawer, Divider, Slide, useScrollTrigger, Link} from '@material-ui/core';
 import {Brightness4, Brightness7, MoreVert, LockOpen, Lock, AssignmentInd, Chat, Description, Search, Bookmarks} from '@material-ui/icons';
 import { blue } from '@material-ui/core/colors';
@@ -65,6 +65,12 @@ const commonActions = [
 ]
   
 export default function ButtonAppBar(props) {
+
+    const dummy = null;
+
+    useEffect(() => {
+        handleAuthChange();
+    },[dummy])
     
     const classes = useStyles();
     let history = useHistory();
@@ -74,7 +80,7 @@ export default function ButtonAppBar(props) {
     const [showReg, setShowReg] = useState(false);
     const [loggedIn, setLoggedIn] = useState(typeof localStorage.usertoken !== 'undefined');
     const [actions, setActions] = useState(typeof localStorage.usertoken !== 'undefined' ? [...userActions, ...commonActions] : [...userNActions, ...commonActions])
-
+    const [username, setUsername] = useState('');
     const handleClose = () => {
         setOpen(false);
     };
@@ -97,6 +103,7 @@ export default function ButtonAppBar(props) {
             //localStorage.setItem('summary', '');
             setLoggedIn(false);
             setActions([...userNActions, ...commonActions]);
+            setUsername('');
             history.push('/');
         } else {
             console.log(event.currentTarget.id);
@@ -118,6 +125,7 @@ export default function ButtonAppBar(props) {
         if(typeof localStorage.usertoken !== 'undefined'){
             setLoggedIn(true);
             setActions([...userActions, ...commonActions]);
+            setUsername(jwt_decode(localStorage.usertoken).identity.name);
         }
     }
   
@@ -153,10 +161,10 @@ export default function ButtonAppBar(props) {
                           
                           <Tooltip title = "Menu">
                               {
-                                  loggedIn && typeof localStorage.usertoken !== 'undefined'
+                                  (loggedIn && typeof localStorage.usertoken !== 'undefined')
                                   ?
                                   <Avatar className = {classes.avatar} onClick={handleOpen}>
-                                      {jwt_decode(localStorage.usertoken).identity.name.split(" ").map((n)=>n[0]).join("")}
+                                      {username.split(" ").map((n)=>n[0]).join("")}
                                   </Avatar>
                                   :
                                   <IconButton aria-label = "theme" onClick={handleOpen}>
@@ -177,10 +185,10 @@ export default function ButtonAppBar(props) {
                                 color: themeContext.dark ? "white" : "black"
                               }}>
                               {
-                                  loggedIn && typeof localStorage.usertoken !== 'undefined'
+                                  (loggedIn && typeof localStorage.usertoken !== 'undefined')
                                   ? 
                                   <ListItem>
-                                      <ListItemText primary = {jwt_decode(localStorage.usertoken).identity.name}/>
+                                      <ListItemText primary = {username}/>
                                   </ListItem>
                                   :
                                   null

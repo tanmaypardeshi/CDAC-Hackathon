@@ -24,37 +24,30 @@ export const Home = () => {
 
     const dummy = null;
 
-    const [news, setNews] = useState([
-        {Links: 'https://news.google.com/', Headlines: 'Sample Heading', Publisher: 'John Doe', Hours: '5'},
-        {Links: 'https://news.google.com/', Headlines: 'Sample Heading', Publisher: 'John Doe', Hours: '5'},
-        {Links: 'https://news.google.com/', Headlines: 'Sample Heading', Publisher: 'John Doe', Hours: '5'},
-        {Links: 'https://news.google.com/', Headlines: 'Sample Heading', Publisher: 'John Doe', Hours: '5'},
-        {Links: 'https://news.google.com/', Headlines: 'Sample Heading', Publisher: 'John Doe', Hours: '5'},
-        {Links: 'https://news.google.com/', Headlines: 'Sample Heading', Publisher: 'John Doe', Hours: '5'},
-        {Links: 'https://news.google.com/', Headlines: 'Sample Heading', Publisher: 'John Doe', Hours: '5'},
-        {Links: 'https://news.google.com/', Headlines: 'Sample Heading', Publisher: 'John Doe', Hours: '5'},
-        {Links: 'https://news.google.com/', Headlines: 'Sample Heading', Publisher: 'John Doe', Hours: '5'}
-    ]);
+    const [news, setNews] = useState([]);
+    const [newsReceived, setNewsReceived] = useState(false);
 
-    // const fetchNews = () => {
-    //     axios({
-    //         method: "GET",
-    //         headers: {
-    //             "Access-Control-Allow-Origin": "*",
-    //             "Content-Type" : "application/json",
-    //             "Authorization": `Bearer ${localStorage.usertoken}`
-    //         },
-    //         url: "/api/news",
-    //     })
-    //     .then((response) => {
-    //         setNews(response.data.news);
-    //     })
-    //     .catch((err) => console.log(err));
-    // }
+    const fetchNews = () => {
+        axios({
+            method: "GET",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type" : "application/json",
+                "Authorization": `Bearer ${localStorage.usertoken}`
+            },
+            url: "/api/news",
+        })
+        .then((response) => {
+            setNews(response.data.data);
+            setNewsReceived(true);
+            //setNews(response.data.news);
+        })
+        .catch((err) => console.log(err));
+    }
 
-    // useEffect(() => {
-
-    // },[dummy]);
+    useEffect(() => {
+        fetchNews();
+    },[dummy]);
 
     return(
         <ThemeContextConsumer>
@@ -68,7 +61,7 @@ export const Home = () => {
                         <img className = {classes.img} src={themeContext.dark ? newsdark : newslight} alt=""/>
                         <Grid container spacing = {3} style = {{marginTop: '5vh'}}> 
                         {
-                            news.map((content, index) => {
+                            newsReceived ? news.map((content, index) => {
                                 return(
                                     <Grid item xs = {12} sm = {12} md = {4} lg = {4}>
                                         <Card
@@ -89,7 +82,7 @@ export const Home = () => {
                                                 }
                                                 subheader = {
                                                     <div style = {{color: themeContext.dark && 'white'}}>
-                                                        {content.Hours} hours ago
+                                                        {content.Hours}
                                                     </div>
                                                 }
                                                 align = 'left'
@@ -112,7 +105,7 @@ export const Home = () => {
                                         </Card>
                                     </Grid>
                                 );
-                            })
+                            }) : null
                         }
                         </Grid>
                     </Container>
