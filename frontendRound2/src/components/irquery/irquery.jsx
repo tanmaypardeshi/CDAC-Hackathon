@@ -131,14 +131,14 @@ function MyApp() {
         // let newResults = [...results];
         // newResults[index] = {...newResults[id], is_bookmark: !newResults[id].is_bookmarked}; //modify is_bookmarked at index
         // setResults(newResults);
-
+        // const cookie = getCookie("usertoken");
         // if(newResults[index].is_bookmark){
         //     axios({
         //         method: "POST",
         //         headers: {
         //             "Access-Control-Allow-Origin": "*",
         //             "Content-Type" : "application/json",
-        //             "Authorization": `Bearer ${localStorage.usertoken}`
+        //             "Authorization": `Bearer ${cookie}`
         //         },
         //         data: {
         //             "title": newResults[index].title,
@@ -158,7 +158,7 @@ function MyApp() {
         //         headers: {
         //             "Access-Control-Allow-Origin": "*",
         //             "Content-Type" : "application/json",
-        //             "Authorization": `Bearer ${localStorage.usertoken}`
+        //             "Authorization": `Bearer ${cookie}`
         //         },
         //         data: {
         //             "title": newResults[index].title,
@@ -271,7 +271,6 @@ function MyApp() {
                                         >
                                         <CardHeader
                                             action = {
-                                                //typeof localStorage.usertoken !== 'undefined' ?
                                                 getCookie("usertoken") !== '' ?
                                                 <IconButton aria-label = "bookmark" onClick = {handleBookmark} id = {index}>
                                                     <Bookmark style = {{

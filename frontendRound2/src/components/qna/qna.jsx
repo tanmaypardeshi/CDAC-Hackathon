@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { Send, Description, Cancel, RestorePage, CodeSharp } from '@material-ui/icons';
 import { DropzoneArea } from 'material-ui-dropzone';
 import { Alert } from '@material-ui/lab';
+import { getCookie } from '../../functions/cookiefns';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -77,27 +79,32 @@ export const Qna = ({isOpen, handleOpen, handleClose}) => {
         setFileName(fileField);
         setFileField('');
         setSearching(true);
-        setTimeout(() => {
-            setContextObtained(true);
-            setSearching(false);
-        }, 2000);
+        // setTimeout(() => {
+        //     setContextObtained(true);
+        //     setSearching(false);
+        // }, 2000);
         //console.log(question);
-        // axios({
-            //     method: "POST",
-            //     headers: {
-            //         "Access-Control-Allow-Origin": "*",
-            //         "Content-Type" : "application/json",
-            //         "Authorization": `Bearer ${localStorage.usertoken}`
-            //     },
-            //     data: {
-            //         "fileName" : fileName,
-            //     },
-            //     url: "/api/getcontent",
-            // }).then((response) => {
-            //     console.log(response);
-            // }).catch((err) => {
-            //     console.log(err);
-            // })
+        axios({
+                method: "POST",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Content-Type" : "application/json",
+                    "Authorization": `Bearer ${getCookie("usertoken")}`
+                },
+                data: {
+                    "fileName" : fileName,
+                },
+                url: "/api/getcontent",
+        }).then((response) => {
+            console.log(response);
+            setSearching(false);
+            setContextObtained(true);
+        }).catch((err) => {
+            //console.log(err);
+            alert(err);
+            setSearching(false);
+            setContextObtained(false);
+        })
     }
 
     const handleDropChange = (file) => {
@@ -121,23 +128,27 @@ export const Qna = ({isOpen, handleOpen, handleClose}) => {
         if(fileContent !== ''){
             console.log(fileName, fileContent);
             setFileUploading(true);
-            // axios({
-            //     method: "POST",
-            //     headers: {
-            //         "Access-Control-Allow-Origin": "*",
-            //         "Content-Type" : "application/json",
-            //         "Authorization": `Bearer ${localStorage.usertoken}`
-            //     },
-            //     data: {
-            //         "fileName" : fileName,
-            //         "fileContent": fileContent,
-            //     },
-            //     url: "/api/getcontent",
-            // }).then((response) => {
-            //     console.log(response);
-            // }).catch((err) => {
-            //     console.log(err);
-            // })
+            axios({
+                method: "POST",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Content-Type" : "application/json",
+                    "Authorization": `Bearer ${getCookie("usertoken")}`
+                },
+                data: {
+                    "fileName" : fileName,
+                    "fileContent": fileContent,
+                },
+                url: "/api/getcontent",
+            }).then((response) => {
+                console.log(response);
+                setFileUploading(false);
+                setContextObtained(true);
+            }).catch((err) => {
+                alert(err);
+                setFileUploading(false);
+                setContextObtained(true);
+            })
         }
     }, [fileContent]);
 
@@ -152,28 +163,33 @@ export const Qna = ({isOpen, handleOpen, handleClose}) => {
         setSearching(true);
         setQuestionAsked(true);
         setAnswerReceived(false);
-        setTimeout(() => {
-            setAnswerReceived(true);
-            setSearching(false);
-            setAnswer("Lorem Ipsum Dolor Adispiscing Sit Amet Adios! Lorem Ipsum Dolor Adispiscing Sit Amet Adios! Lorem Ipsum Dolor Adispiscing Sit Amet Adios! Lorem Ipsum Dolor Adispiscing Sit Amet Adios! Lorem Ipsum Dolor Adispiscing Sit Amet Adios!");
-        }, 2000);
-        console.log('Hello');
-        // axios({
-            //     method: "POST",
-            //     headers: {
-            //         "Access-Control-Allow-Origin": "*",
-            //         "Content-Type" : "application/json",
-            //         "Authorization": `Bearer ${localStorage.usertoken}`
-            //     },
-            //     data: {
-            //         "question" : question
-            //     },
-            //     url: "/api/getanswer",
-            // }).then((response) => {
-            //     console.log(response);
-            // }).catch((err) => {
-            //     console.log(err);
-            // })
+        // setTimeout(() => {
+        //     setAnswerReceived(true);
+        //     setSearching(false);
+        //     setAnswer("Lorem Ipsum Dolor Adispiscing Sit Amet Adios! Lorem Ipsum Dolor Adispiscing Sit Amet Adios! Lorem Ipsum Dolor Adispiscing Sit Amet Adios! Lorem Ipsum Dolor Adispiscing Sit Amet Adios! Lorem Ipsum Dolor Adispiscing Sit Amet Adios!");
+        // }, 2000);
+        // console.log('Hello');
+        axios({
+                method: "POST",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Content-Type" : "application/json",
+                    "Authorization": `Bearer ${getCookie("usertoken")}`
+                },
+                data: {
+                    "question" : question,
+                    "filename" : fileName
+                },
+                url: "/api/getanswer",
+            }).then((response) => {
+                console.log(response);
+                setAnswer(response.data);
+                setSearching(false);
+                setAnswerReceived(true);
+            }).catch((err) => {
+                setAnswer(err);
+                setAnswerReceived(true);
+            })
     }
 
     const revertContext = () => {

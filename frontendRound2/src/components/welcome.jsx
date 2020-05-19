@@ -19,8 +19,6 @@ export const Welcome = () => {
     }
 
     return(
-        //!localStorage.usertoken.length && 
-        //typeof localStorage.usertoken !== 'undefined' &&
         (getCookie("usertoken") === '' && typeof sessionStorage.visited === 'undefined') ?
         <div /* style = {{ position: "relative", width: '100%', height: 500}} */>
             <AutoRotatingCarousel
