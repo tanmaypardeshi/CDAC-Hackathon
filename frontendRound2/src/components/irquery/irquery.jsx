@@ -146,7 +146,7 @@ function MyApp() {
         //             "author_name": newResults[index].author_name,
         //             "link": newResults[index].link
         //         },
-        //         url: "http://localhost:5000/bookmark",
+        //         url: "/api/bookmark",
         //     }).then((response) => {
         //         console.log(response);
         //     }).catch((err) => {
@@ -166,7 +166,7 @@ function MyApp() {
         //             "author_name": newResults[index].author_name,
         //             "link": newResults[index].link
         //         },
-        //         url: "http://localhost:5000/removebookmark",
+        //         url: "/api/removebookmark",
         //     }).then((response) => {
         //         console.log(response);
         //     }).catch((err) => {

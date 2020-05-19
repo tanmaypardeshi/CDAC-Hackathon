@@ -117,7 +117,7 @@ function VerticalLinearStepper() {
     const history = useHistory();
 
     //form state
-    const [formcontent, setFormContent] = useState('');
+    const [formContent, setFormContent] = useState('');
     
     //stepper states
     const [activeStep, setActiveStep] = useState(0);
@@ -303,23 +303,41 @@ function VerticalLinearStepper() {
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
-        //const cookie = getCookie("usertoken")
-        // axios({
-        //     method: "POST",
-        //     headers: {
-        //         "Access-Control-Allow-Origin": "*",
-        //         "Content-Type" : "application/json",
-        //         "Authorization": `Bearer ${cookie}`
-        //     },
-        //     data: {
-        //         "searchquery" : formContent,
-        //     },
-        //     url: "http://localhost:5000/searchSummary",
-        // }).then((response) => {
-        //     console.log(response);
-        // }).catch((err) => {
-        //     console.log(err);
-        // })
+        const searchKey = enqueueSnackbar('Searching...', {
+            variant: 'info',
+            persist: true
+        })
+        const cookie = getCookie("usertoken")
+        axios({
+            method: "POST",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type" : "application/json",
+                "Authorization": `Bearer ${cookie}`
+            },
+            data: {
+                "searchquery" : formContent,
+            },
+            url: "/api/search_summary",
+        }).then((response) => {
+            console.log(response);
+            sessionStorage.setItem('summary', response.data.data);
+            closeSnackbar(searchKey);
+            closeSnackbar();
+            enqueueSnackbar('Summarization successful', {
+                persist: false,
+                variant: "success",
+            })
+            setActiveStep(2);
+        }).catch((err) => {
+            console.log(err);
+            closeSnackbar(searchKey);
+            closeSnackbar();
+            enqueueSnackbar('File not Found!', {
+                persist: false,
+                variant: "error",
+            })
+        })
     }
   
     return (

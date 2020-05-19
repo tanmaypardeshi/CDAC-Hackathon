@@ -92,7 +92,7 @@ export const Qna = ({isOpen, handleOpen, handleClose}) => {
             //     data: {
             //         "fileName" : fileName,
             //     },
-            //     url: "http://localhost:5000/getcontent",
+            //     url: "/api/getcontent",
             // }).then((response) => {
             //     console.log(response);
             // }).catch((err) => {
@@ -132,7 +132,7 @@ export const Qna = ({isOpen, handleOpen, handleClose}) => {
             //         "fileName" : fileName,
             //         "fileContent": fileContent,
             //     },
-            //     url: "http://localhost:5000/uploadDoc",
+            //     url: "/api/getcontent",
             // }).then((response) => {
             //     console.log(response);
             // }).catch((err) => {
@@ -168,7 +168,7 @@ export const Qna = ({isOpen, handleOpen, handleClose}) => {
             //     data: {
             //         "question" : question
             //     },
-            //     url: "http://localhost:5000/getanswer",
+            //     url: "/api/getanswer",
             // }).then((response) => {
             //     console.log(response);
             // }).catch((err) => {

@@ -11,7 +11,7 @@ import { Qna } from './qna/qna';
 import jwt_decode from 'jwt-decode';
 import { ThemeContextConsumer } from '../context/themer';
 import PropTypes from 'prop-types';
-import {getUserFromCookie} from '../functions/cookiefns';
+import {getUserFromCookie, getCookie} from '../functions/cookiefns';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -146,6 +146,8 @@ export default function ButtonAppBar(props) {
             setUsername('');
             document.cookie = "usertoken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             history.push('/');
+        } else if (event.currentTarget.id === 'qna'){
+            setShowChat(true);
         } else {
             console.log(event.currentTarget.id);
             history.push('/' + event.currentTarget.id);
@@ -218,8 +220,14 @@ export default function ButtonAppBar(props) {
                             </Tabs>
                         </Hidden>
                         }
-                        <Tooltip title = "Q and A">
-                            <IconButton aria-label = "chat" onClick={() => setShowChat(true)}>
+                        <Tooltip title = {"Q and A" + (getCookie("usertoken") === '' ? ', Login to access' : '')}>
+                            <IconButton 
+                                aria-label = "chat" 
+                                onClick={() => {
+                                    if(getCookie("usertoken")!== '')
+                                        setShowChat(true);
+                                }} 
+                            >
                                 <QuestionAnswer style = {{color: themeContext.dark ? 'white' : 'black'}}/>
                             </IconButton>
                         </Tooltip>
@@ -260,7 +268,8 @@ export default function ButtonAppBar(props) {
                                       {action.id === 'summarizer' && <Divider style = {{
                                           backgroundColor: themeContext.dark && "grey"
                                       }}/>}
-                                      <ListItem button onClick = {handleClick} key = {action.key} id = {action.id}>
+                                      <ListItem button onClick = {handleClick} key = {action.key} id = {action.id} 
+                                      disabled = {(getCookie("usertoken")==='' && action.id === 'qna')}>
                                           <ListItemIcon style = {{
                                               color: themeContext.dark ? "white" : "black"
                                           }}>
@@ -280,7 +289,11 @@ export default function ButtonAppBar(props) {
                   <Toolbar/>
                   <Login isOpen = {showLogin} handleClose = {handleLoginClose}/>
                   <Register isOpen = {showReg} handleClose = {handleSignUpClose}/>
-                  <Qna isOpen = {showChat} handleOpen = {() => setShowChat(true)} handleClose = {() => setShowChat(false)}/>
+                  {
+                      getCookie("usertoken") !== '' && 
+                      <Qna isOpen = {showChat} handleOpen = {() => setShowChat(true)} handleClose = {() => setShowChat(false)}/>
+                  }
+                  
                 </div>
                 
                 </HideOnScroll>
