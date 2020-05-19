@@ -170,6 +170,14 @@ export default function ButtonAppBar(props) {
             setLoggedIn(true);
             setActions([...userActions, ...commonActions]);
             setUsername(cookie);
+            setTimeout(() => {
+                alert('Usertoken has expired. Please login again, if required.')
+                setLoggedIn(false);
+                setActions([...userNActions, ...commonActions]);
+                setUsername('');
+                document.cookie = "usertoken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                history.push('/');
+            }, 30 * 60 * 1000);
         } else {
             setLoggedIn(false);
             setActions([...userNActions, ...commonActions]);

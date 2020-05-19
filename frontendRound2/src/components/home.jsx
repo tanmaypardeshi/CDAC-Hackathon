@@ -8,6 +8,9 @@ import newsdark from '../images/newsdark.svg'
 import axios from 'axios';
 import { Skeleton } from '@material-ui/lab';
 import { getCookie } from '../functions/cookiefns';
+import { red, pink, purple, deepPurple, indigo, blue, teal, green, orange, deepOrange, brown, blueGrey} from '@material-ui/core/colors'
+
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,6 +53,7 @@ export const Home = () => {
     const [news, setNews] = useState([]);
     const [newsValue, setNewsValue] = useState('');
     const [newsReceived, setNewsReceived] = useState(false);
+    const avatarcolors = [red[500], pink[500], purple[500], deepPurple[500], indigo[500], blue[500], teal[500], green[500], orange[500], deepOrange[500], brown[500], blueGrey[500]];
 
     const fetchNews = () => {
         const cookie = getCookie("usertoken")
@@ -200,7 +204,12 @@ export const Home = () => {
                                         >
                                             <CardHeader
                                                 avatar = {
-                                                    <Avatar aria-label = 'author'>
+                                                    <Avatar 
+                                                        aria-label = 'author'
+                                                        style = {{
+                                                            color: 'white',
+                                                            backgroundColor: avatarcolors[Math.round(Math.random() * 12)]
+                                                        }}>
                                                         {content.Publisher.split(" ").map((n)=>n[0]).join("")}
                                                     </Avatar>
                                                 }
