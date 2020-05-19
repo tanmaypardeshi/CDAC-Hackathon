@@ -59,11 +59,11 @@ print(data)
 
 **4. [data_script.ipynb:](data/data_script.ipynb)** The script written in order to extract data from the source data in the required format
 
-**5. [Summariser.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Summariser.py)** Makes use of the TextRank algorithm to summarize the input Biomedical Text.
+**5. [Summariser.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/summariser.py)** Makes use of the TextRank algorithm to summarize the input Biomedical Text.
 
-**6. [Info_Retrieval_Author_Fuzzy.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Info_Retrieval_Author_Fuzzy.py)** Makes use of levenshtein distance to generate a similarity score between the author based query and documents
+**6. [Info_Retrieval_Author_Fuzzy.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/ir_author.py)** Makes use of levenshtein distance to generate a similarity score between the author based query and documents
 
-**7. [Info_Retrieval_Title_Fuzzy.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Info_Retrieval_Title_Fuzzy.py)** Makes use of levenshtein distance to generate a similarity score between the title based query and documents 
+**7. [Info_Retrieval_Title_Fuzzy.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/ir_title.py)** Makes use of levenshtein distance to generate a similarity score between the title based query and documents 
 
 **9. [Info_Retrieval_Data.csv:](https://drive.google.com/drive/folders/1nKAo8oWqPuq39ky15duuhpt3sWEhyV-7)** Dataset created by using Kaggle open Research data.
 

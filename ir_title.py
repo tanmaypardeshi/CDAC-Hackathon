@@ -41,19 +41,20 @@ def pre_processing(text):
     return text
 
 
-def similarity_score(query, data):
+def similarity_score_title(query, data):
+    score = []
     indices = []
     indices = data.index.values
-    score = []
     for i in range(len(data)):
-        sent = re.sub(r'[^A-Za-z]', " ", str(data['authors'][indices[i]]))
-        score.append(fuzz.token_sort_ratio(query.lower(), sent.lower()))
+        sent1 = pre_processing(str(query))
+        sent2 = pre_processing(str(data['title'][indices[i]]))
+        score.append(fuzz.token_sort_ratio(str(sent1), str(sent2)))
     data['similarity_score'] = score
 
 
-def get_info(query):
+def get_info_title(query):
     data = pd.read_csv('data/info_ret_textrank_new.csv')
-    similarity_score(query, data)
+    similarity_score_title(query, data)
     df = data.sort_values(by='similarity_score', ascending=False)
     df = df.iloc[:20, :]
     return df
