@@ -3,6 +3,7 @@ import {Button, Dialog, DialogActions, DialogTitle, DialogContent, TextField, Me
 import {Visibility, VisibilityOff} from '@material-ui/icons';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { setUserTokenCookie } from '../functions/cookiefns';
 
 export const Register = ({isOpen, handleClose}) => {
 
@@ -63,8 +64,8 @@ export const Register = ({isOpen, handleClose}) => {
                 },
                 url: "/api/register",
             })
-            .then((response) => {
-                localStorage.setItem('usertoken', response.data.data.token);
+            .then((response) => {                
+                setUserTokenCookie(response.data.data.token);
                 handleClose();
             })
             .catch((err) => {

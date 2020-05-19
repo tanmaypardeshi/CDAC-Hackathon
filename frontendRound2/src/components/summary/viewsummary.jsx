@@ -2,12 +2,13 @@ import React from 'react';
 import { Container, Typography } from '@material-ui/core';
 import { ThemeContextConsumer } from '../../context/themer';
 import { Redirect } from 'react-router-dom';
+import { getCookie } from '../../functions/cookiefns';
 
 export default function ViewSummary() {
 
 
     return(
-        typeof localStorage.summary !== 'undefined' ?
+        typeof sessionStorage.summary !== 'undefined' ?
         <ThemeContextConsumer>
             {(themeContext) => (
                 <div style = {{
@@ -19,7 +20,7 @@ export default function ViewSummary() {
                 }}>  
                     <Container>
                         <Typography variant = "h2" align='left' gutterBottom>Summary</Typography>
-                        <Typography variant = "body1" align='justify'>{localStorage.summary}</Typography>
+                        <Typography variant = "body1" align='justify'>{sessionStorage.summary}</Typography>
                     </Container>
                 </div>
             )}

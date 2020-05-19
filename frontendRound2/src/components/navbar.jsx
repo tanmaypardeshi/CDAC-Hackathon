@@ -1,32 +1,40 @@
 import React, { useEffect } from 'react';
-import {makeStyles, AppBar, Avatar, Toolbar, Typography, Grid, IconButton, Tooltip, List, ListItem, ListItemIcon, ListItemText, SwipeableDrawer, Divider, Slide, useScrollTrigger, Link} from '@material-ui/core';
-import {Brightness4, Brightness7, MoreVert, LockOpen, Lock, AssignmentInd, Chat, Description, Search, Bookmarks} from '@material-ui/icons';
+import {makeStyles, AppBar, Avatar, Toolbar, Typography, Grid, IconButton, Tooltip, List, ListItem, ListItemIcon, ListItemText, SwipeableDrawer, Divider, Slide, useScrollTrigger, Link, Tabs, Tab, Hidden} from '@material-ui/core';
+import {Brightness4, Brightness7, MoreVert, LockOpen, Lock, AssignmentInd, Description, Search, Bookmarks, History, QuestionAnswer, Menu} from '@material-ui/icons';
 import { blue } from '@material-ui/core/colors';
 import ListIcon from '@material-ui/icons/List';
 import { useState} from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Login } from '../auth/login';
 import { Register } from '../auth/register';
+import { Qna } from './qna/qna';
 import jwt_decode from 'jwt-decode';
 import { ThemeContextConsumer } from '../context/themer';
 import PropTypes from 'prop-types';
+import {getUserFromCookie} from '../functions/cookiefns';
 
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
     },
+    menuButton: {
+        marginRight: theme.spacing(2),
+    }, 
     nav:{
         boxShadow: "none",
+        flexWrap: "wrap"
     },
     title: {
-        fontWeight: 300
+        fontWeight: 300,
+        flexGrow: 1
     },
     list: {
         width: 250,
     },
     avatar: {
         color: theme.palette.getContrastText(blue[900]),
-        backgroundColor: blue[500]
+        backgroundColor: blue[500],
+        marginRight: theme.spacing(2),
     }
 }));
 
@@ -49,8 +57,8 @@ HideOnScroll.propTypes = {
 
 const userActions = [
     { icon: <ListIcon/>, name: 'My Summaries', id: 'mysummaries' },
-    { icon: <Chat/>, name: 'Q and A', id: 'qna'},
-    { icon: <Bookmarks/>, name: 'Bookmarked Queries', id: 'qbookmarks'},
+    { icon: <History/>, name: 'My Questions', id: 'myqna'},
+    { icon: <Bookmarks/>, name: 'Bookmarked Queries', id: 'bookmarks'},
     { icon: <Lock/>, name: 'Log out', id: 'logout'}
 ]
 
@@ -60,8 +68,9 @@ const userNActions = [
 ]
 
 const commonActions = [
-    { icon: <Description/>, name: 'Summarize', id: 'summarizer' },
-    { icon: <Search/>, name: 'Search', id: 'irquery'}
+    { icon: <Description/>, name: 'Summarize Docs', id: 'summarizer' },
+    { icon: <Search/>, name: 'Document Search', id: 'irquery'},
+    { icon: <QuestionAnswer/>, name: 'Q and A', id: 'qna'}
 ]
   
 export default function ButtonAppBar(props) {
@@ -71,6 +80,21 @@ export default function ButtonAppBar(props) {
     useEffect(() => {
         handleAuthChange();
     },[dummy])
+
+    let location = useLocation();
+
+    useEffect(() => {
+        const route = location.pathname;
+        console.log(route);
+        if(route === '/')
+            setValue(0);
+        else if(route === '/irquery')
+            setValue(1);
+        else if(route === '/summarizer')
+            setValue(2);
+        else
+            setValue(-1);
+    }, [location])
     
     const classes = useStyles();
     let history = useHistory();
@@ -78,9 +102,29 @@ export default function ButtonAppBar(props) {
     const [open, setOpen] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
     const [showReg, setShowReg] = useState(false);
-    const [loggedIn, setLoggedIn] = useState(typeof localStorage.usertoken !== 'undefined');
-    const [actions, setActions] = useState(typeof localStorage.usertoken !== 'undefined' ? [...userActions, ...commonActions] : [...userNActions, ...commonActions])
+    const [showChat, setShowChat] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [actions, setActions] = useState([...userNActions, ...commonActions]);
     const [username, setUsername] = useState('');
+    const [value, setValue] = useState(0);
+
+    const handleTabChange = (event, newValue) => {
+        const value = newValue;
+        setValue(value);
+
+        switch(value){
+            case 0:
+                history.push('/');
+                break;
+            case 1:
+                history.push('/irquery');
+                break;
+            case 2:
+                history.push('/summarizer');
+                break;
+        }
+    };
+
     const handleClose = () => {
         setOpen(false);
     };
@@ -97,13 +141,10 @@ export default function ButtonAppBar(props) {
         } else if (event.currentTarget.id === 'register') {
             setShowReg(true);
         } else if (event.currentTarget.id === 'logout') {
-            localStorage.removeItem('usertoken');
-            localStorage.removeItem('summary');
-            //localStorage.setItem('usertoken', '');
-            //localStorage.setItem('summary', '');
             setLoggedIn(false);
             setActions([...userNActions, ...commonActions]);
             setUsername('');
+            document.cookie = "usertoken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             history.push('/');
         } else {
             console.log(event.currentTarget.id);
@@ -122,10 +163,15 @@ export default function ButtonAppBar(props) {
     }
 
     const handleAuthChange = () => {
-        if(typeof localStorage.usertoken !== 'undefined'){
+        var cookie = getUserFromCookie();
+        if(cookie !== ''){
             setLoggedIn(true);
             setActions([...userActions, ...commonActions]);
-            setUsername(jwt_decode(localStorage.usertoken).identity.name);
+            setUsername(cookie);
+        } else {
+            setLoggedIn(false);
+            setActions([...userNActions, ...commonActions]);
+            setUsername('');
         }
     }
   
@@ -134,20 +180,50 @@ export default function ButtonAppBar(props) {
             {(themeContext) => (
                 <HideOnScroll {...props}>
                 <div className={classes.root} style = {{
-                    color: themeContext.dark ? "white" : "black"
+                    color: themeContext.dark && "white",
                 }}>
-                  <AppBar position="fixed" className={classes.nav} color = "transparent">
+                  <AppBar position="fixed" className={classes.nav} color = 'inherit' style = {{
+                    backgroundColor: themeContext.dark && '#212121'
+                  }}>
                     <Toolbar>
+                        <Tooltip title = 'menu'>
+                            {
+                            (loggedIn)
+                            ?
+                            <Avatar className = {classes.avatar} onClick={handleOpen}>
+                                {username.split(" ").map((n)=>n[0]).join("")}
+                            </Avatar>
+                            :
+                            <IconButton edge = "start" className = {classes.menuButton} color = "inherit" aria-label = "menu" onClick={handleOpen}>
+                                <Menu/>
+                            </IconButton>
+                            }
+                        </Tooltip>
                         <Link id='' href='/' variant = "h5" className = {classes.title} onClick = {handleClick} color="inherit"> 
                             CLASP
                         </Link>
-                      <Grid
-                          container
-                          direction = "row"
-                          justify = "flex-end"
-                          alignItems = "center"
-                      >
-                          <Tooltip title = "Toggle Theme">  
+                        {value >= 0 &&
+                        <Hidden smDown>  
+                            <Tabs
+                                value={value}
+                                onChange={handleTabChange}
+                                indicatorColor="primary"
+                                textColor="primary"
+                                color = "inherit"
+                                style = {{width: '100%'}}
+                            >
+                                <Tab label="News" style = {{color: themeContext.dark && 'white'}}/>
+                                <Tab label="Search" style = {{color: themeContext.dark && 'white'}} />
+                                <Tab label="Summarize" style = {{color: themeContext.dark && 'white'}}/>
+                            </Tabs>
+                        </Hidden>
+                        }
+                        <Tooltip title = "Q and A">
+                            <IconButton aria-label = "chat" onClick={() => setShowChat(true)}>
+                                <QuestionAnswer style = {{color: themeContext.dark ? 'white' : 'black'}}/>
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title = "Toggle Theme">  
                               <IconButton aria-label = "theme" onClick={() => {themeContext.toggleTheme()}}> 
                                   { 
                                       themeContext.dark
@@ -157,24 +233,9 @@ export default function ButtonAppBar(props) {
                                       <Brightness4 style = {{color: "black"}}/> 
                                   }
                               </IconButton>
-                          </Tooltip>
-                          
-                          <Tooltip title = "Menu">
-                              {
-                                  (loggedIn && typeof localStorage.usertoken !== 'undefined')
-                                  ?
-                                  <Avatar className = {classes.avatar} onClick={handleOpen}>
-                                      {username.split(" ").map((n)=>n[0]).join("")}
-                                  </Avatar>
-                                  :
-                                  <IconButton aria-label = "theme" onClick={handleOpen}>
-                                      <MoreVert style = {{color: themeContext.dark ? "white" : "black"}}/>
-                                  </IconButton>
-                              }
-                          </Tooltip>
-          
-                          <SwipeableDrawer
-                              anchor = "right"
+                        </Tooltip>
+                        <SwipeableDrawer
+                              anchor = "left"
                               open = {open}
                               onClose = {handleClose}
                               onOpen = {handleOpen}
@@ -185,7 +246,7 @@ export default function ButtonAppBar(props) {
                                 color: themeContext.dark ? "white" : "black"
                               }}>
                               {
-                                  (loggedIn && typeof localStorage.usertoken !== 'undefined')
+                                  (loggedIn)
                                   ? 
                                   <ListItem>
                                       <ListItemText primary = {username}/>
@@ -196,7 +257,7 @@ export default function ButtonAppBar(props) {
                               {
                                   actions.map((action) => (
                                       <>
-                                      {action.name === 'Summarize' && <Divider style = {{
+                                      {action.id === 'summarizer' && <Divider style = {{
                                           backgroundColor: themeContext.dark && "grey"
                                       }}/>}
                                       <ListItem button onClick = {handleClick} key = {action.key} id = {action.id}>
@@ -213,12 +274,15 @@ export default function ButtonAppBar(props) {
                               }
                               </List>
                           </SwipeableDrawer>
-                      </Grid>
                     </Toolbar>
+                    
                   </AppBar>
+                  <Toolbar/>
                   <Login isOpen = {showLogin} handleClose = {handleLoginClose}/>
                   <Register isOpen = {showReg} handleClose = {handleSignUpClose}/>
+                  <Qna isOpen = {showChat} handleOpen = {() => setShowChat(true)} handleClose = {() => setShowChat(false)}/>
                 </div>
+                
                 </HideOnScroll>
             )}
         </ThemeContextConsumer>

@@ -7,6 +7,7 @@ import {ArrowDropDown, Search, Bookmark} from '@material-ui/icons';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import {SnackbarProvider, useSnackbar} from 'notistack';
+import { getCookie } from '../../functions/cookiefns';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -46,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     },
     img: {
         [theme.breakpoints.up('md')]: {
-            maxWidth: '60%'
+            maxWidth: '25vw'
         },
         [theme.breakpoints.down('sm')]: {
             maxWidth: '90%'
@@ -58,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 
 function MyApp() {
     const classes = useStyles();
-    const {enqueueSnackbar} = useSnackbar();
+    const {enqueueSnackbar, closeSnackbar} = useSnackbar();
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [search, setSearch] = useState({
@@ -74,6 +75,7 @@ function MyApp() {
     const searchRef = useRef(null);
 
     const handleChange = (event) => {
+        console.log(event.target.id, event.target.value);
         setSearch({...search, [event.target.id] : event.target.value});
     };
     
@@ -89,25 +91,28 @@ function MyApp() {
         event.preventDefault();
         if(search.query !== ''){
             enqueueSnackbar('Searching...', {
-                variant: 'info'
+                variant: 'info',
+                persist: true
             })
+            var cookie = getCookie("usertoken");
             axios({
                 method: "POST",
                 headers: {
                     "Access-Control-Allow-Origin": "*",
                     "Content-Type" : "application/json",
-                    "Authorization": `Bearer ${localStorage.usertoken}`
+                    "Authorization": `Bearer ${cookie}`
                 },
                 data: {
                     "query" : search.query,
                     "filter" : ( (search.filter === 0 || search.filter === 1) ? "Name" : "Author"),
-                    "email": (typeof localStorage.usertoken !== 'undefined' ? jwt_decode(localStorage.usertoken).identity.email : "")
+                    //"email": (cookie !== '' ? jwt_decode(cookie).identity.email : "")
                 },
                 url: "/api/irquery",
             })
             .then((response) => {
                 setResults(response.data.data);
                 setShowResult(true);
+                closeSnackbar();
                 searchRef.current.scrollIntoView({behavior : "smooth"});
             })
             .catch((err) => {
@@ -120,23 +125,55 @@ function MyApp() {
     }
 
     const handleBookmark = (event) => {
-        console.log(results[event.currentTarget.id])
-        // axios({
-        //     method: "POST",
-        //     headers: {
-        //         "Access-Control-Allow-Origin": "*",
-        //         "Content-Type" : "application/json",
-        //         "Authorization": `Bearer ${localStorage.usertoken}`
-        //     },
-        //     data: {
-        //         "bookmark" : results[event.currentTarget.id],
-        //     },
-        //     url: "http://localhost:5000/bookmark",
-        // }).then((response) => {
-        //     console.log(response);
-        // }).catch((err) => {
-        //     console.log(err);
-        // })
+        //console.log(results[event.currentTarget.id])
+        
+        // const index = event.currentTarget.id;    //  get index of q to be bookmarked
+        // let newResults = [...results];
+        // newResults[index] = {...newResults[id], is_bookmark: !newResults[id].is_bookmarked}; //modify is_bookmarked at index
+        // setResults(newResults);
+
+        // if(newResults[index].is_bookmark){
+        //     axios({
+        //         method: "POST",
+        //         headers: {
+        //             "Access-Control-Allow-Origin": "*",
+        //             "Content-Type" : "application/json",
+        //             "Authorization": `Bearer ${localStorage.usertoken}`
+        //         },
+        //         data: {
+        //             "title": newResults[index].title,
+        //             "content": newResults[index].content,
+        //             "author_name": newResults[index].author_name,
+        //             "link": newResults[index].link
+        //         },
+        //         url: "http://localhost:5000/bookmark",
+        //     }).then((response) => {
+        //         console.log(response);
+        //     }).catch((err) => {
+        //         console.log(err);
+        //     })
+        // } else {
+        //     axios({
+        //         method: "POST",
+        //         headers: {
+        //             "Access-Control-Allow-Origin": "*",
+        //             "Content-Type" : "application/json",
+        //             "Authorization": `Bearer ${localStorage.usertoken}`
+        //         },
+        //         data: {
+        //             "title": newResults[index].title,
+        //             "content": newResults[index].content,
+        //             "author_name": newResults[index].author_name,
+        //             "link": newResults[index].link
+        //         },
+        //         url: "http://localhost:5000/removebookmark",
+        //     }).then((response) => {
+        //         console.log(response);
+        //     }).catch((err) => {
+        //         console.log(err);
+        //     })
+        // }
+
         
     }
 
@@ -179,7 +216,7 @@ function MyApp() {
                                 endIcon = {<ArrowDropDown/>} 
                                 style = {{marginLeft: "1px", color: themeContext.dark ? 'white' : 'grey'}}
                             >
-                                {search.filter ? search.filter === 0 ? "By Name" : "By Author" : "Filter"}
+                                {!search.filter ? 'Filter' : search.filter === 1 ? 'By name' : 'By author'}
                             </Button>
 
                             <Menu
@@ -234,10 +271,11 @@ function MyApp() {
                                         >
                                         <CardHeader
                                             action = {
-                                                typeof localStorage.usertoken !== 'undefined' ?
+                                                //typeof localStorage.usertoken !== 'undefined' ?
+                                                getCookie("usertoken") !== '' ?
                                                 <IconButton aria-label = "bookmark" onClick = {handleBookmark} id = {index}>
                                                     <Bookmark style = {{
-                                                        color: themeContext.dark ? 'white' : 'grey'
+                                                        color: result.is_bookmark ? 'gold' : themeContext.dark ? 'white' : 'grey'
                                                     }}/>
                                                 </IconButton>
                                                 :

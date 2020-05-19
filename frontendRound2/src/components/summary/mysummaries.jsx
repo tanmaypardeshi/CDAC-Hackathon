@@ -1,15 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { ThemeContextConsumer } from '../../context/themer';
 import { Container } from '@material-ui/core';
 import {Link} from '@material-ui/icons';
 import MaterialTable from 'material-table';
+import { getCookie } from '../../functions/cookiefns';
 
 export default function MySummaries(){
 
     const dummy = null;
     const [mySumms, setMySumms] = useState([]);
+    var cookie = useRef();
 
     let history = useHistory();
 
@@ -19,7 +21,7 @@ export default function MySummaries(){
             headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Content-Type" : "application/json",
-                "Authorization": `Bearer ${localStorage.usertoken}`
+                "Authorization": `Bearer ${cookie}`
             },
             url: "/api/mysummaries",
         })
@@ -29,10 +31,13 @@ export default function MySummaries(){
         .catch((err) => console.log(err));
     }
 
-    useEffect(() => { fetchSummaries() }, [dummy]);
+    useEffect(() => { 
+        cookie = getCookie("usertoken");
+        fetchSummaries() 
+    }, [dummy]);
 
     return(
-        localStorage.usertoken.length ? 
+        cookie !== '' ? 
         <ThemeContextConsumer>
             {(themeContext) => (
                 <div style = {{
@@ -73,7 +78,7 @@ export default function MySummaries(){
                                 tooltip: 'view summary',
                                 onClick: (event, rowdata) => {
                                     console.log(rowdata);
-                                    localStorage.setItem('summary', rowdata.summary);
+                                    sessionStorage.setItem('summary', rowdata.summary);
                                     history.push('/viewsummary');
                                 }
                             }]}

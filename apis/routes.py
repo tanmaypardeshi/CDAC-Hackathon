@@ -9,6 +9,7 @@ from .models import User, Summary
 
 from Info_Retrieval_Title_Fuzzy import get_info_abstract
 from Info_Retrieval_Author_Fuzzy import get_info
+from Info_Ret_Opt import get_info_title
 from Summariser import create_summary
 from Real_Time_Research_News import get_news
 
@@ -52,7 +53,7 @@ def info_retrieval():
     query = post_data['query']
     filtertype = post_data['filter']
     if filtertype == 'Name':
-        new_content = get_info_abstract(query)
+        new_content = get_info_title(query)
         l = []
         info = []
         objects = {}

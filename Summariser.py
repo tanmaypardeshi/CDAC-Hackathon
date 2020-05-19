@@ -7,6 +7,7 @@ import re
 from nltk.tokenize import sent_tokenize
 from sklearn.metrics.pairwise import cosine_similarity
 from nltk.corpus import stopwords
+nltk.download('wordnet')
 
 stop_words = stopwords.words('english')
 
@@ -70,7 +71,7 @@ def create_summary(s):
 
     # Display of data
     string_list = []
-    for i in range(10):
+    for i in range(int(0.2*len(sentences))): #for i in range(10):
         string_list.append(ranked_sentences[i][1])
     final_summary = " ".join(string_list)
 

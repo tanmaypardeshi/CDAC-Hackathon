@@ -5,12 +5,14 @@ import IRQuery from './components/irquery/irquery';
 import Summarizer from './components/summary/summarizer';
 import ViewSummary from './components/summary/viewsummary';
 import MySummaries from './components/summary/mysummaries';
+import BottomNav from './components/bottomnav';
 import './App.css';
 import { useEffect } from 'react';
-import {Fab, makeStyles, Zoom, useScrollTrigger} from '@material-ui/core';
+import {Fab, makeStyles, Zoom, useScrollTrigger, Hidden, Collapse} from '@material-ui/core';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import PropTypes from 'prop-types';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,18 +23,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function App(props) {
-
-  // Single time render handling for usertoken
-  // const garbage = null;
-
-  // useEffect(() => {
-  //   localStorage.clear();
-  //   if(typeof localStorage.usertoken.length === 'undefined'){
-  //     localStorage.setItem('usertoken', '');
-  //     localStorage.setItem('summary', '');
-  //   }
-  //   console.log(localStorage);
-  // }, [garbage]);
 
   // Scroll FAB handler
   
@@ -64,6 +54,11 @@ function App(props) {
             <KeyboardArrowUpIcon />
           </Fab>
         </Zoom>
+        <Hidden mdUp>
+          <Collapse in = {!trigger}>  
+            <BottomNav/>
+          </Collapse>  
+        </Hidden>
       </div>
     </BrowserRouter>
   );

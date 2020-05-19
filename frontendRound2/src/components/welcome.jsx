@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { AutoRotatingCarousel, Slide } from 'material-auto-rotating-carousel';
 import {Link} from '@material-ui/core';
 import SummSlide from '../images/summslide.svg'
@@ -6,6 +6,7 @@ import Cover from '../images/cover.svg'
 import IRSlide from '../images/irslide.svg'
 import QnaSlide from '../images/qnaslide.svg'
 import { useHistory } from 'react-router-dom';
+import { getCookie } from '../functions/cookiefns';
 
 export const Welcome = () => {
 
@@ -19,7 +20,8 @@ export const Welcome = () => {
 
     return(
         //!localStorage.usertoken.length && 
-        typeof localStorage.usertoken !== 'undefined' &&
+        //typeof localStorage.usertoken !== 'undefined' &&
+        (getCookie("usertoken") === '' && typeof sessionStorage.visited === 'undefined') ?
         <div /* style = {{ position: "relative", width: '100%', height: 500}} */>
             <AutoRotatingCarousel
                 label = "Get Started"
@@ -30,7 +32,10 @@ export const Welcome = () => {
                     }
                 }}
                 open = {open}
-                onClose = {()=>setOpen(false)}
+                onClose = {()=>{
+                    setOpen(false);
+                    sessionStorage.setItem('visited', true);
+                }}
                 onStart = {()=>setOpen(false)}
                 mobile = {false}
                 autoplay = {true}
@@ -78,6 +83,6 @@ export const Welcome = () => {
                 />
 
             </AutoRotatingCarousel>
-        </div>
+        </div> : null
     );
 }
