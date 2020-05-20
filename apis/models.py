@@ -19,4 +19,16 @@ class Summary(db.Model):
     user_email = db.Column(db.String(120))
 
     def __repr__(self):
-        return f"Summary('{self.title}', '{self.user_email}', '{self.summary}')"
+        return f"Summary('{self.title}', '{self.user_email}')"
+
+
+class IRQuery(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(1000), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    author = db.Column(db.String(1000), nullable=False)
+    link = db.Column(db.String(2000), nullable=False)
+    user_email = db.Column(db.String(120))
+
+    def __repr__(self):
+        return f"IRQuery('{self.title}', '{self.user_email}')"

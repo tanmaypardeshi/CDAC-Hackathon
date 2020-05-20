@@ -7,8 +7,6 @@ import pandas as pd
 
 
 def Preprocessor(text):
-    new_sentence = ""
-    complete_refined_text = ""
     refined_text = remove_stopwords(text)
     refined_text = refined_text.lower()
     return refined_text
@@ -52,7 +50,7 @@ def similarity_score(query, data):
 
 
 def get_info_author(query):
-    data = pd.read_csv('data/info_ret_textrank_new.csv')
+    data = pd.read_csv('data/ir_author.csv')
     similarity_score(query, data)
     df = data.sort_values(by='similarity_score', ascending=False)
     df = df.iloc[:20, :]
