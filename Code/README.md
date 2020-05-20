@@ -8,7 +8,7 @@
 
 #### [Click here to access the videos](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/videos)
 
-#### [Click here for the PPT](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/'PPT Round 1.pdf')
+#### [Click here for the PPT](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/PPT%20Round%201.pdf)
 
 ### Steps to run the project:
 
