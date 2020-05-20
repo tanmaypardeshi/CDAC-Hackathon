@@ -8,11 +8,11 @@ from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identi
 
 from .models import User, Summary
 
-from ..ir_author import get_info_author
-from ..ir_title import get_info_title
-from ..summariser import create_summary
-from ..news import get_news, cosine_sim
-from ..search_qna_summary import
+from ir_author import get_info_author
+from ir_title import get_info_title
+from summariser import create_summary
+from news import get_news, cosine_sim
+from
 
 @app.route("/api/register", methods=['POST'])
 def register():
