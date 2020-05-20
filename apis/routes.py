@@ -106,7 +106,7 @@ def postnews():
     info = []
     objects = {}
     l = result.index.values
-    for i in range(10):
+    for i in range(9):
         objects['Links'] = result['Links'][l[i]]
         objects['Headlines'] = result['Headlines'][l[i]]
         objects['Publisher'] = result['Publisher'][l[i]]
@@ -191,11 +191,15 @@ def info_retrieval():
         for i in range(20):
             objects['is_bookmarked'] =False
             objects['title'] = new_content['Title'][l[i]]
-            try:
-                if(objects['title'] == IRQuery.query.filter_by(title=objects['title'], user_email=email).first()):
-                    objects['is_bookmarked'] = True
-            except UnboundLocalError:
-                pass
+            if email is not None:
+                try:
+                    print(objects['title'] == IRQuery.query.filter_by(title=objects['title'], user_email=email).first().title)
+                    if(objects['title'] == IRQuery.query.filter_by(title=objects['title'], user_email=email).first().title):
+                        objects['is_bookmarked'] = True
+                except AttributeError:
+                    objects['is_bookmarked'] = False
+            else:
+                objects['is_bookmarked'] = False
             objects['content'] = new_content['Abstract'][l[i]]
             objects['author_name'] = new_content['Authors'][l[i]]
             objects['link'] = new_content['URL'][l[i]]
@@ -204,7 +208,6 @@ def info_retrieval():
         return jsonify({'data': info}), 200
     
     new_content = get_info_author(query)
-    new_content = new_content.drop(columns=['Unnamed: 0', 'publish_time', 'similarity_score'])
     l = []
     info = []
     objects = {}
@@ -212,11 +215,14 @@ def info_retrieval():
     for i in range(20):
         objects['is_bookmarked'] =False
         objects['title'] = new_content['title'][l[i]]
-        try:
-            if(objects['title'] == IRQuery.query.filter_by(title=objects['title'], user_email=email).first()):
-                objects['is_bookmarked'] = True
-        except UnboundLocalError:
-            pass
+        if email is not None:
+            try:
+                if(objects['title'] == IRQuery.query.filter_by(title=objects['title'], user_email=email).first().title):
+                    objects['is_bookmarked'] = True
+            except AttributeError:
+                objects['is_bookmarked'] = False
+        else:
+            objects['is_bookmarked'] = False
         objects['content'] = new_content['abstract'][l[i]]
         objects['author_name'] = new_content['authors'][l[i]]
         objects['link'] = new_content['url'][l[i]]
