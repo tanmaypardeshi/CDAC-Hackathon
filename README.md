@@ -8,27 +8,28 @@
 
 #### [Click here to access the videos](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/videos)
 
-#### [Click here for the PPT](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/CDAC.pdf)
+#### [Click here for the PPT](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/'PPT Round 1.pdf')
 
 ### Steps to run the project:
 
 * **Requirements:**<br>
   1. python: version 3.8.x
-  2. npm: version 6.14.x
+  2. yarn: version 1.22.x
   3. node: version 12.16.x
-  4. pip and pipenv
+  4. pip and virtualenv.
  
 * **Steps:**
   1. Clone the repository using<br> **git clone https://github.com/tanmaypardeshi/CDAC-Hackathon.git**
-  2. Download the **glove** folder from the google drive link provided above and save it in the project directory.
-  3. Download all the other csv and json files and store it in the **data** folder of the project.
-  3. Use command **pipenv shell** to activate pipenv.
-  4. For the first time, use **pipenv install** to install all dependencies<br>
+  2. Download the **glove** folder from the google drive link provided above and save it in the Code directory.
+  3. Download all the other csv and json files and store it in the **data** folder of the Code directory.
+  4. Use command **virtualenv venv** in Code directory to create virtualenv.
+  5. Use **source venv/bin/activate** to activate virtualenv.
+  6. For the first time, use **pip install -r requirements.txt** in Code directory to install all dependencies<br>
   This will only be for the first time to install the packages.
-  5. Navigate to the frontend folder and run **npm i** for the first time to install all javascript dependencies for React.
-  6. To run the flask server use **python run.py** in the main project directory.
-  7. Navigate to the frontend folder and run **npm start** to start development server and use the platform while keeping 
-  the flask server running as well
+  7. Navigate to the frontend folder and run **yarn install** for the first time to install all javascript dependencies for React.
+  8. To run the flask server use **python run.py** in the Code directory.
+  9. Navigate to the frontend folder and run **yarn start** to start development server and use the platform while keeping the flask server running as well.
+  10. Use **deactivate** to deactivate virtualenv.
  
   
 ### Documentation about the files in the repository
@@ -59,11 +60,11 @@ print(data)
 
 **4. [data_script.ipynb:](data/data_script.ipynb)** The script written in order to extract data from the source data in the required format
 
-**5. [summariser.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/summariser.py)** Makes use of the TextRank algorithm to summarize the input Biomedical Text.
+**5. [summariser.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Code/summariser.py)** Makes use of the TextRank algorithm to summarize the input Biomedical Text.
 
-**6. [ir_author.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/ir_author.py)** Makes use of levenshtein distance to generate a similarity score between the author based query and documents
+**6. [ir_author.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Code/ir_author.py)** Makes use of levenshtein distance to generate a similarity score between the author based query and documents
 
-**7. [ir_title.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/ir_title.py)** Makes use of levenshtein distance to generate a similarity score between the title based query and documents 
+**7. [ir_title.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Code/ir_title.py)** Makes use of levenshtein distance to generate a similarity score between the title based query and documents 
 
 **9. [Info_Retrieval_Data.csv:](https://drive.google.com/drive/folders/1nKAo8oWqPuq39ky15duuhpt3sWEhyV-7)** Dataset created by using Kaggle open Research data.
 
