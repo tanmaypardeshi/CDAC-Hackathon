@@ -1,18 +1,18 @@
 import pandas as pd
 
-from flask import jsonify, request
 from apis import app, bcrypt, db
+
+from flask import jsonify, request
 from flask_cors import cross_origin
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
 from .models import User, Summary
 
-from Info_Retrieval_Title_Fuzzy import get_info_abstract
-from Info_Retrieval_Author_Fuzzy import get_info
-from Info_Ret_Opt import get_info_title
-from Summariser import create_summary
-from Real_Time_Research_News import get_news
-
+from ..ir_author import get_info_author
+from ..ir_title import get_info_title
+from ..summariser import create_summary
+from ..news import get_news, cosine_sim
+from ..search_qna_summary import
 
 @app.route("/api/register", methods=['POST'])
 def register():

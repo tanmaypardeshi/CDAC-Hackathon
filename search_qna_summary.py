@@ -63,7 +63,7 @@ def similarity_score_title(query,data):
     data['score']=score
 
 
-def get_info_title(query,data):
+def get_result(query,data):
     similarity_score_title(query,data)
     df=data.loc[data['score']>=80]
     return df
