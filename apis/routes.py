@@ -176,6 +176,7 @@ def mysummaries():
 def info_retrieval():
     post_data = request.get_json()
     current_user = get_jwt_identity()
+    email = "dummy@gmail.com"
     try:
         email = current_user['email']
     except TypeError:
