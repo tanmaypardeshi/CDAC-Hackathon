@@ -2,7 +2,6 @@ import React from 'react';
 import { Dialog, Button, Hidden, AppBar, makeStyles, Toolbar, Grid, Container } from '@material-ui/core';
 import {useHistory} from 'react-router-dom';
 import I404 from '../images/404m.svg';
-import S404 from '../images/404s.svg';
 
 const useStyles = makeStyles((theme) => ({
     appBar: {

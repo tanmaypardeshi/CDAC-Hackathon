@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Dialog, DialogActions, DialogTitle, DialogContent, TextField, InputAdornment, IconButton} from '@material-ui/core';
+import {Button, Dialog, DialogActions, DialogTitle, DialogContent, TextField, IconButton} from '@material-ui/core';
 import {Visibility, VisibilityOff} from '@material-ui/icons';
 import PropTypes from 'prop-types';
 import axios from 'axios';

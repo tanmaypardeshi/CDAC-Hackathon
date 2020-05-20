@@ -10,7 +10,6 @@ import MyBookmarks from './components/irquery/mybookmarks';
 import MyQuestions from './components/qna/myquestions';
 import E404 from './components/E404';
 import './App.css';
-import { useEffect } from 'react';
 import {Fab, makeStyles, Zoom, useScrollTrigger, Hidden, Collapse} from '@material-ui/core';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import PropTypes from 'prop-types';

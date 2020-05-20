@@ -1,15 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect} from 'react-router-dom';
 import axios from 'axios';
 import { ThemeContextConsumer } from '../../context/themer';
 import { Container } from '@material-ui/core';
-import {Link} from '@material-ui/icons';
 import MaterialTable from 'material-table';
 import { getCookie } from '../../functions/cookiefns';
 
 export default function MyQuestions(){
 
-    const dummy = null;
+    const [dummy, setDummy] = useState(null);
     const [myQs, setMyQs] = useState([]);
 
     const fetchQuestions = () => {

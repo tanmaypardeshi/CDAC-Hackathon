@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
-import { makeStyles, AppBar, Hidden, Tabs, Tab, Toolbar } from '@material-ui/core';
-import {Home, Description, Search} from '@material-ui/icons';
+import { makeStyles, AppBar, Tabs, Tab, Toolbar } from '@material-ui/core';
 import {ThemeContextConsumer} from '../context/themer';
 import { useLocation, useHistory } from 'react-router-dom';
 

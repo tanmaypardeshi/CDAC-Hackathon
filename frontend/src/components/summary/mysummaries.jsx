@@ -3,13 +3,12 @@ import { Redirect, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { ThemeContextConsumer } from '../../context/themer';
 import { Container } from '@material-ui/core';
-import {Link} from '@material-ui/icons';
 import MaterialTable from 'material-table';
 import { getCookie } from '../../functions/cookiefns';
 
 export default function MySummaries(){
 
-    const dummy = null;
+    const [dummy, setDummy] = useState(null);
     const [mySumms, setMySumms] = useState([]);
     var cookie = useRef();
 

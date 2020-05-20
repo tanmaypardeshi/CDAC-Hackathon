@@ -12,9 +12,6 @@ import { red, pink, purple, deepPurple, indigo, blue, teal, green, orange, deepO
 
 const avatarcolors = [red[500], pink[500], purple[500], deepPurple[500], indigo[500], blue[500], teal[500], green[500], orange[500], deepOrange[500], brown[500], blueGrey[500]];
 
-const getRandomColor = () => {
-    return avatarcolors[Math.round(Math.random() * 12)];
-}
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -28,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
             maxWidth: '25vw'
         },
         [theme.breakpoints.down('sm')]: {
-            maxWidth: '90%'
+            maxWidth: '80%'
         },
         maxHeight: 'auto'
     },
@@ -52,7 +49,7 @@ export const Home = () => {
 
     const classes = useStyles();
 
-    const dummy = null;
+    const [dummy,setDummy] = useState(null);
 
     const [news, setNews] = useState([]);
     const [newsValue, setNewsValue] = useState('');
@@ -72,7 +69,7 @@ export const Home = () => {
         })
         .then((response) => {
             //sessionStorage.setItem('news', response.data.data);
-            sessionStorage.setItem('news', JSON.stringify(response.data.data));
+            //sessionStorage.setItem('news', JSON.stringify(response.data.data));
             setNews(response.data.data);
             setNewsReceived(true);
             //setNews(response.data.news);
@@ -81,12 +78,12 @@ export const Home = () => {
     }
 
     useEffect(() => {
-        if(typeof sessionStorage.news === 'undefined')
+        //if(typeof sessionStorage.news === 'undefined')
             fetchNews();
-        else{
-            setNews(JSON.parse(sessionStorage.news));
-            setNewsReceived(true);
-        }
+        //else{
+            //setNews(JSON.parse(sessionStorage.news));
+            //setNewsReceived(true);
+        //}
         //console.log(JSON.parse(sessionStorage.news));
 
     },[dummy]);
@@ -97,7 +94,8 @@ export const Home = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const cookie = getCookie("usertoken")
+        const cookie = getCookie("usertoken");
+        setNewsReceived(false);
         axios({
             method: "POST",
             headers: {
@@ -112,7 +110,7 @@ export const Home = () => {
         })
         .then((response) => {
             setNewsValue('');
-            sessionStorage.setItem('news', JSON.stringify(response.data.data));
+            //sessionStorage.setItem('news', JSON.stringify(response.data.data));
             setNews(response.data.data);
             setNewsReceived(true);
         })
@@ -232,7 +230,7 @@ export const Home = () => {
                                             <CardContent>
                                                 <Typography align = 'left' color = 'inherit' display = 'block' variant="h6">  
                                                 <a 
-                                                    href={content.Links} 
+                                                    href={'http://' + content.Links} 
                                                     target="_blank" 
                                                     rel="noopener noreferrer" 
                                                     style = {{textDecoration: 'none', color: themeContext.dark ? "white" : "black"}}

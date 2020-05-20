@@ -2,10 +2,9 @@ import React, {useState, useRef} from 'react';
 import ird from '../../images/IRD.svg'
 import irl from '../../images/IRL.svg'
 import { ThemeContextConsumer } from '../../context/themer';
-import { makeStyles, Grid, Paper, InputBase, Divider, IconButton, Button, Menu, MenuItem, CircularProgress, Card, CardContent, CardActionArea, CardActions, Typography, CardHeader } from '@material-ui/core';
+import { makeStyles, Grid, Paper, InputBase, Divider, IconButton, Button, Menu, MenuItem,  Card, CardContent, CardActionArea, Typography, CardHeader } from '@material-ui/core';
 import {ArrowDropDown, Search, Bookmark} from '@material-ui/icons';
 import axios from 'axios';
-import jwt_decode from 'jwt-decode';
 import {SnackbarProvider, useSnackbar} from 'notistack';
 import { getCookie } from '../../functions/cookiefns';
 
@@ -51,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
             maxWidth: '25vw'
         },
         [theme.breakpoints.down('sm')]: {
-            maxWidth: '90%'
+            maxWidth: '80%'
         },
         maxHeight: 'auto',
         marginTop: "8vh"
@@ -130,10 +129,10 @@ function MyApp() {
         
         const index = event.currentTarget.id;    //  get index of q to be bookmarked
         let newResults = [...results];
-        newResults[index] = {...newResults[index], is_bookmark: !newResults[index].is_bookmarked}; //modify is_bookmarked at index
+        newResults[index] = {...newResults[index], is_bookmarked: !newResults[index].is_bookmarked}; //modify is_bookmarkeded at index
         setResults(newResults);
         const cookie = getCookie("usertoken");
-        if(newResults[index].is_bookmark){
+        if(newResults[index].is_bookmarked){
             axios({
                 method: "POST",
                 headers: {
@@ -167,7 +166,7 @@ function MyApp() {
                     "author_name": newResults[index].author_name,
                     "link": newResults[index].link
                 },
-                url: "/api/removebookmark",
+                url: "/api/remove_bookmark",
             }).then((response) => {
                 console.log(response);
             }).catch((err) => {
@@ -259,6 +258,7 @@ function MyApp() {
                         <div ref = {searchRef}></div>
                         {
                             results.map((result, index) => {
+                                console.log(result);
                                 return(
                                     <Card 
                                         className={classes.card} 
@@ -275,7 +275,7 @@ function MyApp() {
                                                 getCookie("usertoken") !== '' ?
                                                 <IconButton aria-label = "bookmark" onClick = {handleBookmark} id = {index}>
                                                     <Bookmark style = {{
-                                                        color: result.is_bookmark ? 'gold' : themeContext.dark ? 'white' : 'grey'
+                                                        color: (result.is_bookmarked ? 'gold' : (themeContext.dark ? 'white' : 'grey'))
                                                     }}/>
                                                 </IconButton>
                                                 :

@@ -5,7 +5,7 @@ import {Alert} from '@material-ui/lab';
 import { ThemeContextConsumer } from '../../context/themer';
 import SL from '../../images/SL.svg';
 import SD from '../../images/SD.svg';
-import { ArrowForward, Close, Check, Search } from '@material-ui/icons';
+import { Search } from '@material-ui/icons';
 import {SnackbarProvider, useSnackbar} from 'notistack';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
             maxWidth: '25vw'
         },
         [theme.breakpoints.down('sm')]: {
-            maxWidth: '90vw'
+            maxWidth: '80vw'
         },
         maxHeight: 'auto'
     },
@@ -220,7 +220,7 @@ function VerticalLinearStepper() {
     function getStepContent(step) {
         switch (step) {
             case 0:
-            return `Select a text file, word document, pdf document or an image`;
+            return `Select a text file or an image`;
             case 1:
             return (
                 <>
@@ -267,12 +267,15 @@ function VerticalLinearStepper() {
                 variant: 'success'
             })
         }
-        else if(filetype === 'doc' || filetype === 'docx'){
-            console.log('doc');
-        }
-        else if(filetype === 'odt'){
-            console.log('odt');
-        }
+        // else if(filetype === 'pdf'){
+        //     console.log('pdf')
+        // }
+        // else if(filetype === 'doc' || filetype === 'docx'){
+        //     console.log('doc');
+        // }
+        // else if(filetype === 'odt'){
+        //     console.log('odt');
+        // }
         else {
             console.log('img');
             setFileName(event[0].name);
@@ -393,7 +396,7 @@ function VerticalLinearStepper() {
                                 showPreviewsInDropzone = {false}
                                 //useChipsForPreview = {true}
                                 acceptedFiles = {
-                                    ['text/plain', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.oasis.opendocument.text', 'application/pdf', 'image/bmp', 'image/jpeg', 'image/png']
+                                    ['text/plain', /* 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.oasis.opendocument.text', 'application/pdf', */ 'image/bmp', 'image/jpeg', 'image/png']
                                 }
                                 dropzoneClass = {themeContext.dark ? classes.dropZoneDark : classes.dropZoneLight}
                                 dropzoneParagraphClass = {classes.dZPara}

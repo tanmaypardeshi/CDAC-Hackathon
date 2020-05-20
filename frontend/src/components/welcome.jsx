@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { AutoRotatingCarousel, Slide } from 'material-auto-rotating-carousel';
 import {Link} from '@material-ui/core';
 import SummSlide from '../images/summslide.svg'
@@ -42,7 +42,7 @@ export const Welcome = () => {
                 <Slide
                     title = "Welcome to CLASP"
                     subtitle = "COVID-19 Literature Analysis and Summarization Platform"
-                    media = {<img src = {Cover}/>}
+                    media = {<img src = {Cover} alt=''/>}
                     mediaBackgroundStyle={{ backgroundColor: '#424242' }}
                     style={{ backgroundColor: '#212121' }}
                 />
@@ -53,7 +53,7 @@ export const Welcome = () => {
                         </Link>
                     }
                     subtitle = "and quickly review your documents in an easy way"
-                    media = {<img src = {SummSlide}/>}
+                    media = {<img src = {SummSlide} alt=''/>}
                     mediaBackgroundStyle={{ backgroundColor: '#424242' }}
                     style={{ backgroundColor: '#212121' }}
                 />
@@ -64,7 +64,7 @@ export const Welcome = () => {
                         </Link>
                     }
                     subtitle = "documents by their names and authors"
-                    media = {<img src = {IRSlide}/>}
+                    media = {<img src = {IRSlide} alt=''/>}
                     mediaBackgroundStyle={{ backgroundColor: '#424242'}}
                     style={{ backgroundColor: '#212121' }}
                 />
@@ -75,7 +75,7 @@ export const Welcome = () => {
                         </Link>
                     }
                     subtitle = "and you shall receive (the answer to your COVID-19 related queries)"
-                    media = {<img src = {QnaSlide}/>}
+                    media = {<img src = {QnaSlide} alt=''/>}
                     mediaBackgroundStyle={{ backgroundColor: '#424242' }}
                     style={{ backgroundColor: '#212121' }}
                 />

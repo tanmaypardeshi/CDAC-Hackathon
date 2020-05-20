@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect} from 'react-router-dom';
 import axios from 'axios';
 import { ThemeContextConsumer } from '../../context/themer';
 import { Container } from '@material-ui/core';
-import {Link} from '@material-ui/icons';
 import MaterialTable from 'material-table';
 import { getCookie } from '../../functions/cookiefns';
 
 export default function MyBookmarks(){
-    const dummy = null;
+    const [dummy, setDummy] = useState(null);
     const [myBookmarks, setMyBookmarks] = useState([]);
 
     const fetchBookmarks = () => {
@@ -23,8 +22,8 @@ export default function MyBookmarks(){
             url: "/api/myqueries",
         })
         .then((response) => {
-            console.log(response.data);
-            //setMyBookmarks(response.data.mybookmarks)
+            console.log(response.data.mysummaries);
+            setMyBookmarks(response.data.mysummaries)
         })
         .catch((err) => console.log(err));
     }
@@ -69,7 +68,7 @@ export default function MyBookmarks(){
                             }}
                             columns={[
                                 { title: 'Title', field: 'title' },
-                                { title: 'Author',field: 'questions'},
+                                { title: 'Author',field: 'author_name'},
                             ]}
                             actions={[
                                 {
@@ -102,7 +101,7 @@ export default function MyBookmarks(){
                                                 "author_name": newTable[index].author_name,
                                                 "link": newTable[index].link
                                             },
-                                            url: "/api/removebookmark",
+                                            url: "/api/remove_bookmark",
                                         }).then((response) => {
                                             console.log(response);
                                         }).catch((err) => {

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import {makeStyles, AppBar, Avatar, Toolbar, Typography, Grid, IconButton, Tooltip, List, ListItem, ListItemIcon, ListItemText, SwipeableDrawer, Divider, Slide, useScrollTrigger, Link, Tabs, Tab, Hidden} from '@material-ui/core';
-import {Brightness4, Brightness7, MoreVert, LockOpen, Lock, AssignmentInd, Description, Search, Bookmarks, History, QuestionAnswer, Menu, Timeline} from '@material-ui/icons';
+import {makeStyles, AppBar, Avatar, Toolbar, IconButton, Tooltip, List, ListItem, ListItemIcon, ListItemText, SwipeableDrawer, Divider, Slide, useScrollTrigger, Link, Tabs, Tab, Hidden} from '@material-ui/core';
+import {Brightness4, Brightness7, LockOpen, Lock, AssignmentInd, Description, Search, Bookmarks, History, QuestionAnswer, Menu, Timeline} from '@material-ui/icons';
 import { blue } from '@material-ui/core/colors';
 import ListIcon from '@material-ui/icons/List';
 import { useState} from 'react';
@@ -8,7 +8,6 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { Login } from '../auth/login';
 import { Register } from '../auth/register';
 import { Qna } from './qna/qna';
-import jwt_decode from 'jwt-decode';
 import { ThemeContextConsumer } from '../context/themer';
 import PropTypes from 'prop-types';
 import {getUserFromCookie, getCookie} from '../functions/cookiefns';
@@ -76,7 +75,9 @@ const commonActions = [
   
 export default function ButtonAppBar(props) {
 
-    const dummy = null;
+    //const dummy = null;
+    const [dummy, setDummy] = useState(null);
+    const [timer, setTimer] = useState(null);
 
     useEffect(() => {
         handleAuthChange();
@@ -128,6 +129,8 @@ export default function ButtonAppBar(props) {
             case 3:
                 history.push('/anomalies');
                 break;
+            default:
+                console.log('Ye kya kar diya tune');
         }
     };
 
@@ -150,6 +153,7 @@ export default function ButtonAppBar(props) {
             setLoggedIn(false);
             setActions([...userNActions, ...commonActions]);
             setUsername('');
+            clearTimeout(timer);
             document.cookie = "usertoken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             history.push('/');
         } else if (event.currentTarget.id === 'qna'){
@@ -176,14 +180,14 @@ export default function ButtonAppBar(props) {
             setLoggedIn(true);
             setActions([...userActions, ...commonActions]);
             setUsername(cookie);
-            setTimeout(() => {
+            setTimer(setTimeout(() => {
                 alert('Usertoken has expired. Please login again, if required.')
                 setLoggedIn(false);
                 setActions([...userNActions, ...commonActions]);
                 setUsername('');
                 document.cookie = "usertoken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                 history.push('/');
-            }, 30 * 60 * 1000);
+            }, 30 * 60 * 1000));
         } else {
             setLoggedIn(false);
             setActions([...userNActions, ...commonActions]);
