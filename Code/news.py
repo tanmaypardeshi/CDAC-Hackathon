@@ -1,34 +1,15 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[68]:
-
-
-import numpy as np
-import pandas as pd 
-import requests
 from bs4 import BeautifulSoup
-
-
-# In[69]:
-
-
-import numpy as np
-import pandas as pd
-import nltk
-import re
 from nltk.tokenize import sent_tokenize
 from sklearn.metrics.pairwise import cosine_similarity
-
-nltk.download('punkt')
-nltk.download('stopwords')
-
-
+import requests
+import nltk
+import re
+import numpy as np
+import pandas as pd
 from nltk.corpus import stopwords
+
+
 stwords = stopwords.words('english')
-
-
-# In[70]:
 
 
 def get_news():
@@ -63,15 +44,9 @@ def get_news():
     return df
 
 
-# In[71]:
-
-
 def remove_stopwords(s):
     sen_new = " ".join(i for i in s if i not in stwords)
     return sen_new
-
-
-# In[72]:
 
 
 def clean_sent(s):
@@ -87,9 +62,6 @@ def clean_sent(s):
     return clean_sentences
 
 
-# In[73]:
-
-
 def clean_query(query):
     re.sub("([\(\[]).*?([\)\]])", "\g<1>\g<2>", query)
     query = query.replace("[^a-zA-Z]", " ")
@@ -98,12 +70,8 @@ def clean_query(query):
     return query
 
 
-# In[74]:
-
-
 def embeddings():
     word_embeddings = {}
-    #f = open('wikipedia-pubmed-and-PMC-w2v.txt', encoding = 'utf8')
     f = open('glove/glove.6B.200d.txt', encoding = 'utf8')
     for line in f:
         value = line.split()
@@ -114,16 +82,12 @@ def embeddings():
     return word_embeddings
 
 
-# In[75]:
-
-
-def generate_embeddings(s):
-    
+def generate_embeddings(s):    
     abstract_vectors = []
-    for j in range(0, df.shape[0]):#abstract
+    for j in range(0, df.shape[0]): 
         clean_sentences = clean_sent(s[j])
         sentences_vectors = []
-        for i in clean_sentences:#sent in abstract
+        for i in clean_sentences:
             if len(i) != 0:
                 v = sum([word_embeddings.get(w, np.zeros((200,))) for w in i.split()])/(len(i.split())+0.001)
             else:      
@@ -131,9 +95,6 @@ def generate_embeddings(s):
             sentences_vectors.append(v)
         abstract_vectors.append(sentences_vectors)
     return abstract_vectors
-
-
-# In[76]:
 
 
 def cosine_sim(query):
@@ -159,41 +120,13 @@ def cosine_sim(query):
     return dataframe
 
 
-# In[77]:
-
-
 df = get_news()
-
-
-# In[78]:
-
-
 word_embeddings = embeddings()
-
-
-# In[79]:
-
-
 text = df['Headlines']
 text = text.tolist()
-
-
-# In[80]:
-
-
 abstract_vectors = []
 abstract_vectors = generate_embeddings(text)
-
-
-# In[81]:
-
-
 query = "vaccine"
 dataframe = cosine_sim(query)
-
-
-# In[82]:
-
-
 dataframe.head(10)
 
