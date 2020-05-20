@@ -198,7 +198,7 @@ def retrieve(new_content,email):
         objects['is_bookmarked'] =False
         objects['title'] = new_content['Title'][l[i]]
         try:
-            if(objects['title'] == IRQuery.query.filter_by(titlle=objects['title'], user_email=email).first):
+            if(objects['title'] == IRQuery.query.filter_by(titlle=objects['title'], user_email=email).first()):
                 objects['is_bookmarked'] = True
         except AttributeError:
             pass
