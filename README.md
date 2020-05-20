@@ -21,7 +21,7 @@
 * **Steps:**
   1. Clone the repository using<br> **git clone https://github.com/tanmaypardeshi/CDAC-Hackathon.git**
   2. Download the **glove** folder from the google drive link provided above and save it in the Code directory.
-  3. Download all the other csv and json files and store it in the **data** folder of the Code directory.
+  3. Download all the other csv and json files from the google drive link and store it in the **data** folder of the Code directory.
   4. Use command **virtualenv venv** in Code directory to create virtualenv.
   5. Use **source venv/bin/activate** to activate virtualenv.
   6. For the first time, use **pip install -r requirements.txt** in Code directory to install all dependencies<br>
@@ -29,9 +29,9 @@
   7. Navigate to the frontend folder and run **yarn install** for the first time to install all javascript dependencies for React.
   8. To run the flask server use **python run.py** in the Code directory.
   9. Navigate to the frontend folder and run **yarn start** to start development server and use the platform while keeping the flask server running as well.
-  10. Use **deactivate** to deactivate virtualenv.
- 
+  10. Use **deactivate** to deactivate virtualenv.  
   
+ 
 ### Documentation about the files in the repository
 #### (Click on the links to open the folder)
 
