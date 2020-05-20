@@ -41,6 +41,8 @@ def get_news():
     dictionary = {'Links': news_links, 'Headlines': news_text, 'Publisher': publisher, 'Hours': hours,
                   'Datetime': datetime}
     df = pd.DataFrame(dictionary)
+    df = df.sort_values(by='Datetime', ascending=False)
+    df = df.reset_index(drop=True)
     return df
 
 

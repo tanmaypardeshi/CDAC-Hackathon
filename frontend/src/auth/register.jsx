@@ -179,7 +179,7 @@ export const Register = ({isOpen, handleClose}) => {
 				value = {values.profession}
                 onChange = {handleChange}
                 error = {errors.registerErr}
-                helperText = {errors.registerErr && (values.email + "is already registered!")}
+                helperText = {errors.registerErr && (values.email + " is already registered!")}
 				select required fullWidth
             >
 				<MenuItem selected value = "student">student</MenuItem>

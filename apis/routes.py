@@ -33,7 +33,6 @@ def register():
     if not profession:
         return jsonify({'error': 'Missing profession'}), 400
 
-    #try:
     if User.query.filter_by(email=email).first() != email or User.query.filter_by(email=email).first() is None:
         user = User(email=email, name=name, profession=profession, password=password)
         db.session.add(user)
@@ -129,7 +128,7 @@ def summarise():
         summary = Summary(title=title, summary=new_content, user_email=current_user['email'])
         db.session.add(summary)
         db.session.commit()
-    except AttributeError:
+    except TypeError:
         pass
     return jsonify({'data': new_content}), 200
 
@@ -176,25 +175,36 @@ def mysummaries():
 @jwt_optional
 def info_retrieval():
     post_data = request.get_json()
-    current_user = get_jwt_identity()
-    email = "dummy@gmail.com"
+    query = post_data['query']
+    filtertype = post_data['filter']
     try:
+        current_user = get_jwt_identity()
         email = current_user['email']
     except TypeError:
         pass
-    query = post_data['query']
-    filtertype = post_data['filter']
     if filtertype == 'Name':
         new_content = get_info_title(query)
-        info = retrieve(new_content,email)
+        l = []
+        info = []
+        objects = {}
+        l = new_content.index.values
+        for i in range(20):
+            objects['is_bookmarked'] =False
+            objects['title'] = new_content['Title'][l[i]]
+            try:
+                if(objects['title'] == IRQuery.query.filter_by(title=objects['title'], user_email=email).first()):
+                    objects['is_bookmarked'] = True
+            except UnboundLocalError:
+                pass
+            objects['content'] = new_content['Abstract'][l[i]]
+            objects['author_name'] = new_content['Authors'][l[i]]
+            objects['link'] = new_content['URL'][l[i]]
+            info.append(objects)
+            objects = {}
         return jsonify({'data': info}), 200
+    
     new_content = get_info_author(query)
     new_content = new_content.drop(columns=['Unnamed: 0', 'publish_time', 'similarity_score'])
-    info = retrieve(new_content, email)
-    return jsonify({'data': info}), 200
-
-
-def retrieve(new_content,email):
     l = []
     info = []
     objects = {}
@@ -205,14 +215,15 @@ def retrieve(new_content,email):
         try:
             if(objects['title'] == IRQuery.query.filter_by(title=objects['title'], user_email=email).first()):
                 objects['is_bookmarked'] = True
-        except AttributeError:
+        except UnboundLocalError:
             pass
         objects['content'] = new_content['abstract'][l[i]]
         objects['author_name'] = new_content['authors'][l[i]]
         objects['link'] = new_content['url'][l[i]]
         info.append(objects)
         objects = {}
-    return info
+    return jsonify({'data': info}), 200
+
 
 @app.route("/api/bookmark", methods = ['POST'])
 @jwt_required
@@ -223,7 +234,7 @@ def bookmark():
     content = post_data['content']
     author_name = post_data['author_name']
     link = post_data['link']
-    irquery = IRQuery(title=title, content=content, author_name=author_name, link=link, user_email=current_user['email'])
+    irquery = IRQuery(title=title, content=content, author=author_name, link=link, user_email=current_user['email'])
     db.session.add(irquery)
     db.session.commit()
     return jsonify({'status':1}), 200
@@ -256,7 +267,7 @@ def myqueries():
     for query in queries:
         objects['title'] = query.title
         objects['content'] = query.content
-        objects['author_name'] = query.author_name
+        objects['author_name'] = query.author
         objects['link'] = query.link
         my_queries.append(objects)
         objects = {}
