@@ -221,7 +221,7 @@ def bookmark():
     irquery = IRQuery(title=title, content=content, author_name=author_name, link=link, user_email=current_user['email'])
     db.session.add(irquery)
     db.session.commit()
-    return jsonify({'status':1})
+    return jsonify({'status':1}), 200
 
 
 @app.route("api/remove_bookmark")
@@ -239,3 +239,20 @@ def remove_bookmark():
     except AttributeError:
         return jsonify({"status":0}), 400
     
+
+@app.route("/api/myqueries")
+@jwt_required
+def myqueries():
+    current_user = get_jwt_identity()
+    email = current_user['email']
+    queries = IRQuery.query.filter_by(user_email=email).all()
+    my_queries = []
+    objects = {}
+    for query in queries:
+        objects['title'] = query.title
+        objects['content'] = query.content
+        objects['author_name'] = query.author_name
+        objects['link'] = query.link
+        my_queries.append(objects)
+        objects = {}
+    return jsonify({'mysummaries': my_queries}), 200
