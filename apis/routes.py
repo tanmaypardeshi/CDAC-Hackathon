@@ -176,7 +176,10 @@ def mysummaries():
 def info_retrieval():
     post_data = request.get_json()
     current_user = get_jwt_identity()
-    email = current_user['email']
+    try:
+        email = current_user['email']
+    except TypeError:
+        pass
     query = post_data['query']
     filtertype = post_data['filter']
     if filtertype == 'Name':
@@ -224,7 +227,7 @@ def bookmark():
     return jsonify({'status':1}), 200
 
 
-@app.route("api/remove_bookmark")
+@app.route("/api/remove_bookmark")
 @jwt_required
 def remove_bookmark():
     post_data = request.get_json()
