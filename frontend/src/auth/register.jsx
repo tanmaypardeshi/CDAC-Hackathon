@@ -66,6 +66,7 @@ export const Register = ({isOpen, handleClose}) => {
             })
             .then((response) => {                
                 setUserTokenCookie(response.data.data.token);
+                setErrors({...errors, registerErr: false});
                 handleClose();
             })
             .catch((err) => {

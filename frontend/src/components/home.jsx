@@ -10,7 +10,11 @@ import { Skeleton } from '@material-ui/lab';
 import { getCookie } from '../functions/cookiefns';
 import { red, pink, purple, deepPurple, indigo, blue, teal, green, orange, deepOrange, brown, blueGrey} from '@material-ui/core/colors'
 
+const avatarcolors = [red[500], pink[500], purple[500], deepPurple[500], indigo[500], blue[500], teal[500], green[500], orange[500], deepOrange[500], brown[500], blueGrey[500]];
 
+const getRandomColor = () => {
+    return avatarcolors[Math.round(Math.random() * 12)];
+}
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -53,7 +57,7 @@ export const Home = () => {
     const [news, setNews] = useState([]);
     const [newsValue, setNewsValue] = useState('');
     const [newsReceived, setNewsReceived] = useState(false);
-    const avatarcolors = [red[500], pink[500], purple[500], deepPurple[500], indigo[500], blue[500], teal[500], green[500], orange[500], deepOrange[500], brown[500], blueGrey[500]];
+    
 
     const fetchNews = () => {
         const cookie = getCookie("usertoken")
@@ -88,31 +92,31 @@ export const Home = () => {
     },[dummy]);
 
     const handleChange = (event) => {
-        setNewsValue(event.currentTarget.id);
+        setNewsValue(event.currentTarget.value);
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // const cookie = getCookie("usertoken")
-        // axios({
-        //     method: "POST",
-        //     headers: {
-        //         "Access-Control-Allow-Origin": "*",
-        //         "Content-Type" : "application/json",
-        //         "Authorization": `Bearer ${cookie}`
-        //     },
-        //     data: {
-        //         "headline" : newsValue
-        //     },
-        //     url: "/api/postnews",
-        // })
-        // .then((response) => {
-        //     setNewsValue('');
-        //     sessionStorage.setItem('news', JSON.stringify(response.data.data));
-        //     setNews(response.data.data);
-        //     setNewsReceived(true);
-        // })
-        // .catch((err) => console.log(err));
+        const cookie = getCookie("usertoken")
+        axios({
+            method: "POST",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type" : "application/json",
+                "Authorization": `Bearer ${cookie}`
+            },
+            data: {
+                "headline" : newsValue
+            },
+            url: "/api/postnews",
+        })
+        .then((response) => {
+            setNewsValue('');
+            sessionStorage.setItem('news', JSON.stringify(response.data.data));
+            setNews(response.data.data);
+            setNewsReceived(true);
+        })
+        .catch((err) => console.log(err));
     }
 
     const CardSkeleton = () => {
@@ -152,7 +156,7 @@ export const Home = () => {
                     backgroundColor: themeContext.dark ? '#212121' : "white",
                     color: themeContext.dark ? 'white' : 'black',
                 }}>
-                    <Container style = {{paddingTop: '8vh'}}>
+                    <Container /* style = {{paddingTop: '8vh'}} */>
                         <img className = {classes.img} src={themeContext.dark ? newsdark : newslight} alt=""/>
                         {/* <Typography variant = "h2" style = {{marginTop: '5vh'}}>
                             NEWS
@@ -208,7 +212,7 @@ export const Home = () => {
                                                         aria-label = 'author'
                                                         style = {{
                                                             color: 'white',
-                                                            backgroundColor: avatarcolors[Math.round(Math.random() * 12)]
+                                                            backgroundColor: avatarcolors[index % 12]
                                                         }}>
                                                         {content.Publisher.split(" ").map((n)=>n[0]).join("")}
                                                     </Avatar>

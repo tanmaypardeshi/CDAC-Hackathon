@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import {makeStyles, AppBar, Avatar, Toolbar, Typography, Grid, IconButton, Tooltip, List, ListItem, ListItemIcon, ListItemText, SwipeableDrawer, Divider, Slide, useScrollTrigger, Link, Tabs, Tab, Hidden} from '@material-ui/core';
-import {Brightness4, Brightness7, MoreVert, LockOpen, Lock, AssignmentInd, Description, Search, Bookmarks, History, QuestionAnswer, Menu} from '@material-ui/icons';
+import {Brightness4, Brightness7, MoreVert, LockOpen, Lock, AssignmentInd, Description, Search, Bookmarks, History, QuestionAnswer, Menu, Timeline} from '@material-ui/icons';
 import { blue } from '@material-ui/core/colors';
 import ListIcon from '@material-ui/icons/List';
 import { useState} from 'react';
@@ -58,7 +58,7 @@ HideOnScroll.propTypes = {
 const userActions = [
     { icon: <ListIcon/>, name: 'My Summaries', id: 'mysummaries' },
     { icon: <History/>, name: 'My Questions', id: 'myqna'},
-    { icon: <Bookmarks/>, name: 'Bookmarked Queries', id: 'bookmarks'},
+    { icon: <Bookmarks/>, name: 'Bookmarked Queries', id: 'mybookmarks'},
     { icon: <Lock/>, name: 'Log out', id: 'logout'}
 ]
 
@@ -70,6 +70,7 @@ const userNActions = [
 const commonActions = [
     { icon: <Description/>, name: 'Summarize Docs', id: 'summarizer' },
     { icon: <Search/>, name: 'Document Search', id: 'irquery'},
+    { icon: <Timeline/>, name: 'Anomaly Detection', id: 'anomalies'},
     { icon: <QuestionAnswer/>, name: 'Q and A', id: 'qna'}
 ]
   
@@ -92,6 +93,8 @@ export default function ButtonAppBar(props) {
             setValue(1);
         else if(route === '/summarizer')
             setValue(2);
+        else if(route === '/anomalies')
+            setValue(3);
         else
             setValue(-1);
     }, [location])
@@ -121,6 +124,9 @@ export default function ButtonAppBar(props) {
                 break;
             case 2:
                 history.push('/summarizer');
+                break;
+            case 3:
+                history.push('/anomalies');
                 break;
         }
     };
@@ -225,6 +231,7 @@ export default function ButtonAppBar(props) {
                                 <Tab label="News" style = {{color: themeContext.dark && 'white'}}/>
                                 <Tab label="Search" style = {{color: themeContext.dark && 'white'}} />
                                 <Tab label="Summarize" style = {{color: themeContext.dark && 'white'}}/>
+                                <Tab label="Anomalies" style = {{color: themeContext.dark && 'white'}}/>
                             </Tabs>
                         </Hidden>
                         }

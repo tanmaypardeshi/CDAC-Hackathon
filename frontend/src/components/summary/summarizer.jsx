@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         alignItems: 'center',
+        padding: '2px 4px',
         [theme.breakpoints.up('md')]: {
             width: '60vw',
             marginLeft: '10vw'
@@ -350,7 +351,7 @@ function VerticalLinearStepper() {
                             backgroundColor: themeContext.dark && '#212121',
                             color: themeContext.dark && 'white',
                     }}>
-                        <Container style = {{paddingTop: '8vh'}}>
+                        <Container style = {{paddingTop: '5vh'}}>
 
                             <img src={themeContext.dark ? SD : SL} alt="Summarize" className = {classes.img}/>
 

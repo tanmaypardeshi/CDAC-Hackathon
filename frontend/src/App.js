@@ -6,6 +6,9 @@ import Summarizer from './components/summary/summarizer';
 import ViewSummary from './components/summary/viewsummary';
 import MySummaries from './components/summary/mysummaries';
 import BottomNav from './components/bottomnav';
+import MyBookmarks from './components/irquery/mybookmarks';
+import MyQuestions from './components/qna/myquestions';
+import E404 from './components/E404';
 import './App.css';
 import { useEffect } from 'react';
 import {Fab, makeStyles, Zoom, useScrollTrigger, Hidden, Collapse} from '@material-ui/core';
@@ -48,6 +51,9 @@ function App(props) {
           <Route path = '/summarizer' component = {Summarizer}/>
           <Route path = '/viewsummary' component = {ViewSummary}/>
           <Route path = '/mysummaries' component = {MySummaries}/>
+          <Route path = '/myqna' component = {MyQuestions}/>
+          <Route path = '/mybookmarks' component = {MyBookmarks}/>
+          <Route component = {E404}/>
         </Switch>
         <Zoom in={trigger}>
           <Fab color="primary" size="small" aria-label="scroll back to top" onClick={handleClick} className={useStyles().root}>

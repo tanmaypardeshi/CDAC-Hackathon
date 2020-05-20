@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         alignItems: 'center',
+        padding: '2px 4px',
         [theme.breakpoints.up('md')]: {
             width: '60%'
         },
@@ -125,54 +126,54 @@ function MyApp() {
     }
 
     const handleBookmark = (event) => {
-        //console.log(results[event.currentTarget.id])
+        console.log(results[event.currentTarget.id])
         
-        // const index = event.currentTarget.id;    //  get index of q to be bookmarked
-        // let newResults = [...results];
-        // newResults[index] = {...newResults[id], is_bookmark: !newResults[id].is_bookmarked}; //modify is_bookmarked at index
-        // setResults(newResults);
-        // const cookie = getCookie("usertoken");
-        // if(newResults[index].is_bookmark){
-        //     axios({
-        //         method: "POST",
-        //         headers: {
-        //             "Access-Control-Allow-Origin": "*",
-        //             "Content-Type" : "application/json",
-        //             "Authorization": `Bearer ${cookie}`
-        //         },
-        //         data: {
-        //             "title": newResults[index].title,
-        //             "content": newResults[index].content,
-        //             "author_name": newResults[index].author_name,
-        //             "link": newResults[index].link
-        //         },
-        //         url: "/api/bookmark",
-        //     }).then((response) => {
-        //         console.log(response);
-        //     }).catch((err) => {
-        //         console.log(err);
-        //     })
-        // } else {
-        //     axios({
-        //         method: "POST",
-        //         headers: {
-        //             "Access-Control-Allow-Origin": "*",
-        //             "Content-Type" : "application/json",
-        //             "Authorization": `Bearer ${cookie}`
-        //         },
-        //         data: {
-        //             "title": newResults[index].title,
-        //             "content": newResults[index].content,
-        //             "author_name": newResults[index].author_name,
-        //             "link": newResults[index].link
-        //         },
-        //         url: "/api/removebookmark",
-        //     }).then((response) => {
-        //         console.log(response);
-        //     }).catch((err) => {
-        //         console.log(err);
-        //     })
-        // }
+        const index = event.currentTarget.id;    //  get index of q to be bookmarked
+        let newResults = [...results];
+        newResults[index] = {...newResults[index], is_bookmark: !newResults[index].is_bookmarked}; //modify is_bookmarked at index
+        setResults(newResults);
+        const cookie = getCookie("usertoken");
+        if(newResults[index].is_bookmark){
+            axios({
+                method: "POST",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Content-Type" : "application/json",
+                    "Authorization": `Bearer ${cookie}`
+                },
+                data: {
+                    "title": newResults[index].title,
+                    "content": newResults[index].content,
+                    "author_name": newResults[index].author_name,
+                    "link": newResults[index].link
+                },
+                url: "/api/bookmark",
+            }).then((response) => {
+                console.log(response);
+            }).catch((err) => {
+                console.log(err);
+            })
+        } else {
+            axios({
+                method: "POST",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Content-Type" : "application/json",
+                    "Authorization": `Bearer ${cookie}`
+                },
+                data: {
+                    "title": newResults[index].title,
+                    "content": newResults[index].content,
+                    "author_name": newResults[index].author_name,
+                    "link": newResults[index].link
+                },
+                url: "/api/removebookmark",
+            }).then((response) => {
+                console.log(response);
+            }).catch((err) => {
+                console.log(err);
+            })
+        }
 
         
     }

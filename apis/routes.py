@@ -33,7 +33,8 @@ def register():
     if not profession:
         return jsonify({'error': 'Missing profession'}), 400
 
-    try:
+    #try:
+    if User.query.filter_by(email=email).first() != email or User.query.filter_by(email=email).first() is None:
         user = User(email=email, name=name, profession=profession, password=password)
         db.session.add(user)
         db.session.commit()
@@ -45,7 +46,7 @@ def register():
             'profession': profession,
         }
         return jsonify({'data': data}), 200
-    except:
+    else:
         return jsonify({'error': 'User already exists'}), 401
 
 
@@ -200,20 +201,20 @@ def retrieve(new_content,email):
     l = new_content.index.values
     for i in range(20):
         objects['is_bookmarked'] =False
-        objects['title'] = new_content['Title'][l[i]]
+        objects['title'] = new_content['title'][l[i]]
         try:
-            if(objects['title'] == IRQuery.query.filter_by(titlle=objects['title'], user_email=email).first()):
+            if(objects['title'] == IRQuery.query.filter_by(title=objects['title'], user_email=email).first()):
                 objects['is_bookmarked'] = True
         except AttributeError:
             pass
-        objects['content'] = new_content['Abstract'][l[i]]
-        objects['author_name'] = new_content['Authors'][l[i]]
-        objects['link'] = new_content['URL'][l[i]]
+        objects['content'] = new_content['abstract'][l[i]]
+        objects['author_name'] = new_content['authors'][l[i]]
+        objects['link'] = new_content['url'][l[i]]
         info.append(objects)
         objects = {}
     return info
 
-@app.route("/api/bookmark")
+@app.route("/api/bookmark", methods = ['POST'])
 @jwt_required
 def bookmark():
     post_data = request.get_json()
@@ -228,7 +229,7 @@ def bookmark():
     return jsonify({'status':1}), 200
 
 
-@app.route("/api/remove_bookmark")
+@app.route("/api/remove_bookmark",methods = ['POST'])
 @jwt_required
 def remove_bookmark():
     post_data = request.get_json()
@@ -244,7 +245,7 @@ def remove_bookmark():
         return jsonify({"status":0}), 400
     
 
-@app.route("/api/myqueries")
+@app.route("/api/myqueries", methods = ['GET'])
 @jwt_required
 def myqueries():
     current_user = get_jwt_identity()

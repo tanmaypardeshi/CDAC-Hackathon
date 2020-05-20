@@ -52,6 +52,7 @@ export const Login = ({isOpen, handleClose}) => {
             })
             .then((response) => {
 				setUserTokenCookie(response.data.data.token);
+				setLoginErr(false);
 				handleClose();
             })
             .catch((err) => {

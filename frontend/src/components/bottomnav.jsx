@@ -26,7 +26,9 @@ export default function BottomNav() {
         else if(route === '/irquery')
             setValue(1);
         else if(route === '/summarizer')
-            setValue(2);
+			setValue(2);
+		else if(route === '/anomalies')
+			setValue(3);
         else
             setValue(-1);
     }, [location])
@@ -41,7 +43,10 @@ export default function BottomNav() {
 				history.push('/irquery');
 				break;
 			case 2:
-				history.push('/summarizer')
+				history.push('/summarizer');
+				break;
+			case 3:
+				history.push('/anomalies');
 				break;
 			default:
 				console.log("Mazaak hai kya?")
@@ -71,6 +76,7 @@ export default function BottomNav() {
 								<Tab label="News" style = {{color: themeContext.dark && 'white'}}/>
 								<Tab label="Search" style = {{color: themeContext.dark && 'white'}} />
 								<Tab label="Summarize" style = {{color: themeContext.dark && 'white'}}/>
+								<Tab label="Anomalies" style = {{color: themeContext.dark && 'white'}}/>
 							</Tabs>
 					</Toolbar>
 				</AppBar>
