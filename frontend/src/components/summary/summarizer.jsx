@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { DropzoneArea } from 'material-ui-dropzone';
-import { Container, makeStyles, Button, Snackbar, Typography, Step, Stepper, StepLabel, StepContent, Paper, InputBase, Divider, IconButton} from '@material-ui/core';
+import { Container, makeStyles, Button, Snackbar, Typography, Step, Stepper, StepLabel, StepContent, Paper, InputBase, Divider, IconButton, Grid} from '@material-ui/core';
 import {Alert} from '@material-ui/lab';
 import { ThemeContextConsumer } from '../../context/themer';
 import SL from '../../images/SL.svg';
@@ -19,12 +19,10 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         padding: '2px 4px',
         [theme.breakpoints.up('md')]: {
-            width: '60vw',
-            marginLeft: '10vw'
+            width: '60%'
         },
         [theme.breakpoints.down('sm')]: {
-            width: '90vw',
-            marginLeft: '1vw'
+            width: '90%'
         },
         margin: theme.spacing(2)
     },
@@ -55,24 +53,20 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "1vh",
         minHeight: '20%',
         [theme.breakpoints.up('md')]: {
-            maxWidth: '60vw',
-            marginLeft: '10vw'
+            maxWidth: '60%',
         },
         [theme.breakpoints.down('sm')]: {
-            maxWidth: '90vw',
-            marginLeft: '1vw'
+            maxWidth: '90%',
         },
     },
     dropZoneLight: {
         marginTop: "1vh",
         minHeight: '20%',
         [theme.breakpoints.up('md')]: {
-            maxWidth: '60vw',
-            marginLeft: '10vw'
+            maxWidth: '60%',
         },
         [theme.breakpoints.down('sm')]: {
-            maxWidth: '90vw',
-            marginLeft: '1vw'
+            maxWidth: '90%',
         },
     },
     dZPara : {
@@ -80,18 +74,18 @@ const useStyles = makeStyles((theme) => ({
     },
     img : {
         [theme.breakpoints.up('md')]: {
-            maxWidth: '25vw'
+            maxWidth: '25%'
         },
         [theme.breakpoints.down('sm')]: {
-            maxWidth: '80vw'
+            maxWidth: '80%'
         },
         maxHeight: 'auto'
     },
     stepper : {
         [theme.breakpoints.up('md')]: {
-            maxWidth: '55vw',
-            marginLeft: '10vw'
+            width: '60%',
         },
+        marginRight: '2.5%'
     },
     alert : {
         maxHeight: '100%',
@@ -354,7 +348,12 @@ function VerticalLinearStepper() {
                             backgroundColor: themeContext.dark && '#212121',
                             color: themeContext.dark && 'white',
                     }}>
-                        <Container style = {{paddingTop: '5vh'}}>
+                            <Grid
+                                container
+                                direction = "column"
+                                justify = "flex-start"
+                                alignItems = "center"
+                            >
 
                             <img src={themeContext.dark ? SD : SL} alt="Summarize" className = {classes.img}/>
 
@@ -430,7 +429,6 @@ function VerticalLinearStepper() {
                                         </Step>
                                 ))}
                             </Stepper>
-                        </Container>
                         <Snackbar 
                             open = {alertO}
                             anchorOrigin = {{horizontal: 'left', vertical: 'bottom'}}
@@ -444,6 +442,7 @@ function VerticalLinearStepper() {
                                 {statusO}
                             </Alert>
                         </Snackbar>
+                        </Grid>
                     </div>
                 )
             }

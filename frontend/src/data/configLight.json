@@ -1,0 +1,233 @@
+{
+      "visState": {
+        "filters": [],
+        "layers": [
+          {
+            "id": "trdwvpjd",
+            "type": "point",
+            "config": {
+              "dataId": "unnamed",
+              "label": "Point",
+              "color": [
+                82,
+                163,
+                83
+              ],
+              "columns": {
+                "lat": "Latitude",
+                "lng": "Longitude",
+                "altitude": "none"
+              },
+              "isVisible": true,
+              "visConfig": {
+                "radius": 10,
+                "fixedRadius": false,
+                "opacity": 0.8,
+                "outline": false,
+                "thickness": 2,
+                "strokeColor": "none",
+                "colorRange": {
+                  "name": "Global Warming",
+                  "type": "sequential",
+                  "category": "Uber",
+                  "colors": [
+                    "#5A1846",
+                    "#900C3F",
+                    "#C70039",
+                    "#E3611C",
+                    "#F1920E",
+                    "#FFC300"
+                  ]
+                },
+                "strokeColorRange": {
+                  "name": "Global Warming",
+                  "type": "sequential",
+                  "category": "Uber",
+                  "colors": [
+                    "#5A1846",
+                    "#900C3F",
+                    "#C70039",
+                    "#E3611C",
+                    "#F1920E",
+                    "#FFC300"
+                  ]
+                },
+                "radiusRange": [
+                  0,
+                  50
+                ],
+                "filled": true
+              },
+              "hidden": false,
+              "textLabel": [
+                {
+                  "field": "none",
+                  "color": [
+                    255,
+                    255,
+                    255
+                  ],
+                  "size": 18,
+                  "offset": [
+                    0,
+                    0
+                  ],
+                  "anchor": "start",
+                  "alignment": "center"
+                }
+              ]
+            },
+            "visualChannels": {
+              "colorField": "none",
+              "colorScale": "quantile",
+              "strokeColorField": "none",
+              "strokeColorScale": "quantile",
+              "sizeField": "none",
+              "sizeScale": "linear"
+            }
+          },
+          {
+            "id": "06p5cx",
+            "type": "point",
+            "config": {
+              "dataId": "unnamed",
+              "label": "unnamed",
+              "color": [
+                227,
+                26,
+                26
+              ],
+              "columns": {
+                "lat": "Latitude_Layer",
+                "lng": "Longitude_Layer",
+                "altitude": "none"
+              },
+              "isVisible": true,
+              "visConfig": {
+                "radius": 20.1,
+                "fixedRadius": false,
+                "opacity": 0.8,
+                "outline": false,
+                "thickness": 0.5,
+                "strokeColor": "none",
+                "colorRange": {
+                  "name": "Global Warming",
+                  "type": "sequential",
+                  "category": "Uber",
+                  "colors": [
+                    "#5A1846",
+                    "#900C3F",
+                    "#C70039",
+                    "#E3611C",
+                    "#F1920E",
+                    "#FFC300"
+                  ]
+                },
+                "strokeColorRange": {
+                  "name": "Global Warming",
+                  "type": "sequential",
+                  "category": "Uber",
+                  "colors": [
+                    "#5A1846",
+                    "#900C3F",
+                    "#C70039",
+                    "#E3611C",
+                    "#F1920E",
+                    "#FFC300"
+                  ]
+                },
+                "radiusRange": [
+                  0,
+                  50
+                ],
+                "filled": true
+              },
+              "hidden": false,
+              "textLabel": [
+                {
+                  "field": "none",
+                  "color": [
+                    255,
+                    255,
+                    255
+                  ],
+                  "size": 18,
+                  "offset": [
+                    0,
+                    0
+                  ],
+                  "anchor": "start",
+                  "alignment": "center"
+                }
+              ]
+            },
+            "visualChannels": {
+              "colorField": "none",
+              "colorScale": "quantile",
+              "strokeColorField": "none",
+              "strokeColorScale": "quantile",
+              "sizeField": "none",
+              "sizeScale": "linear"
+            }
+          }
+        ],
+        "interactionConfig": {
+          "tooltip": {
+            "fieldsToShow": {
+              "unnamed": [
+                "Unnamed: 0",
+                "Unnamed: 0.1",
+                "Country Name",
+                "Country Code",
+                "Country WHO Region"
+              ]
+            },
+            "enabled": true
+          },
+          "brush": {
+            "size": 0.5,
+            "enabled": false
+          },
+          "geocoder": {
+            "enabled": false
+          },
+          "coordinate": {
+            "enabled": false
+          }
+        },
+        "layerBlending": "normal",
+        "splitMaps": [],
+        "animationConfig": {
+          "currentTime": "none",
+          "speed": 1
+        }
+      },
+      "mapState": {
+        "bearing": 0,
+        "dragRotate": false,
+        "latitude": 12.031247000000004,
+        "longitude": 2.1080855000000014,
+        "pitch": 0,
+        "zoom": 1,
+        "isSplit": false
+      },
+      "mapStyle": {
+        "styleType": "light",
+        "topLayerGroups": {},
+        "visibleLayerGroups": {
+          "label": true,
+          "road": true,
+          "border": false,
+          "building": true,
+          "water": true,
+          "land": true,
+          "3d building": false
+        },
+        "threeDBuildingColor": [
+          9.665468314072013,
+          17.18305478057247,
+          31.1442867897876
+        ],
+        "mapStyles": {}
+      }
+}

@@ -8,13 +8,13 @@ import MySummaries from './components/summary/mysummaries';
 import BottomNav from './components/bottomnav';
 import MyBookmarks from './components/irquery/mybookmarks';
 import MyQuestions from './components/qna/myquestions';
+import Anomalies from './components/anomalies/anomalies';
 import E404 from './components/E404';
 import './App.css';
 import {Fab, makeStyles, Zoom, useScrollTrigger, Hidden, Collapse} from '@material-ui/core';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import PropTypes from 'prop-types';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,6 +52,7 @@ function App(props) {
           <Route path = '/mysummaries' component = {MySummaries}/>
           <Route path = '/myqna' component = {MyQuestions}/>
           <Route path = '/mybookmarks' component = {MyBookmarks}/>
+          <Route path = '/anomalies' component = {Anomalies}/>
           <Route component = {E404}/>
         </Switch>
         <Zoom in={trigger}>

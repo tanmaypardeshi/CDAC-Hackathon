@@ -23,8 +23,8 @@ export default function MyQuestions(){
             url: "/api/myqna",
         })
         .then((response) => {
-            console.log(response.data);
-            //setMyQs(response.data.questions);
+            //console.log(response.data);
+            setMyQs(response.data.mysummaries);
         })
         .catch((err) => console.log(err));
     }
@@ -68,10 +68,24 @@ export default function MyQuestions(){
                             }}
                             columns={[
                                 { title: 'Title', field: 'title' },
-                                { title: 'Questions',field: 'questions'},
+                                { title: 'Question',field: 'question'},
                                 { title: 'Answers', field: 'answers'}
                             ]}
                             data={myQs}
+                            detailPanel = {rowData => {
+                                return(
+                                    <ThemeContextConsumer>
+                                        {(themeContext) => (
+                                            <Container style = {{
+                                                backgroundColor: themeContext.dark ? '#535353' : "white",
+                                                color: themeContext.dark ? "white" : "black"
+                                                }}>
+                                                    {rowData.paragraph}
+                                            </Container>
+                                        )}
+                                    </ThemeContextConsumer>
+                                )
+                            }}
                         />
                     </Container>
                 </div>

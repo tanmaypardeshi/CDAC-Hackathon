@@ -1,8 +1,9 @@
 import React from 'react';
-import { Container, Typography } from '@material-ui/core';
+import { Container, Typography, Grid } from '@material-ui/core';
 import { ThemeContextConsumer } from '../../context/themer';
 import { Redirect } from 'react-router-dom';
 import { Page, Text, View, Document, StyleSheet, PDFDownloadLink } from '@react-pdf/renderer';
+import { PictureAsPdf } from '@material-ui/icons';
 
 const styles = StyleSheet.create({
     page: {
@@ -46,21 +47,30 @@ export default function ViewSummary() {
                     fontWeight: '300'
                 }}>  
                     <Container>
-                        <Typography variant = "h2" align='left' gutterBottom>Summary</Typography>
-                        <PDFDownloadLink document = {<MyDocument/>} 
-                        filename = {
-                            "CLASP" + 
-                            d.getDate().padding() + '-' + 
-                            (d.getMonth()+1).padding() + '-' +
-                            d.getFullYear() + '_' +
-                            d.getHours().padding() + '-' +
-                            d.getMinutes().padding() + '-' +
-                            d.getSeconds().padding() + '.pdf'
-                        }>
-                            {({blob, url, loading, error}) => (
-                                loading ? 'Loading document...' : 'Download ready!'
-                            )}
-                        </PDFDownloadLink>
+                        <Grid container direction = "row" justify = "space-between" alignItems ="center">
+                            <Typography variant = "h2" align='left' gutterBottom>
+                                Summary
+                            </Typography>
+                            <Typography variant = "h2" align = 'right' gutterBottom>
+                                <PDFDownloadLink 
+                                    document = {<MyDocument/>} 
+                                    fileName = {
+                                        "CLASP" + 
+                                        d.getDate().padding() + '-' + 
+                                        (d.getMonth()+1).padding() + '-' +
+                                        d.getFullYear() + '_' +
+                                        d.getHours().padding() + '-' +
+                                        d.getMinutes().padding() + '-' +
+                                        d.getSeconds().padding() + '.pdf'
+                                }>
+                                    {({blob, url, loading, error}) => (
+                                            loading ? 'Loading document...' : <PictureAsPdf style = {{color: themeContext.dark ? 'white' : 'black'}}/>
+                                    )}
+                                </PDFDownloadLink>
+                            </Typography>
+                        </Grid>
+                        
+                        
                         <Typography variant = "body1" align='justify'>{sessionStorage.summary}</Typography>
                     </Container>
                 </div>

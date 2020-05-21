@@ -282,12 +282,12 @@ export default function ButtonAppBar(props) {
                                   null
                               }
                               {
-                                  actions.map((action) => (
+                                  actions.map((action, index) => (
                                       <>
                                       {action.id === 'summarizer' && <Divider style = {{
                                           backgroundColor: themeContext.dark && "grey"
                                       }}/>}
-                                      <ListItem button onClick = {handleClick} key = {action.key} id = {action.id} 
+                                      <ListItem button onClick = {handleClick} key = {index} id = {action.id} 
                                       disabled = {(getCookie("usertoken")==='' && action.id === 'qna')}>
                                           <ListItemIcon style = {{
                                               color: themeContext.dark ? "white" : "black"
