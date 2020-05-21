@@ -164,6 +164,22 @@ def mysummaries():
     return jsonify({'mysummaries': my_summaries})
 
 
+@app.route("/api/remove_summary", methods=['POST'])
+@jwt_required
+def remove_bookmark():
+    post_data = request.get_json()
+    current_user = get_jwt_identity()
+    email = current_user['email']
+    title = post_data['title']
+    try:
+        query = IRQuery.query.filter_by(title=title, user_email=email).first()
+        db.session.delete(query)
+        db.session.commit()
+        return jsonify({"status": 1}), 200
+    except AttributeError:
+        return jsonify({"status": 0}), 400
+
+
 @app.route("/api/irquery", methods=['POST'])
 @jwt_optional
 def info_retrieval():
@@ -311,3 +327,19 @@ def myqna():
         myqnas.append(objects)
         objects = {}
     return jsonify({'mysummaries': myqnas}), 200
+
+
+@app.route("/api/remove_qna", methods=['POST'])
+@jwt_required
+def remove_bookmark():
+    post_data = request.get_json()
+    current_user = get_jwt_identity()
+    email = current_user['email']
+    question = post_data['question']
+    try:
+        query = IRQuery.query.filter_by(question=question, user_email=email).first()
+        db.session.delete(query)
+        db.session.commit()
+        return jsonify({"status": 1}), 200
+    except AttributeError:
+        return jsonify({"status": 0}), 400
