@@ -69,7 +69,7 @@ export default function MyQuestions(){
                             columns={[
                                 { title: 'Title', field: 'title' },
                                 { title: 'Question',field: 'question'},
-                                { title: 'Answers', field: 'answers'}
+                                { title: 'Answers', field: 'answer'}
                             ]}
                             data={myQs}
                             detailPanel = {rowData => {

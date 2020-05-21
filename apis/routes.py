@@ -175,6 +175,7 @@ def info_retrieval():
         email = current_user['email']
     except TypeError:
         pass
+    print(email)
     if filtertype == 'Name':
         new_content = get_info_title(query)
         l = []
@@ -184,16 +185,14 @@ def info_retrieval():
         for i in range(20):
             objects['is_bookmarked'] = False
             objects['title'] = new_content['Title'][l[i]]
-            if email is not None:
+            try:
                 try:
-                    print(objects['title'] == IRQuery.query.filter_by(title=objects['title'],
-                                                                      user_email=email).first().title)
                     if objects['title'] == IRQuery.query.filter_by(title=objects['title'],
                                                                    user_email=email).first().title:
                         objects['is_bookmarked'] = True
                 except AttributeError:
                     objects['is_bookmarked'] = False
-            else:
+            except UnboundLocalError:
                 objects['is_bookmarked'] = False
             objects['content'] = new_content['Abstract'][l[i]]
             objects['author_name'] = new_content['Authors'][l[i]]
@@ -210,13 +209,13 @@ def info_retrieval():
     for i in range(20):
         objects['is_bookmarked'] = False
         objects['title'] = new_content['title'][l[i]]
-        if email is not None:
+        try:
             try:
                 if objects['title'] == IRQuery.query.filter_by(title=objects['title'], user_email=email).first().title:
                     objects['is_bookmarked'] = True
             except AttributeError:
                 objects['is_bookmarked'] = False
-        else:
+        except UnboundLocalError:
             objects['is_bookmarked'] = False
         objects['content'] = new_content['abstract'][l[i]]
         objects['author_name'] = new_content['authors'][l[i]]
@@ -282,6 +281,7 @@ def qna():
     current_user = get_jwt_identity()
     question = post_data['question']
     answer = get_answer(question)
+    print(question)
     qna = Qna(question=question, title=answer['title'], answer=answer['answer'], paragraph=answer['paragraph'], user_email=current_user['email'])
     db.session.add(qna)
     db.session.commit()
@@ -306,6 +306,7 @@ def myqna():
     myqnas = []
     objects = {}
     for qna in qnas:
+        print(qna.question, qna.title, email)
         objects['question'] = qna.question
         objects['title'] = qna.answer
         objects['answer'] = qna.title
