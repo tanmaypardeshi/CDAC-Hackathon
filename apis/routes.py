@@ -1,18 +1,13 @@
-import pandas as pd
-
 from apis import app, bcrypt, db
-
 from flask import jsonify, request
-from flask_cors import cross_origin
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, jwt_optional
 
-from .models import User, Summary, IRQuery
+from .models import User, Summary, IRQuery, Qna
 
 from ir_author import get_info_author
 from ir_title import get_info_title
 from summariser import create_summary
 from news import get_news, cosine_sim, generate_embeddings, embeddings
-
 
 word_embeddings = embeddings()
 
@@ -113,7 +108,7 @@ def postnews():
         objects['Hours'] = result['Hours'][l[i]]
         info.append(objects)
         objects = {}
-    return jsonify({'data': info}),200
+    return jsonify({'data': info}), 200
 
 
 @app.route("/api/summarise", methods=['POST'])
@@ -153,7 +148,6 @@ def summarise():
 #     return jsonify({'data': new_content}), 200
 
 
-
 @app.route("/api/mysummaries", methods=['GET'])
 @jwt_required
 def mysummaries():
@@ -168,7 +162,6 @@ def mysummaries():
         my_summaries.append(objects)
         objects = {}
     return jsonify({'mysummaries': my_summaries})
-
 
 
 @app.route("/api/irquery", methods=['POST'])
@@ -189,12 +182,14 @@ def info_retrieval():
         objects = {}
         l = new_content.index.values
         for i in range(20):
-            objects['is_bookmarked'] =False
+            objects['is_bookmarked'] = False
             objects['title'] = new_content['Title'][l[i]]
             if email is not None:
                 try:
-                    print(objects['title'] == IRQuery.query.filter_by(title=objects['title'], user_email=email).first().title)
-                    if(objects['title'] == IRQuery.query.filter_by(title=objects['title'], user_email=email).first().title):
+                    print(objects['title'] == IRQuery.query.filter_by(title=objects['title'],
+                                                                      user_email=email).first().title)
+                    if objects['title'] == IRQuery.query.filter_by(title=objects['title'],
+                                                                   user_email=email).first().title:
                         objects['is_bookmarked'] = True
                 except AttributeError:
                     objects['is_bookmarked'] = False
@@ -206,18 +201,18 @@ def info_retrieval():
             info.append(objects)
             objects = {}
         return jsonify({'data': info}), 200
-    
+
     new_content = get_info_author(query)
     l = []
     info = []
     objects = {}
     l = new_content.index.values
     for i in range(20):
-        objects['is_bookmarked'] =False
+        objects['is_bookmarked'] = False
         objects['title'] = new_content['title'][l[i]]
         if email is not None:
             try:
-                if(objects['title'] == IRQuery.query.filter_by(title=objects['title'], user_email=email).first().title):
+                if objects['title'] == IRQuery.query.filter_by(title=objects['title'], user_email=email).first().title:
                     objects['is_bookmarked'] = True
             except AttributeError:
                 objects['is_bookmarked'] = False
@@ -231,7 +226,7 @@ def info_retrieval():
     return jsonify({'data': info}), 200
 
 
-@app.route("/api/bookmark", methods = ['POST'])
+@app.route("/api/bookmark", methods=['POST'])
 @jwt_required
 def bookmark():
     post_data = request.get_json()
@@ -243,10 +238,10 @@ def bookmark():
     irquery = IRQuery(title=title, content=content, author=author_name, link=link, user_email=current_user['email'])
     db.session.add(irquery)
     db.session.commit()
-    return jsonify({'status':1}), 200
+    return jsonify({'status': 1}), 200
 
 
-@app.route("/api/remove_bookmark",methods = ['POST'])
+@app.route("/api/remove_bookmark", methods=['POST'])
 @jwt_required
 def remove_bookmark():
     post_data = request.get_json()
@@ -257,12 +252,12 @@ def remove_bookmark():
         query = IRQuery.query.filter_by(title=title, user_email=email).first()
         db.session.delete(query)
         db.session.commit()
-        return jsonify({"status":1}), 200
+        return jsonify({"status": 1}), 200
     except AttributeError:
-        return jsonify({"status":0}), 400
-    
+        return jsonify({"status": 0}), 400
 
-@app.route("/api/myqueries", methods = ['GET'])
+
+@app.route("/api/myqueries", methods=['GET'])
 @jwt_required
 def myqueries():
     current_user = get_jwt_identity()
@@ -278,3 +273,43 @@ def myqueries():
         my_queries.append(objects)
         objects = {}
     return jsonify({'mysummaries': my_queries}), 200
+
+
+@app.route("/api/qna", methods=['POST'])
+@jwt_required
+def qna():
+    post_data = request.get_json()
+    current_user = get_jwt_identity()
+    question = post_data['question']
+    answer = get_answer(question)
+    qna = Qna(question=question, title=answer['title'], answer=answer['answer'], paragraph=answer['paragraph'], user_email=current_user['email'])
+    db.session.add(qna)
+    db.session.commit()
+    return jsonify({'data': answer}), 200
+
+
+def get_answer():
+    answer = {
+        'title': 'This is the title of the answer',
+        'answer': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam',
+        'paragraph': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,'
+    }
+    return answer
+
+
+@app.route("/api/myqna", methods=['GET'])
+@jwt_required
+def myqna():
+    current_user = get_jwt_identity()
+    email = current_user['email']
+    qnas= Qna.query.filter_by(user_email=email).all()
+    myqnas = []
+    objects = {}
+    for qna in qnas:
+        objects['title'] = qna.title
+        objects['content'] = qna.content
+        objects['author_name'] = qna.author
+        objects['link'] = qna.link
+        myqnas.append(objects)
+        objects = {}
+    return jsonify({'mysummaries': myqnas}), 200

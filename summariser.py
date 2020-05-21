@@ -8,6 +8,7 @@ from nltk.tokenize import sent_tokenize
 from sklearn.metrics.pairwise import cosine_similarity
 from nltk.corpus import stopwords
 
+
 stop_words = stopwords.words('english')
 
 
@@ -61,7 +62,7 @@ def create_summary(s):
         for j in range(len(sentences)):
             if i != j:
                 sim_mat[i][j] = \
-                cosine_similarity(sentence_vectors[i].reshape(1, 200), sentence_vectors[j].reshape(1, 200))[0, 0]
+                    cosine_similarity(sentence_vectors[i].reshape(1, 200), sentence_vectors[j].reshape(1, 200))[0, 0]
 
     # PageRank
     nx_graph = nx.from_numpy_array(sim_mat)  # Matrix converted to graph: v: sentences, e: cosine similarity
@@ -70,7 +71,7 @@ def create_summary(s):
 
     # Display of data
     string_list = []
-    for i in range(int(0.2*len(sentences))):
+    for i in range(int(0.2 * len(sentences))):
         string_list.append(ranked_sentences[i][1])
     final_summary = " ".join(string_list)
 

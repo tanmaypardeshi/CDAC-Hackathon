@@ -32,3 +32,15 @@ class IRQuery(db.Model):
 
     def __repr__(self):
         return f"IRQuery('{self.title}', '{self.user_email}')"
+
+
+class Qna(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    question = db.Column(db.Text, nullable=False)
+    title = db.Column(db.Text, nullable=False)
+    answer = db.Column(db.Text, nullable=False)
+    paragraph = db.Column(db.Text, nullable=False)
+    user_email = db.Column(db.String(120))
+
+    def __repr__(self):
+        return f"Qna('{self.question}, '{self.user_email}')"
