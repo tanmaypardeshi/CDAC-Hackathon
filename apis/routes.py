@@ -288,7 +288,7 @@ def qna():
     return jsonify({'data': answer}), 200
 
 
-def get_answer():
+def get_answer(question):
     answer = {
         'title': 'This is the title of the answer',
         'answer': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam',
@@ -306,10 +306,10 @@ def myqna():
     myqnas = []
     objects = {}
     for qna in qnas:
-        objects['title'] = qna.title
-        objects['content'] = qna.content
-        objects['author_name'] = qna.author
-        objects['link'] = qna.link
+        objects['question'] = qna.question
+        objects['title'] = qna.answer
+        objects['answer'] = qna.title
+        objects['paragraph'] = qna.paragraph
         myqnas.append(objects)
         objects = {}
     return jsonify({'mysummaries': myqnas}), 200
