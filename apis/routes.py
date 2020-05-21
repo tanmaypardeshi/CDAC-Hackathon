@@ -175,7 +175,6 @@ def info_retrieval():
         email = current_user['email']
     except TypeError:
         pass
-    print(email)
     if filtertype == 'Name':
         new_content = get_info_title(query)
         l = []
@@ -281,9 +280,8 @@ def qna():
     current_user = get_jwt_identity()
     question = post_data['question']
     answer = get_answer(question)
-    print(question)
-    qna = Qna(question=question, title=answer['title'], answer=answer['answer'], paragraph=answer['paragraph'], user_email=current_user['email'])
-    db.session.add(qna)
+    qa = Qna(question=question, title=answer['title'], answer=answer['answer'], paragraph=answer['paragraph'], user_email=current_user['email'])
+    db.session.add(qa)
     db.session.commit()
     return jsonify({'data': answer}), 200
 
@@ -306,7 +304,6 @@ def myqna():
     myqnas = []
     objects = {}
     for qna in qnas:
-        print(qna.question, qna.title, email)
         objects['question'] = qna.question
         objects['title'] = qna.answer
         objects['answer'] = qna.title

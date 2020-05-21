@@ -59,11 +59,12 @@ export const Qna = ({isOpen, handleOpen, handleClose}) => {
 
     const handleQuestionChange = (event) => {
         setQuestionField(event.currentTarget.value);
+        setQuestion(event.currentTarget.value);
     }
 
     const handleQuestionSubmit = (event) => {
         event.preventDefault();
-        setQuestion(questionField);
+        // setQuestion(questionField);
         setQuestionField('');
         setSearching(true);
         setQuestionAsked(true);
