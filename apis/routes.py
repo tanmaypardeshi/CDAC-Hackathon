@@ -166,7 +166,7 @@ def mysummaries():
 
 @app.route("/api/remove_summary", methods=['POST'])
 @jwt_required
-def remove_bookmark():
+def remove_summary():
     post_data = request.get_json()
     current_user = get_jwt_identity()
     email = current_user['email']
@@ -331,7 +331,7 @@ def myqna():
 
 @app.route("/api/remove_qna", methods=['POST'])
 @jwt_required
-def remove_bookmark():
+def remove_qna():
     post_data = request.get_json()
     current_user = get_jwt_identity()
     email = current_user['email']
