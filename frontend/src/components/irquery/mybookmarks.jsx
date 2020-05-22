@@ -7,7 +7,7 @@ import MaterialTable from 'material-table';
 import { getCookie } from '../../functions/cookiefns';
 
 export default function MyBookmarks(){
-    const [dummy, setDummy] = useState(null);
+    const dummy = null;
     const [myBookmarks, setMyBookmarks] = useState([]);
 
     const fetchBookmarks = () => {
@@ -22,7 +22,6 @@ export default function MyBookmarks(){
             url: "/api/myqueries",
         })
         .then((response) => {
-            console.log(response.data.mysummaries);
             setMyBookmarks(response.data.mysummaries)
         })
         .catch((err) => console.log(err));
@@ -76,8 +75,6 @@ export default function MyBookmarks(){
                                     iconProps: {style: {color: themeContext.dark ? 'white' : 'black'}},
                                     tooltip: 'Open link',
                                     onClick: (event, rowdata) => {
-                                        //console.log(rowdata);
-                                        //sessionStorage.setItem('summary', rowdata.summary);
                                         window.open(rowdata.link, '_blank', 'noopener noreferrer');
                                     }
                                 },

@@ -74,7 +74,6 @@ function MyApp() {
     const searchRef = useRef(null);
 
     const handleChange = (event) => {
-        console.log(event.target.id, event.target.value);
         setSearch({...search, [event.target.id] : event.target.value});
     };
     
@@ -103,7 +102,7 @@ function MyApp() {
                 },
                 data: {
                     "query" : search.query,
-                    "filter" : ( (search.filter === 0 || search.filter === 1) ? "Name" : "Author"),
+                    "filter" : ( (search.filter === 0 || search.filter === 1) ? "Author" : "Name"),
                     //"email": (cookie !== '' ? jwt_decode(cookie).identity.email : "")
                 },
                 url: "/api/irquery",
@@ -115,8 +114,7 @@ function MyApp() {
                 searchRef.current.scrollIntoView({behavior : "smooth"});
             })
             .catch((err) => {
-                console.log(err);
-                enqueueSnackbar('Network error', {
+                enqueueSnackbar('Search Error, please refresh and try again!', {
                     variant: 'error'
                 })
             });
@@ -124,7 +122,6 @@ function MyApp() {
     }
 
     const handleBookmark = (event) => {
-        console.log(results[event.currentTarget.id])
         
         const index = event.currentTarget.id;    //  get index of q to be bookmarked
         let newResults = [...results];
@@ -230,14 +227,14 @@ function MyApp() {
                                     value={1} 
                                     onClick = {(event) => {handleChange(event); handleClose()}}
                                 >
-                                    By Name
+                                    By Author
                                 </MenuItem>
                                 <MenuItem 
                                     id = "filter" 
                                     value={2} 
                                     onClick = {(event) => {handleChange(event); handleClose()}}
                                 >
-                                    By Author
+                                    By Title
                                 </MenuItem>
                             </Menu>
 
@@ -257,13 +254,11 @@ function MyApp() {
                         <div ref = {searchRef}></div>
                         {
                             results.map((result, index) => {
-                                console.log(result);
                                 return(
                                     <Card 
                                         className={classes.card} 
                                         key = {index} 
                                         style = {{
-                                        // dark bluish bg: '#392e57'
                                         backgroundColor: themeContext.dark ? '#424242' : "white",
                                         color: themeContext.dark ? "white" : "black"
                                         }}

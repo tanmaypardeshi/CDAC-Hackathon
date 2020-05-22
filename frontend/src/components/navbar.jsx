@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
     },
     title: {
         fontWeight: 300,
-        flexGrow: 1
+        flexGrow: 1,
+        marginRight: '16px'
     },
     list: {
         width: 250,
@@ -76,18 +77,18 @@ const commonActions = [
 export default function ButtonAppBar(props) {
 
     //const dummy = null;
-    const [dummy, setDummy] = useState(null);
     const [timer, setTimer] = useState(null);
 
-    useEffect(() => {
-        handleAuthChange();
-    },[dummy])
+    // useEffect(() => {
+    //     handleAuthChange();
+
+    // },[dummy]);
 
     let location = useLocation();
 
     useEffect(() => {
+        handleAuthChange();
         const route = location.pathname;
-        console.log(route);
         if(route === '/')
             setValue(0);
         else if(route === '/irquery')
@@ -130,7 +131,7 @@ export default function ButtonAppBar(props) {
                 history.push('/anomalies');
                 break;
             default:
-                console.log('Ye kya kar diya tune');
+                history.push('/404');
         }
     };
 
@@ -159,7 +160,6 @@ export default function ButtonAppBar(props) {
         } else if (event.currentTarget.id === 'qna'){
             setShowChat(true);
         } else {
-            console.log(event.currentTarget.id);
             history.push('/' + event.currentTarget.id);
         }
     }

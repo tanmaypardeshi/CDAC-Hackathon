@@ -48,7 +48,7 @@ export default function BottomNav() {
 				history.push('/anomalies');
 				break;
 			default:
-				console.log("Mazaak hai kya?")
+				history.push('/404');
 		}
 	}
 

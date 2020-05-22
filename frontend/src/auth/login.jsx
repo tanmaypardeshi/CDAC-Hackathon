@@ -57,7 +57,6 @@ export const Login = ({isOpen, handleClose}) => {
             })
             .catch((err) => {
 				setLoginErr(true);
-				console.log(err);
             })
 		}
     }
@@ -80,7 +79,7 @@ export const Login = ({isOpen, handleClose}) => {
 						autoFocus required fullWidth
 					/>
 					<TextField
-						error = {passErr}
+						error = {passErr || loginErr}
 						variant = "outlined"
 						margin="normal"
 						id="password"

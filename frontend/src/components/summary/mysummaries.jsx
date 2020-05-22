@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { ThemeContextConsumer } from '../../context/themer';
@@ -8,13 +8,13 @@ import { getCookie } from '../../functions/cookiefns';
 
 export default function MySummaries(){
 
-    const [dummy, setDummy] = useState(null);
+    const dummy = null;
     const [mySumms, setMySumms] = useState([]);
-    var cookie = useRef();
 
     let history = useHistory();
 
     const fetchSummaries = () => {
+        const cookie = getCookie("usertoken");
         axios({
             method: "GET",
             headers: {
@@ -31,12 +31,11 @@ export default function MySummaries(){
     }
 
     useEffect(() => { 
-        cookie = getCookie("usertoken");
         fetchSummaries() 
     }, [dummy]);
 
     return(
-        cookie !== '' ? 
+        getCookie("usertoken") !== '' ? 
         <ThemeContextConsumer>
             {(themeContext) => (
                 <div style = {{
@@ -71,16 +70,45 @@ export default function MySummaries(){
                                 { title: 'File Name', field: 'title' },
                             ]}
                             data={mySumms}
-                            actions={[{
-                                icon: 'notes',
-                                iconProps: {style: {color: themeContext.dark ? 'white' : 'black'}},
-                                tooltip: 'view summary',
-                                onClick: (event, rowdata) => {
-                                    console.log(rowdata);
-                                    sessionStorage.setItem('summary', rowdata.summary);
-                                    history.push('/viewsummary');
+                            actions={[
+                                {
+                                    icon: 'notes',
+                                    iconProps: {style: {color: themeContext.dark ? 'white' : 'black'}},
+                                    tooltip: 'view summary',
+                                    onClick: (event, rowdata) => {
+                                        sessionStorage.setItem('summary', rowdata.summary);
+                                        history.push('/viewsummary');
+                                     }
+                                },
+                                {
+                                    icon:'delete',
+                                    iconProps: {style: {color: themeContext.dark ? 'white' : 'black'}},
+                                    tooltip: 'delete',
+                                    onClick: (event, rowdata) => {
+                                        let newTable = [...mySumms];
+                                        const index = newTable.indexOf(rowdata);
+                                        axios({
+                                            method: "POST",
+                                            headers: {
+                                                "Access-Control-Allow-Origin": "*",
+                                                "Content-Type" : "application/json",
+                                                "Authorization": `Bearer ${getCookie("usertoken")}`
+                                            },
+                                            data: {
+                                                "title": newTable[index].title,
+                                            },
+                                            url: "/api/remove_summary",
+                                        }).then((response) => {
+                                            console.log(response);
+                                        }).catch((err) => {
+                                            console.log(err);
+                                        })
+                                        newTable.splice(index,1);
+                                        setMySumms(newTable);
+                                    }
+
                                 }
-                            }]}
+                            ]}
                         />
                     </Container>
                 </div>

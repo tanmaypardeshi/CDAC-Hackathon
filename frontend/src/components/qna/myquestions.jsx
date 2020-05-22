@@ -1,15 +1,14 @@
-import React, {useEffect, useState, forwardRef} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Redirect} from 'react-router-dom';
 import axios from 'axios';
 import { ThemeContextConsumer } from '../../context/themer';
 import { Container } from '@material-ui/core';
 import MaterialTable from 'material-table';
 import { getCookie } from '../../functions/cookiefns';
-import {FirstPage} from '@material-ui/icons';
 
 export default function MyQuestions(){
 
-    const [dummy, setDummy] = useState(null);
+    const dummy = null;
     const [myQs, setMyQs] = useState([]);
 
     const fetchQuestions = () => {
@@ -24,7 +23,7 @@ export default function MyQuestions(){
             url: "/api/myqna",
         })
         .then((response) => {
-            //console.log(response.data);
+            console.log(response.data);
             setMyQs(response.data.mysummaries);
         })
         .catch((err) => console.log(err));
@@ -53,6 +52,7 @@ export default function MyQuestions(){
                             }}
                             options={{
                                 exportButton: true,
+                                actionsColumnIndex: -1,
                                 sorting: true,
                                 headerStyle: {
                                     backgroundColor: themeContext.dark ? '#424242' : "white",
@@ -73,6 +73,36 @@ export default function MyQuestions(){
                                 { title: 'Answers', field: 'answer'}
                             ]}
                             data={myQs}
+                            actions = {[
+                                {
+                                    icon:'delete',
+                                    iconProps: {style: {color: themeContext.dark ? 'white' : 'black'}},
+                                    tooltip: 'delete',
+                                    onClick: (event, rowdata) => {
+                                        let newTable = [...myQs];
+                                        const index = newTable.indexOf(rowdata);
+                                        console.log(newTable[index].question);
+                                        axios({
+                                            method: "POST",
+                                            headers: {
+                                                "Access-Control-Allow-Origin": "*",
+                                                "Content-Type" : "application/json",
+                                                "Authorization": `Bearer ${getCookie("usertoken")}`
+                                            },
+                                            data: {
+                                                "question": newTable[index].question,
+                                            },
+                                            url: "/api/remove_qna",
+                                        }).then((response) => {
+                                            console.log(response);
+                                        }).catch((err) => {
+                                            console.log(err);
+                                        })
+                                        newTable.splice(index,1);
+                                        setMyQs(newTable);
+                                    }
+                                }
+                            ]}
                             detailPanel = {rowData => {
                                 return(
                                     <ThemeContextConsumer>

@@ -11,8 +11,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF'
     },
     section: {
-        margin: 10,
-        padding: 10,
+        margin: '96px',
+        fontSize: '14',
         flexGrow: 1
     }
 });
@@ -30,10 +30,10 @@ const MyDocument = () => (
 export default function ViewSummary() {
     
     var d = new Date();
-    Number.prototype.padding = function(base, chr) {
-        var len = (String(base || 10).length - String(this).length) + 1; 
-        return len > 0 ? new Array(len).join(chr || '0') + this : this; 
-    }
+    // Number.prototype.padding = function(base, chr) {
+    //     var len = (String(base || 10).length - String(this).length) + 1; 
+    //     return len > 0 ? new Array(len).join(chr || '0') + this : this; 
+    // }
 
     return(
         typeof sessionStorage.summary !== 'undefined' ?
@@ -56,12 +56,12 @@ export default function ViewSummary() {
                                     document = {<MyDocument/>} 
                                     fileName = {
                                         "CLASP" + 
-                                        d.getDate().padding() + '-' + 
-                                        (d.getMonth()+1).padding() + '-' +
-                                        d.getFullYear() + '_' +
-                                        d.getHours().padding() + '-' +
-                                        d.getMinutes().padding() + '-' +
-                                        d.getSeconds().padding() + '.pdf'
+                                        d.getDate().toString().padStart(2, '0') + '-' + 
+                                        (d.getMonth()+1).toString().padStart(2, '0') + '-' +
+                                        d.getFullYear().toString().padStart(4, '0') + '_' +
+                                        d.getHours().toString().padStart(2, '0') + '-' +
+                                        d.getMinutes().toString().padStart(2, '0') + '-' +
+                                        d.getSeconds().toString().padStart(2, '0') + '.pdf'
                                 }>
                                     {({blob, url, loading, error}) => (
                                             loading 

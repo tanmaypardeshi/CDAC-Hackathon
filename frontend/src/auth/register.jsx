@@ -34,7 +34,7 @@ export const Register = ({isOpen, handleClose}) => {
             setErrors({...errors, emailErr: !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(event.target.value)});
         } 
         else if (event.target.name === 'password'){
-            var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+            var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})");
             setErrors({...errors, passwordErr: !strongRegex.test(event.target.value)});
         } 
         else if (event.target.name === 'cnfpass') {
@@ -49,7 +49,7 @@ export const Register = ({isOpen, handleClose}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(!errors.emailErr && !errors.passErr && !errors.cnfpassErr && !errors.nameErr){
+        if(!errors.emailErr && !errors.passwordErr && !errors.cnfpassErr && !errors.nameErr){
             axios({
                 method: "POST",
                 headers: {
@@ -70,7 +70,6 @@ export const Register = ({isOpen, handleClose}) => {
                 handleClose();
             })
             .catch((err) => {
-                console.log(err);
                 setErrors({...errors, registerErr: true});
             });
         }

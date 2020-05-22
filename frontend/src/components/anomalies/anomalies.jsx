@@ -33,7 +33,13 @@ import { Today } from '@material-ui/icons';
 const datasets = [df2000, df2001, df2002, df2003, df2004, df2005, df2006, df2007, df2008, df2009, df2010, df2011, df2012, df2013, df2014, df2015, df2016, df2017];
 
 const reducers = combineReducers({
-  keplerGl: keplerGlReducer
+  keplerGl: keplerGlReducer.initialState({
+    uiState: {
+      activeSidePanel: null,
+      currentModal: null,
+      readOnly: true
+    }
+  })
 });
 
 const store = createStore(reducers, {}, applyMiddleware(taskMiddleware));
@@ -43,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
         position: 'fixed',
         bottom: theme.spacing(2),
         right: theme.spacing(2),
+        zIndex: 10
     },
     extendedIcon: {
         marginRight: theme.spacing(1)
@@ -116,7 +123,6 @@ export default function Anomalies(){
 }
 
 function Map({theme, year}) {
-    //console.log(theme.dark, year);
     const dispatch = useDispatch();
     //const data = df2000;
     useEffect(() => {
@@ -131,11 +137,11 @@ function Map({theme, year}) {
                 },
                 option: {
                     centerMap: true,
-                    readOnly: false,
+                    readOnly: true,
                 },
                 config: theme.dark ? configDark : configLight
             })
-        )
+        );
     }, [dispatch, theme, year])
 
     return(
@@ -144,7 +150,7 @@ function Map({theme, year}) {
                 <KeplerGl 
                     id="unnamed" 
                     mapboxApiAccessToken = "pk.eyJ1IjoidWJlcmRhdGEiLCJhIjoiY2pza3FrOXh6MW05dTQzcWd1M3I3c2E0eCJ9.z0MFFrHYNbdK-QVHKrdepw" 
-                    width = {0.9893 * window.innerWidth} 
+                    width = {window.innerWidth} 
                     height = {window.innerHeight}
                     theme = {themeContext.dark ? null : 'light'}
             />

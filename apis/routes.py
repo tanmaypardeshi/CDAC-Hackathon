@@ -11,7 +11,7 @@ from summariser import create_summary
 from news import get_news, cosine_sim, generate_embeddings, embeddings
 
 word_embeddings = embeddings()
-# model = joblib.load('data/qna.joblib')
+model = joblib.load('data/qna.joblib')
 
 
 @app.route("/api/register", methods=['POST'])
@@ -154,7 +154,7 @@ def remove_summary():
     email = current_user['email']
     title = post_data['title']
     try:
-        query = IRQuery.query.filter_by(title=title, user_email=email).first()
+        query = Summary.query.filter_by(title=title, user_email=email).first()
         db.session.delete(query)
         db.session.commit()
         return jsonify({"status": 1}), 200
@@ -277,19 +277,19 @@ def qna():
     post_data = request.get_json()
     current_user = get_jwt_identity()
     question = post_data['question']    
-    # answer = model.predict(question)
-    #data = {
-    #    'question': question,
-    #    'title': answer[1],
-    #    'answer': answer[0],
-    #    'paragraph': answer[2]
-    #}
-    #qa = Qna(question=question, title=answer[1], answer=answer[0], paragraph=answer[2], user_email=current_user['email'])
-    answer = get_answer(question)
-    qa = Qna(question=question, title=answer['title'], answer=answer['answer'], paragraph=answer['paragraph'], user_email=current_user['email'])
+    answer = model.predict(question)
+    data = {
+       'question': question,
+       'title': answer[1],
+       'answer': answer[0],
+       'paragraph': answer[2]
+    }
+    qa = Qna(question=question, title=answer[1], answer=answer[0], paragraph=answer[2], user_email=current_user['email'])
+    # answer = get_answer(question)
+    # qa = Qna(question=question, title=answer['title'], answer=answer['answer'], paragraph=answer['paragraph'], user_email=current_user['email'])
     db.session.add(qa)
     db.session.commit()
-    return jsonify({'data': answer}), 200
+    return jsonify({'data': data}), 200
     
 
 def get_answer(question):
@@ -328,7 +328,7 @@ def remove_qna():
     email = current_user['email']
     question = post_data['question']
     try:
-        query = IRQuery.query.filter_by(question=question, user_email=email).first()
+        query = Qna.query.filter_by(question=question, user_email=email).first()
         db.session.delete(query)
         db.session.commit()
         return jsonify({"status": 1}), 200

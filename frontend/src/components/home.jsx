@@ -49,8 +49,8 @@ export const Home = () => {
 
     const classes = useStyles();
 
-    const [dummy,setDummy] = useState(null);
-
+    //const [dummy,setDummy] = useState(null);
+    const dummy = null;
     const [news, setNews] = useState([]);
     const [newsValue, setNewsValue] = useState('');
     const [newsReceived, setNewsReceived] = useState(false);
@@ -68,23 +68,14 @@ export const Home = () => {
             url: "/api/news",
         })
         .then((response) => {
-            //sessionStorage.setItem('news', response.data.data);
-            //sessionStorage.setItem('news', JSON.stringify(response.data.data));
             setNews(response.data.data);
             setNewsReceived(true);
-            //setNews(response.data.news);
         })
         .catch((err) => console.log(err));
     }
 
     useEffect(() => {
-        //if(typeof sessionStorage.news === 'undefined')
             fetchNews();
-        //else{
-            //setNews(JSON.parse(sessionStorage.news));
-            //setNewsReceived(true);
-        //}
-        //console.log(JSON.parse(sessionStorage.news));
 
     },[dummy]);
 
@@ -110,7 +101,6 @@ export const Home = () => {
         })
         .then((response) => {
             setNewsValue('');
-            //sessionStorage.setItem('news', JSON.stringify(response.data.data));
             setNews(response.data.data);
             setNewsReceived(true);
         })
@@ -154,11 +144,8 @@ export const Home = () => {
                     backgroundColor: themeContext.dark ? '#212121' : "white",
                     color: themeContext.dark ? 'white' : 'black',
                 }}>
-                    <Container /* style = {{paddingTop: '8vh'}} */>
+                    <Container>
                         <img className = {classes.img} src={themeContext.dark ? newsdark : newslight} alt=""/>
-                        {/* <Typography variant = "h2" style = {{marginTop: '5vh'}}>
-                            NEWS
-                        </Typography> */}
 
                         <Paper component="form" className={classes.root} style = {{
                             backgroundColor: themeContext.dark ? '#424242' : "#fafafa",
@@ -199,7 +186,6 @@ export const Home = () => {
                                             className = {classes.card}
                                             key = {index} 
                                             style = {{
-                                            // dark bluish bg: '#392e57'
                                             backgroundColor: themeContext.dark ? '#424242' : "#fafafa",
                                             color: themeContext.dark ? "white" : "black"
                                             }}

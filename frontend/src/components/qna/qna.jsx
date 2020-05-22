@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {ThemeContextConsumer} from '../../context/themer';
-import { SwipeableDrawer, makeStyles, CardHeader, IconButton, Divider, InputBase, Card, Paper, Typography, LinearProgress, CardContent, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { SwipeableDrawer, makeStyles, IconButton, Divider, InputBase, Card, Paper, Typography, LinearProgress, CardContent, List, ListItem, ListItemText } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { Send } from '@material-ui/icons';
 import { Alert } from '@material-ui/lab';
@@ -8,9 +8,6 @@ import { getCookie } from '../../functions/cookiefns';
 import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
-    drawerdark: {
-        background: '#212121'
-    },
     drawerdark: {
         background: '#212121'
     },
@@ -25,7 +22,9 @@ const useStyles = makeStyles((theme) => ({
     paper: {
         display: 'flex',
         alignItems: 'center',
-        margin: theme.spacing(1)
+        marginRight: theme.spacing(1),
+        marginTop: theme.spacing(1),
+        marginLeft: theme.spacing(1),
     },
     input: {
         marginLeft: theme.spacing(2),
@@ -38,6 +37,10 @@ const useStyles = makeStyles((theme) => ({
         height: 28,
         margin: 4,
     },
+    linear: {
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1)
+    }
 }))
 
 export const Qna = ({isOpen, handleOpen, handleClose}) => {
@@ -59,13 +62,13 @@ export const Qna = ({isOpen, handleOpen, handleClose}) => {
 
     const handleQuestionChange = (event) => {
         setQuestionField(event.currentTarget.value);
-        setQuestion(event.currentTarget.value);
+        // setQuestion(event.currentTarget.value);
     }
 
     const handleQuestionSubmit = (event) => {
         event.preventDefault();
-        // setQuestion(questionField);
-        setQuestionField('');
+        setQuestion(questionField);
+        // setQuestionField('');
         setSearching(true);
         setQuestionAsked(true);
         setAnswerReceived(false);
@@ -77,11 +80,11 @@ export const Qna = ({isOpen, handleOpen, handleClose}) => {
                     "Authorization": `Bearer ${getCookie("usertoken")}`
                 },
                 data: {
-                    "question" : question,
+                    "question" : questionField,
                 },
                 url: "/api/qna",
             }).then((response) => {
-                console.log(response.data.data.answer);
+                setQuestionField('');
                 setTitle(response.data.data.title);
                 setAnswer(response.data.data.answer);
                 setParagraph(response.data.data.paragraph);
@@ -135,7 +138,7 @@ export const Qna = ({isOpen, handleOpen, handleClose}) => {
                                     <Send style = {{color: themeContext.dark ? 'white' : 'grey'}}/>
                                 </IconButton>
                             </Paper>
-                            {(searching) && <LinearProgress/>}
+                            {(searching) && <LinearProgress className = {classes.linear}/>}
                     {
                         questionAsked && 
                             <ListItem>
@@ -181,7 +184,8 @@ export const Qna = ({isOpen, handleOpen, handleClose}) => {
                                     secondary = {
                                         <Card style = {{
                                             backgroundColor: themeContext.dark ? '#424242': '#eeeeee',
-                                            color: themeContext.dark && 'white'    
+                                            color: themeContext.dark && 'white',
+                                            marginTop:'1vh', marginRight: '5vh'    
                                         }}>
                                             <CardContent> {paragraph} </CardContent>
                                         </Card>

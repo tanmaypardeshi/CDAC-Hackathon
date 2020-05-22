@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
 import { DropzoneArea } from 'material-ui-dropzone';
-import { Container, makeStyles, Button, Snackbar, Typography, Step, Stepper, StepLabel, StepContent, Paper, InputBase, Divider, IconButton, Grid} from '@material-ui/core';
+import { makeStyles, Button, Snackbar, Typography, Step, Stepper, StepLabel, StepContent, Grid} from '@material-ui/core';
 import {Alert} from '@material-ui/lab';
 import { ThemeContextConsumer } from '../../context/themer';
 import SL from '../../images/SLn.svg';
 import SD from '../../images/SDn.svg';
-import { Search } from '@material-ui/icons';
 import {SnackbarProvider, useSnackbar} from 'notistack';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
@@ -127,7 +126,6 @@ function VerticalLinearStepper() {
     const handleSubmit = () => {
         setDisableCancel(true);
         const cookie = getCookie("usertoken")
-        console.log(fileName, preSummary);
         const uploadkey = enqueueSnackbar('Uploading...', {
             variant: 'info',
             persist: true
@@ -157,7 +155,6 @@ function VerticalLinearStepper() {
             }
         })
         .then((response) => {
-            console.log(response);
             sessionStorage.setItem('summary', response.data.data);
             closeSnackbar();
             enqueueSnackbar('Summarization successful', {
@@ -190,7 +187,7 @@ function VerticalLinearStepper() {
         'Select a file to summarize', 
         <Button 
             onClick = {handleSubmit} 
-            disabled = {activeStep !== 1}
+            disabled = {activeStep !== 1 || disableCancel}
             variant = "contained"
             color = "primary"
             style = {{color: "white"}}
@@ -276,7 +273,6 @@ function VerticalLinearStepper() {
                 'eng',
                 {
                     logger: m => {
-                        console.log(m);
                         setStatusO(m.status);
                         setProgressO(Math.round(m.progress*100));
                     }
