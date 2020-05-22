@@ -1,6 +1,7 @@
 from apis import app, bcrypt, db
 from flask import jsonify, request
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, jwt_optional
+import joblib
 
 from .models import User, Summary, IRQuery, Qna
 
@@ -10,6 +11,7 @@ from summariser import create_summary
 from news import get_news, cosine_sim, generate_embeddings, embeddings
 
 word_embeddings = embeddings()
+# model = joblib.load('data/qna.joblib')
 
 
 @app.route("/api/register", methods=['POST'])
@@ -126,26 +128,6 @@ def summarise():
     except TypeError:
         pass
     return jsonify({'data': new_content}), 200
-
-
-# @app.route("/api/search_summary", methods=['POST'])
-# @jwt_optional
-# def search_summary():
-#     post_data = request.json()
-#     title = post_data['title']
-#     result = get_result(title, search_data[0])
-#     if len(result) == 0:
-#         return jsonify({'data': 'Search Unsuccessful'}), 400
-#     find = search_data[1][result.index.values[0]]
-#     new_content = create_summary(find)
-#     current_user = get_jwt_identity()
-#     try:
-#         summary = Summary(title=title, summary=new_content, user_email=current_user['email'])
-#         db.session.add(summary)
-#         db.session.commit()
-#     except AttributeError:
-#         pass
-#     return jsonify({'data': new_content}), 200
 
 
 @app.route("/api/mysummaries", methods=['GET'])
@@ -294,13 +276,21 @@ def myqueries():
 def qna():
     post_data = request.get_json()
     current_user = get_jwt_identity()
-    question = post_data['question']
+    question = post_data['question']    
+    # answer = model.predict(question)
+    #data = {
+    #    'question': question,
+    #    'title': answer[1],
+    #    'answer': answer[0],
+    #    'paragraph': answer[2]
+    #}
+    #qa = Qna(question=question, title=answer[1], answer=answer[0], paragraph=answer[2], user_email=current_user['email'])
     answer = get_answer(question)
     qa = Qna(question=question, title=answer['title'], answer=answer['answer'], paragraph=answer['paragraph'], user_email=current_user['email'])
     db.session.add(qa)
     db.session.commit()
     return jsonify({'data': answer}), 200
-
+    
 
 def get_answer(question):
     answer = {
@@ -309,6 +299,7 @@ def get_answer(question):
         'paragraph': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,'
     }
     return answer
+
 
 
 @app.route("/api/myqna", methods=['GET'])
