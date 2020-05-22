@@ -3,8 +3,8 @@ import { DropzoneArea } from 'material-ui-dropzone';
 import { Container, makeStyles, Button, Snackbar, Typography, Step, Stepper, StepLabel, StepContent, Paper, InputBase, Divider, IconButton, Grid} from '@material-ui/core';
 import {Alert} from '@material-ui/lab';
 import { ThemeContextConsumer } from '../../context/themer';
-import SL from '../../images/SL.svg';
-import SD from '../../images/SD.svg';
+import SL from '../../images/SLn.svg';
+import SD from '../../images/SDn.svg';
 import { Search } from '@material-ui/icons';
 import {SnackbarProvider, useSnackbar} from 'notistack';
 import axios from 'axios';
@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
     },
     img : {
         [theme.breakpoints.up('md')]: {
-            maxWidth: '25%'
+            maxWidth: '32%'
         },
         [theme.breakpoints.down('sm')]: {
             maxWidth: '80%'
@@ -110,9 +110,6 @@ function VerticalLinearStepper() {
     
     const classes = useStyles();
     const history = useHistory();
-
-    //form state
-    const [formContent, setFormContent] = useState('');
     
     //stepper states
     const [activeStep, setActiveStep] = useState(0);
@@ -294,49 +291,6 @@ function VerticalLinearStepper() {
             })
         }
     }
-
-    const handleFormChange = (event) => {
-        setFormContent(event.target.value)
-    }
-
-    const handleFormSubmit = (event) => {
-        event.preventDefault();
-        const searchKey = enqueueSnackbar('Searching...', {
-            variant: 'info',
-            persist: true
-        })
-        const cookie = getCookie("usertoken")
-        axios({
-            method: "POST",
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Content-Type" : "application/json",
-                "Authorization": `Bearer ${cookie}`
-            },
-            data: {
-                "searchquery" : formContent,
-            },
-            url: "/api/search_summary",
-        }).then((response) => {
-            console.log(response);
-            sessionStorage.setItem('summary', response.data.data);
-            closeSnackbar(searchKey);
-            closeSnackbar();
-            enqueueSnackbar('Summarization successful', {
-                persist: false,
-                variant: "success",
-            })
-            setActiveStep(2);
-        }).catch((err) => {
-            console.log(err);
-            closeSnackbar(searchKey);
-            closeSnackbar();
-            enqueueSnackbar('File not Found!', {
-                persist: false,
-                variant: "error",
-            })
-        })
-    }
   
     return (
         <ThemeContextConsumer>
@@ -356,37 +310,6 @@ function VerticalLinearStepper() {
                             >
 
                             <img src={themeContext.dark ? SD : SL} alt="Summarize" className = {classes.img}/>
-
-                            <Paper component="form" className={classes.root} style = {{
-                                backgroundColor: themeContext.dark ? '#424242' : "white",
-                            }}>
-                                <InputBase
-                                    fullWidth
-                                    id = "query"
-                                    className={classes.input}
-                                    placeholder="Enter document name to summarize"
-                                    inputProps={{ 'aria-label': 'search for documents' }}
-                                    onChange={handleFormChange}
-                                    onSubmit={handleFormSubmit}
-                                    style = {{
-                                        color: themeContext.dark ? 'white' : 'black'
-                                    }}
-                                />
-                                
-                                <Divider className={classes.divider} orientation="vertical" style = {{
-                                            backgroundColor: themeContext.dark && "grey"
-                                }}/>
-                                
-                                <IconButton className={classes.iconButton} aria-label="directions" onClick={handleFormSubmit} type="submit">
-                                    <Search style = {{
-                                        color: themeContext.dark ? 'white' : 'grey'
-                                    }}/>
-                                </IconButton>
-                            </Paper>
-
-                            <Typography variant = 'h6'>
-                                OR
-                            </Typography>
 
                             <DropzoneArea 
                                 onDrop = {handleChange}

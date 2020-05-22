@@ -125,7 +125,7 @@ export const Home = () => {
                     <Card 
                         className = {classes.card}
                         style = {{
-                            backgroundColor: themeContext.dark ? '#424242' : "white",
+                            backgroundColor: themeContext.dark ? '#424242' : "#fafafa",
                             
                     }}>
                     <CardHeader
@@ -161,7 +161,7 @@ export const Home = () => {
                         </Typography> */}
 
                         <Paper component="form" className={classes.root} style = {{
-                            backgroundColor: themeContext.dark ? '#424242' : "white",
+                            backgroundColor: themeContext.dark ? '#424242' : "#fafafa",
                         }}>
                             <InputBase
                                 fullWidth
@@ -200,7 +200,7 @@ export const Home = () => {
                                             key = {index} 
                                             style = {{
                                             // dark bluish bg: '#392e57'
-                                            backgroundColor: themeContext.dark ? '#424242' : "white",
+                                            backgroundColor: themeContext.dark ? '#424242' : "#fafafa",
                                             color: themeContext.dark ? "white" : "black"
                                             }}
                                         >

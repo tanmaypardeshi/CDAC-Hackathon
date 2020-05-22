@@ -118,8 +118,8 @@ export default function MyBookmarks(){
                                     <ThemeContextConsumer>
                                         {(themeContext) => (
                                             <Container style = {{
-                                                backgroundColor: themeContext.dark ? '#535353' : "white",
-                                                color: themeContext.dark ? "white" : "black"
+                                                color: themeContext.dark ? "white" : "black",
+                                                padding: '1vh 2vw 1vh 4vw'
                                                 }}>
                                                     {rowData.content}
                                             </Container>

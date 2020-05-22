@@ -1,6 +1,6 @@
 import React, {useState, useRef} from 'react';
-import ird from '../../images/IRD.svg'
-import irl from '../../images/IRL.svg'
+import ird from '../../images/IRDn.svg'
+import irl from '../../images/IRLn.svg'
 import { ThemeContextConsumer } from '../../context/themer';
 import { makeStyles, Grid, Paper, InputBase, Divider, IconButton, Button, Menu, MenuItem,  Card, CardContent, CardActionArea, Typography, CardHeader } from '@material-ui/core';
 import {ArrowDropDown, Search, Bookmark} from '@material-ui/icons';
@@ -47,13 +47,12 @@ const useStyles = makeStyles((theme) => ({
     },
     img: {
         [theme.breakpoints.up('md')]: {
-            maxWidth: '25vw'
+            maxWidth: '33%'
         },
         [theme.breakpoints.down('sm')]: {
             maxWidth: '80%'
         },
         maxHeight: 'auto',
-        marginTop: "8vh"
     }
   }));
 
@@ -196,7 +195,7 @@ function MyApp() {
                     <img src={themeContext.dark ? ird : irl} alt="BG" className = {classes.img}/> 
                     
                         <Paper component="form" className={classes.root} style = {{
-                            backgroundColor: themeContext.dark ? '#424242' : "white",
+                            backgroundColor: themeContext.dark ? '#424242' : "#fafafa",
                         }}>
                             <InputBase
                                 fullWidth

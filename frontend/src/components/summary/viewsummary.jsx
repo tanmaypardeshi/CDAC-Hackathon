@@ -64,7 +64,11 @@ export default function ViewSummary() {
                                         d.getSeconds().padding() + '.pdf'
                                 }>
                                     {({blob, url, loading, error}) => (
-                                            loading ? 'Loading document...' : <PictureAsPdf style = {{color: themeContext.dark ? 'white' : 'black'}}/>
+                                            loading 
+                                            ? 
+                                                'Loading document...' 
+                                            : 
+                                                <PictureAsPdf style = {{color: themeContext.dark ? 'white' : 'black', fontSize: 40}}/>
                                     )}
                                 </PDFDownloadLink>
                             </Typography>

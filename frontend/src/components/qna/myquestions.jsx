@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, forwardRef} from 'react';
 import { Redirect} from 'react-router-dom';
 import axios from 'axios';
 import { ThemeContextConsumer } from '../../context/themer';
 import { Container } from '@material-ui/core';
 import MaterialTable from 'material-table';
 import { getCookie } from '../../functions/cookiefns';
+import {FirstPage} from '@material-ui/icons';
 
 export default function MyQuestions(){
 
@@ -77,8 +78,8 @@ export default function MyQuestions(){
                                     <ThemeContextConsumer>
                                         {(themeContext) => (
                                             <Container style = {{
-                                                backgroundColor: themeContext.dark ? '#535353' : "white",
-                                                color: themeContext.dark ? "white" : "black"
+                                                color: themeContext.dark ? "white" : "black",
+                                                padding: '1vh 2vw 1vh 4vw'
                                                 }}>
                                                     {rowData.paragraph}
                                             </Container>
