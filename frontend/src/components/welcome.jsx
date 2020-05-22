@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import { AutoRotatingCarousel, Slide } from 'material-auto-rotating-carousel';
 import {Link, Hidden} from '@material-ui/core';
-import SummSlide from '../images/summslide.svg'
-import Cover from '../images/cover.svg'
-import IRSlide from '../images/irslide.svg'
-import QnaSlide from '../images/qnaslide.svg'
+import SummSlide from '../images/summslide.svg';
+import Cover from '../images/cover.svg';
+import IRSlide from '../images/irslide.svg';
+import QnaSlide from '../images/qnaslide.svg';
+import AnomalySlide from '../images/anomalyslide.svg';
 import { useHistory } from 'react-router-dom';
 import { getCookie } from '../functions/cookiefns';
 
@@ -70,13 +71,20 @@ export const Welcome = () => {
                         style={{ backgroundColor: '#212121' }}
                     />
                     <Slide
-                        title = {
-                            <Link id='qna' href = '/qna' color="inherit" onClick = {handleClick} disabled>
-                                Ask
-                            </Link>
-                        }
+                        title = "Ask"
                         subtitle = "and you shall receive (the answer to your COVID-19 related queries)"
                         media = {<img src = {QnaSlide} alt=''/>}
+                        mediaBackgroundStyle={{ backgroundColor: '#424242' }}
+                        style={{ backgroundColor: '#212121' }}
+                    />
+                    <Slide
+                        title = {
+                            <Link id='anomalies' href = '/anomalies' color="inherit" onClick = {handleClick} disabled>
+                                Detect anomalies
+                            </Link>
+                        }
+                        subtitle = "and be on the safer side"
+                        media = {<img src = {AnomalySlide} alt=''/>}
                         mediaBackgroundStyle={{ backgroundColor: '#424242' }}
                         style={{ backgroundColor: '#212121' }}
                     />
@@ -132,17 +140,23 @@ export const Welcome = () => {
                         style={{ backgroundColor: '#212121' }}
                     />
                     <Slide
-                        title = {
-                            <Link id='qna' href = '/qna' color="inherit" onClick = {handleClick} disabled>
-                                Ask
-                            </Link>
-                        }
+                        title = "Ask"
                         subtitle = "and you shall receive (the answer to your COVID-19 related queries)"
                         media = {<img src = {QnaSlide} alt=''/>}
                         mediaBackgroundStyle={{ backgroundColor: '#424242' }}
                         style={{ backgroundColor: '#212121' }}
                     />
-
+                    <Slide
+                        title = {
+                            <Link id='anomalies' href = '/anomalies' color="inherit" onClick = {handleClick} disabled>
+                                Detect anomalies
+                            </Link>
+                        }
+                        subtitle = "and be on the safer side"
+                        media = {<img src = {AnomalySlide} alt=''/>}
+                        mediaBackgroundStyle={{ backgroundColor: '#424242' }}
+                        style={{ backgroundColor: '#212121' }}
+                    />
                 </AutoRotatingCarousel>
             </Hidden>
             
