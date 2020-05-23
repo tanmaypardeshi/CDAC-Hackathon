@@ -357,7 +357,6 @@ export default function IRQuery(){
                         </Slide>
 
             }
-            <MyApp/>
         </SnackbarProvider>
     )
 }

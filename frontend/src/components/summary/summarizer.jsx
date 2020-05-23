@@ -391,7 +391,6 @@ export default function Summarizer(){
                             <div><VLS/></div>
                         </Slide>
             }
-            <VLS/>
         </SnackbarProvider>
     );
 }
