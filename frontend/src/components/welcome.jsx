@@ -113,9 +113,9 @@ export const Welcome = () => {
                     <Slide
                         title = "Welcome to CLASP"
                         subtitle = "COVID-19 Literature Analysis and Summarization Platform"
-                        media = {<img src = {Cover} alt=''/>}
+                        media = {<img src = {Cover} alt='' style = {{width: '90%', height: 'auto'}}/>}
                         mediaBackgroundStyle={{ backgroundColor: '#424242' }}
-                        style={{ backgroundColor: '#212121' }}
+                        style={{ backgroundColor: '#212121'}}
                     />
                     <Slide
                         title = {
@@ -124,9 +124,9 @@ export const Welcome = () => {
                             </Link>
                         }
                         subtitle = "and quickly review your documents in an easy way"
-                        media = {<img src = {SummSlide} alt=''/>}
+                        media = {<img src = {SummSlide} alt='' style = {{width: '90%', height: 'auto'}}/>}
                         mediaBackgroundStyle={{ backgroundColor: '#424242' }}
-                        style={{ backgroundColor: '#212121' }}
+                        style={{ backgroundColor: '#212121'}}
                     />
                     <Slide
                         title = {
@@ -135,16 +135,16 @@ export const Welcome = () => {
                             </Link>
                         }
                         subtitle = "documents by their names and authors"
-                        media = {<img src = {IRSlide} alt=''/>}
+                        media = {<img src = {IRSlide} alt='' style = {{width: '90%', height: 'auto'}}/>}
                         mediaBackgroundStyle={{ backgroundColor: '#424242'}}
-                        style={{ backgroundColor: '#212121' }}
+                        style={{ backgroundColor: '#212121'}}
                     />
                     <Slide
                         title = "Ask"
                         subtitle = "and you shall receive (the answer to your COVID-19 related queries)"
-                        media = {<img src = {QnaSlide} alt=''/>}
+                        media = {<img src = {QnaSlide} alt='' style = {{width: '90%', height: 'auto'}}/>}
                         mediaBackgroundStyle={{ backgroundColor: '#424242' }}
-                        style={{ backgroundColor: '#212121' }}
+                        style={{ backgroundColor: '#212121'}}
                     />
                     <Slide
                         title = {
@@ -153,9 +153,9 @@ export const Welcome = () => {
                             </Link>
                         }
                         subtitle = "and be on the safer side"
-                        media = {<img src = {AnomalySlide} alt=''/>}
+                        media = {<img src = {AnomalySlide} alt='' style = {{width: '90%', height: 'auto'}}/>}
                         mediaBackgroundStyle={{ backgroundColor: '#424242' }}
-                        style={{ backgroundColor: '#212121' }}
+                        style={{ backgroundColor: '#212121'}}
                     />
                 </AutoRotatingCarousel>
             </Hidden>
