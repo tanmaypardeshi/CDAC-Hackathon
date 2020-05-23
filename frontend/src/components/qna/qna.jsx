@@ -101,7 +101,7 @@ export const Qna = ({isOpen, handleOpen, handleClose}) => {
         <ThemeContextConsumer>
             {(themeContext) => (
                 <SwipeableDrawer
-                    classes = {{ paper: (themeContext.dark ? classes.drawerdark : classes.drawerlight)}}
+                    classes = {{ paper: (themeContext.dark && classes.drawerdark)}}
                     anchor = "right"
                     open = {isOpen}
                     onOpen = {handleOpen}
@@ -144,7 +144,7 @@ export const Qna = ({isOpen, handleOpen, handleClose}) => {
                             <ListItem>
                                 <ListItemText
                                     primary = {
-                                        <Alert variant="filled" severity="info" icon = {false} style = {{
+                                        <Alert variant={themeContext.dark ? "filled" : "standard"} severity="info" icon = {false} style = {{
                                             marginTop:'1vh',
                                             marginLeft: '5vh'
                                             }}>
@@ -168,7 +168,7 @@ export const Qna = ({isOpen, handleOpen, handleClose}) => {
                                     primary = "Answer"
                                     secondary = {
                                         <Alert 
-                                            variant="filled" 
+                                            variant={themeContext.dark ? "filled" : "standard"}
                                             severity="success" 
                                             icon = {false} 
                                             style = {{marginTop:'1vh', marginRight: '5vh'}}

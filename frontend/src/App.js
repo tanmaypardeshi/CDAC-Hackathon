@@ -15,6 +15,7 @@ import {Fab, makeStyles, Zoom, useScrollTrigger, Hidden, Collapse} from '@materi
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import PropTypes from 'prop-types';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {LastLocationProvider} from 'react-router-last-location';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,6 +43,7 @@ function App(props) {
 
   return (
     <BrowserRouter>
+    <LastLocationProvider>
       <div className="App" ref={topRef}> 
         <Navbar/>
         <Switch>
@@ -66,6 +68,7 @@ function App(props) {
           </Collapse>  
         </Hidden>
       </div>
+      </LastLocationProvider>
     </BrowserRouter>
   );
 }

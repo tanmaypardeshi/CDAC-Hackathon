@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { DropzoneArea } from 'material-ui-dropzone';
-import { makeStyles, Button, Snackbar, Typography, Step, Stepper, StepLabel, StepContent, Grid} from '@material-ui/core';
+import { makeStyles, Button, Snackbar, Typography, Step, Stepper, StepLabel, StepContent, Grid, Fade, Slide} from '@material-ui/core';
 import {Alert} from '@material-ui/lab';
 import { ThemeContextConsumer } from '../../context/themer';
 import SL from '../../images/SLn.svg';
@@ -11,6 +11,7 @@ import jwt_decode from 'jwt-decode';
 import {useHistory} from 'react-router-dom';
 import Tesseract from 'tesseract.js';
 import { getCookie } from '../../functions/cookiefns';
+import { useLastLocation } from 'react-router-last-location';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -103,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
   
   
   
-function VerticalLinearStepper() {
+function VLS() {
 
     const {enqueueSnackbar, closeSnackbar} = useSnackbar();
     
@@ -168,7 +169,7 @@ function VerticalLinearStepper() {
             enqueueSnackbar('Network Error, Please try again', {
                 variant: "error",
             })
-            console.log(err);
+            //console.log(err);
         });
     }
     
@@ -265,7 +266,7 @@ function VerticalLinearStepper() {
         //     console.log('odt');
         // }
         else {
-            console.log('img');
+            //console.log('img');
             setFileName(event[0].name);
             setAlertO(true);
             Tesseract.recognize(
@@ -370,10 +371,27 @@ function VerticalLinearStepper() {
   }
 
 export default function Summarizer(){
+    const lastLocation = JSON.parse(JSON.stringify(useLastLocation()));
     return(
-        <SnackbarProvider 
-            maxSnack = {1}>
-            <VerticalLinearStepper/>
+        <SnackbarProvider maxSnack = {1}>
+            {
+                (lastLocation === null)
+                ?
+                    <Fade in = {true}>
+                        <div><VLS/></div>
+                    </Fade>
+                :
+                    (lastLocation.pathname === '/anomalies')
+                    ?
+                        <Slide in = {true} direction = "right">
+                            <div><VLS/></div>
+                        </Slide>
+                    :
+                        <Slide in = {true} direction = "left">
+                            <div><VLS/></div>
+                        </Slide>
+            }
+            <VLS/>
         </SnackbarProvider>
     );
 }

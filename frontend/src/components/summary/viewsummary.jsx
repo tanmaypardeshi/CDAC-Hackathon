@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Typography, Grid } from '@material-ui/core';
+import { Container, Typography, Grid, Fade } from '@material-ui/core';
 import { ThemeContextConsumer } from '../../context/themer';
 import { Redirect } from 'react-router-dom';
 import { Page, Text, View, Document, StyleSheet, PDFDownloadLink } from '@react-pdf/renderer';
@@ -30,16 +30,13 @@ const MyDocument = () => (
 export default function ViewSummary() {
     
     var d = new Date();
-    // Number.prototype.padding = function(base, chr) {
-    //     var len = (String(base || 10).length - String(this).length) + 1; 
-    //     return len > 0 ? new Array(len).join(chr || '0') + this : this; 
-    // }
 
     return(
         typeof sessionStorage.summary !== 'undefined' ?
         <ThemeContextConsumer>
             {(themeContext) => (
-                <div style = {{
+                <Fade in = {true}>
+                    <div style = {{
                     minHeight: '100vh',
                     paddingTop: '5vh',
                     backgroundColor: themeContext.dark && '#212121',
@@ -78,6 +75,8 @@ export default function ViewSummary() {
                         <Typography variant = "body1" align='justify'>{sessionStorage.summary}</Typography>
                     </Container>
                 </div>
+                </Fade>
+                
             )}
         </ThemeContextConsumer> :
         <Redirect to = '/summarizer'/>

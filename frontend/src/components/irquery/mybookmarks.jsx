@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { Redirect} from 'react-router-dom';
 import axios from 'axios';
 import { ThemeContextConsumer } from '../../context/themer';
-import { Container } from '@material-ui/core';
+import { Container, Fade } from '@material-ui/core';
 import MaterialTable from 'material-table';
 import { getCookie } from '../../functions/cookiefns';
 
@@ -24,7 +24,7 @@ export default function MyBookmarks(){
         .then((response) => {
             setMyBookmarks(response.data.mysummaries)
         })
-        .catch((err) => console.log(err));
+        .catch((err) => window.alert(err));
     }
 
     useEffect(() => { 
@@ -36,7 +36,8 @@ export default function MyBookmarks(){
         getCookie("usertoken") !== '' ? 
         <ThemeContextConsumer>
             {(themeContext) => (
-                <div style = {{
+                <Fade in = {true}>
+                    <div style = {{
                     minHeight: "100vh",
                     backgroundColor: themeContext.dark ? '#212121' : "white",
                     color: themeContext.dark ? 'white' : 'black',
@@ -100,12 +101,13 @@ export default function MyBookmarks(){
                                             },
                                             url: "/api/remove_bookmark",
                                         }).then((response) => {
-                                            console.log(response);
+                                            //console.log(response);
+                                            newTable.splice(index,1);
+                                            setMyBookmarks(newTable);
                                         }).catch((err) => {
-                                            console.log(err);
+                                            //console.log(err);
+                                            window.alert(err);
                                         })
-                                        newTable.splice(index,1);
-                                        setMyBookmarks(newTable);
                                     }
                                 }
                             ]}
@@ -127,6 +129,8 @@ export default function MyBookmarks(){
                         />
                     </Container>
                 </div>
+                </Fade>
+                
             )}
         </ThemeContextConsumer>
         :

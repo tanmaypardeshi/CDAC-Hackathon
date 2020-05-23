@@ -2,11 +2,12 @@ import React, {useState, useRef} from 'react';
 import ird from '../../images/IRDn.svg'
 import irl from '../../images/IRLn.svg'
 import { ThemeContextConsumer } from '../../context/themer';
-import { makeStyles, Grid, Paper, InputBase, Divider, IconButton, Button, Menu, MenuItem,  Card, CardContent, CardActionArea, Typography, CardHeader } from '@material-ui/core';
+import { makeStyles, Grid, Paper, InputBase, Divider, IconButton, Button, Menu, MenuItem,  Card, CardContent, CardActionArea, Typography, CardHeader, Fade, Slide } from '@material-ui/core';
 import {ArrowDropDown, Search, Bookmark} from '@material-ui/icons';
 import axios from 'axios';
 import {SnackbarProvider, useSnackbar} from 'notistack';
 import { getCookie } from '../../functions/cookiefns';
+import { useLastLocation } from 'react-router-last-location';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -53,6 +54,10 @@ const useStyles = makeStyles((theme) => ({
             maxWidth: '80%'
         },
         maxHeight: 'auto',
+    },
+    menu: {
+        backgroundColor: '#424242',
+        color: 'white'
     }
   }));
 
@@ -144,9 +149,9 @@ function MyApp() {
                 },
                 url: "/api/bookmark",
             }).then((response) => {
-                console.log(response);
+                //console.log(response);
             }).catch((err) => {
-                console.log(err);
+                window.alert(err);
             })
         } else {
             axios({
@@ -164,9 +169,9 @@ function MyApp() {
                 },
                 url: "/api/remove_bookmark",
             }).then((response) => {
-                console.log(response);
+                //console.log(response);
             }).catch((err) => {
-                console.log(err);
+                window.alert(err);
             })
         }
 
@@ -221,11 +226,16 @@ function MyApp() {
                                 open={Boolean(anchorEl)}
                                 keepMounted
                                 onClose={handleClose}
+                                classes = {{paper: (themeContext.dark && classes.menu)}}
                             >
                                 <MenuItem 
                                     id = "filter" 
                                     value={1} 
                                     onClick = {(event) => {handleChange(event); handleClose()}}
+                                    style = {{
+                                        backgroundColor: (themeContext.dark && '#424242'),
+                                        color: (themeContext.dark && 'white' )   
+                                    }}
                                 >
                                     By Author
                                 </MenuItem>
@@ -233,6 +243,10 @@ function MyApp() {
                                     id = "filter" 
                                     value={2} 
                                     onClick = {(event) => {handleChange(event); handleClose()}}
+                                    style = {{
+                                        backgroundColor: (themeContext.dark && '#424242'),
+                                        color: (themeContext.dark && 'white' )   
+                                    }}
                                 >
                                     By Title
                                 </MenuItem>
@@ -316,8 +330,33 @@ function MyApp() {
 }
 
 export default function IRQuery(){
+    const lastLocation = JSON.parse(JSON.stringify(useLastLocation()));
     return(
         <SnackbarProvider maxSnack = {1}>
+            {
+                (lastLocation === null)
+                ?
+                    <Fade in = {true}>
+                        <div>
+                            <MyApp/>
+                        </div>
+                    </Fade>
+                :
+                    (lastLocation.pathname === '/')
+                    ?
+                        <Slide in = {true} direction = "left">
+                            <div>
+                                <MyApp/>
+                            </div>
+                        </Slide>
+                    :
+                        <Slide in = {true} direction = "right">
+                            <div>
+                                <MyApp/>
+                            </div>
+                        </Slide>
+
+            }
             <MyApp/>
         </SnackbarProvider>
     )

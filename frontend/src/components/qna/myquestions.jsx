@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { Redirect} from 'react-router-dom';
 import axios from 'axios';
 import { ThemeContextConsumer } from '../../context/themer';
-import { Container } from '@material-ui/core';
+import { Container, Fade } from '@material-ui/core';
 import MaterialTable from 'material-table';
 import { getCookie } from '../../functions/cookiefns';
 
@@ -23,10 +23,10 @@ export default function MyQuestions(){
             url: "/api/myqna",
         })
         .then((response) => {
-            console.log(response.data);
+            //console.log(response.data);
             setMyQs(response.data.mysummaries);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => window.alert(err));
     }
 
     useEffect(() => { 
@@ -38,11 +38,12 @@ export default function MyQuestions(){
         getCookie("usertoken") !== '' ? 
         <ThemeContextConsumer>
             {(themeContext) => (
-                <div style = {{
-                    minHeight: "100vh",
-                    backgroundColor: themeContext.dark ? '#212121' : "white",
-                    color: themeContext.dark ? 'white' : 'black',
-                }}>
+                <Fade in = {true}>
+                    <div style = {{
+                        minHeight: "100vh",
+                        backgroundColor: themeContext.dark ? '#212121' : "white",
+                        color: themeContext.dark ? 'white' : 'black',
+                    }}>
                     <Container style = {{paddingTop: "8vh"}}>
                         <h1 style = {{fontWeight: 300}}>QnA history</h1>
                         <MaterialTable
@@ -81,7 +82,7 @@ export default function MyQuestions(){
                                     onClick: (event, rowdata) => {
                                         let newTable = [...myQs];
                                         const index = newTable.indexOf(rowdata);
-                                        console.log(newTable[index].question);
+                                        //console.log(newTable[index].question);
                                         axios({
                                             method: "POST",
                                             headers: {
@@ -94,12 +95,13 @@ export default function MyQuestions(){
                                             },
                                             url: "/api/remove_qna",
                                         }).then((response) => {
-                                            console.log(response);
+                                            //console.log(response);  
+                                            newTable.splice(index,1);
+                                            setMyQs(newTable);
                                         }).catch((err) => {
-                                            console.log(err);
+                                            //console.log(err);
+                                            window.alert(err);
                                         })
-                                        newTable.splice(index,1);
-                                        setMyQs(newTable);
                                     }
                                 }
                             ]}
@@ -119,7 +121,9 @@ export default function MyQuestions(){
                             }}
                         />
                     </Container>
-                </div>
+                    </div>
+                </Fade>
+                
             )}
         </ThemeContextConsumer>
         :

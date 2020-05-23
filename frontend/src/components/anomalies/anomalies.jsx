@@ -27,8 +27,9 @@ import df2017 from '../../data/df2017.json';
 import configLight from '../../data/configLight.json';
 import configDark from '../../data/configDark.json';
 import { ThemeContextConsumer } from '../../context/themer';
-import { Fab, makeStyles, Menu, MenuItem } from '@material-ui/core';
+import { Fab, makeStyles, Menu, MenuItem, Fade, Slide, Tooltip } from '@material-ui/core';
 import { Today } from '@material-ui/icons';
+import { useLastLocation } from 'react-router-last-location';
 
 const datasets = [df2000, df2001, df2002, df2003, df2004, df2005, df2006, df2007, df2008, df2009, df2010, df2011, df2012, df2013, df2014, df2015, df2016, df2017];
 
@@ -47,12 +48,17 @@ const store = createStore(reducers, {}, applyMiddleware(taskMiddleware));
 const useStyles = makeStyles((theme) => ({
     root: {
         position: 'fixed',
-        bottom: theme.spacing(2),
-        right: theme.spacing(2),
+        top: theme.spacing(9),
+        left: theme.spacing(1),
+        borderRadius: 0,
         zIndex: 10
     },
     extendedIcon: {
         marginRight: theme.spacing(1)
+    },
+    menu: {
+        backgroundColor: '#212121',
+        color: 'white'
     }
 }))
 
@@ -85,24 +91,33 @@ export default function Anomalies(){
             {(themeContext) => ( 
             <Provider store = {store}>
                 <Map theme = {themeContext} year = {year}/>
-                <Fab 
-                    aria-label = 'year' 
-                    variant = 'extended' 
-                    className = {classes.root} 
-                    onClick = {handleClick}
-                    style = {{
-                    backgroundColor: themeContext.dark && '#212121',
-                    color: themeContext.dark && 'white'
-                }}>
-                    <Today className = {classes.extendedIcon} style = {{color: themeContext.dark && 'white'}}/>
-                    Year {year}
-                </Fab>
+                <Tooltip 
+                    title = {"Select Year"} 
+                    placement = "right" 
+                    arrow
+                >
+                    <Fab 
+                        aria-label = 'year' 
+                        variant = 'extended' 
+                        className = {classes.root} 
+                        onClick = {handleClick}
+                        size = "small"
+                        style = {{
+                            backgroundColor: (themeContext.dark ? '#29323c' : '#f7f7f7'),
+                            color: themeContext.dark && 'white',
+                            borderRadius: 0
+                    }}>
+                        <Today fontSize="small" style = {{color: themeContext.dark && 'white'}} className = {classes.extendedIcon}/>
+                        {year}
+                    </Fab>
+                </Tooltip>
                 <Menu
                     id = 'year-menu'
                     anchorEl = {anchorEl}
                     keepMounted
                     open = {Boolean(anchorEl)}
                     onClose = {handleClose}
+                    classes = {{paper: (themeContext.dark && classes.menu)}}
                 >
                 {
                     menuItems.map((menuItem, index) => (
@@ -110,6 +125,9 @@ export default function Anomalies(){
                             key = {menuItem} 
                             selected = {index === selectedIndex}
                             onClick = {(event) => {handleSelect(event, index, menuItem)}}
+                            style = {{
+                                backgroundColor: (themeContext.dark && '#212121'),
+                                color: (themeContext.dark && 'white')}}
                         >
                                 {menuItem}
                         </MenuItem>
@@ -124,6 +142,7 @@ export default function Anomalies(){
 
 function Map({theme, year}) {
     const dispatch = useDispatch();
+    const lastLocation = JSON.parse(JSON.stringify(useLastLocation()));
     //const data = df2000;
     useEffect(() => {
         dispatch(
@@ -147,13 +166,32 @@ function Map({theme, year}) {
     return(
         <ThemeContextConsumer>
             {(themeContext) => (
-                <KeplerGl 
-                    id="unnamed" 
-                    mapboxApiAccessToken = "pk.eyJ1IjoidWJlcmRhdGEiLCJhIjoiY2pza3FrOXh6MW05dTQzcWd1M3I3c2E0eCJ9.z0MFFrHYNbdK-QVHKrdepw" 
-                    width = {window.innerWidth} 
-                    height = {window.innerHeight}
-                    theme = {themeContext.dark ? null : 'light'}
-            />
+                (lastLocation === null)
+                ?
+                <Fade in = {true}>
+                    <div>
+                        <KeplerGl 
+                            id="unnamed" 
+                            mapboxApiAccessToken = "pk.eyJ1IjoidWJlcmRhdGEiLCJhIjoiY2pza3FrOXh6MW05dTQzcWd1M3I3c2E0eCJ9.z0MFFrHYNbdK-QVHKrdepw" 
+                            width = {((window.innerWidth < 992) ? window.innerWidth : (0.9890 * window.innerWidth))} 
+                            height = {window.innerHeight}
+                            theme = {themeContext.dark ? null : 'light'}
+                        />
+                    </div>
+                </Fade>
+                :
+                <Slide in = {true} direction = "left">
+                    <div>
+                        <KeplerGl 
+                            id="unnamed" 
+                            mapboxApiAccessToken = "pk.eyJ1IjoidWJlcmRhdGEiLCJhIjoiY2pza3FrOXh6MW05dTQzcWd1M3I3c2E0eCJ9.z0MFFrHYNbdK-QVHKrdepw" 
+                            width = {window.innerWidth} 
+                            height = {window.innerHeight}
+                            theme = {themeContext.dark ? null : 'light'}
+                        />
+                    </div>
+                </Slide>
+                
             )}
         </ThemeContextConsumer>
     ) 
