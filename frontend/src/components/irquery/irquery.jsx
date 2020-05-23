@@ -212,7 +212,7 @@ function MyApp() {
                                 endIcon = {<ArrowDropDown/>} 
                                 style = {{marginLeft: "1px", color: themeContext.dark ? 'white' : 'grey'}}
                             >
-                                {!search.filter ? 'Filter' : search.filter === 1 ? 'By name' : 'By author'}
+                                {!search.filter ? 'Filter' : search.filter === 1 ? 'By Author' : 'By Title'}
                             </Button>
 
                             <Menu
