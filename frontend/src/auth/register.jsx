@@ -26,7 +26,7 @@ export const Register = ({isOpen, handleClose}) => {
 	
 	const handleChange = (event) => {
         setValues({...values, [event.target.name]: event.target.value });
-
+        setErrors({...errors, registerErr: false});
         if(event.target.name === 'name'){
             setErrors({...errors, nameErr: (event.target.value === '')});
         }
