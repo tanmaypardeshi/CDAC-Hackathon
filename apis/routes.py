@@ -30,7 +30,7 @@ def register():
     if not profession:
         return jsonify({'error': 'Missing profession'}), 400
 
-    if User.query.filter_by(email=email).first() != email or User.query.filter_by(email=email).first() is None:
+    try:
         user = User(email=email, name=name, profession=profession, password=password)
         db.session.add(user)
         db.session.commit()
@@ -42,7 +42,7 @@ def register():
             'profession': profession,
         }
         return jsonify({'data': data}), 200
-    else:
+    except:
         return jsonify({'error': 'User already exists'}), 401
 
 
@@ -285,21 +285,10 @@ def qna():
        'paragraph': answer[2]
     }
     qa = Qna(question=question, title=answer[1], answer=answer[0], paragraph=answer[2], user_email=current_user['email'])
-    # answer = get_answer(question)
-    # qa = Qna(question=question, title=answer['title'], answer=answer['answer'], paragraph=answer['paragraph'], user_email=current_user['email'])
     db.session.add(qa)
     db.session.commit()
     return jsonify({'data': data}), 200
     
-
-def get_answer(question):
-    answer = {
-        'title': 'This is the title of the answer',
-        'answer': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam',
-        'paragraph': 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,'
-    }
-    return answer
-
 
 
 @app.route("/api/myqna", methods=['GET'])
