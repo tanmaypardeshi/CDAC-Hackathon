@@ -28,7 +28,7 @@ glove
 data/*.csv
 data/*.json
 data/*.joblib
-data/keywords_list_legit.txt
+data/keywords.txt
 frontend/node_modules
 venv
 
