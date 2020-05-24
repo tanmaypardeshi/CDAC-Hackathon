@@ -116,6 +116,7 @@ function VLS() {
     const [disableCancel, setDisableCancel] = useState(false);
 
     // file status
+    const [file, setFile] = useState();
     const [fileName, setFileName] = useState('');
     const [preSummary, setPreSummary] = useState('');
 
@@ -125,52 +126,86 @@ function VLS() {
     const [statusO, setStatusO] = useState('');
 
     const handleSubmit = () => {
+        const filetype = filename.slice((filename.lastIndexOf(".") - 1 >>> 0) + 2);
         setDisableCancel(true);
         const cookie = getCookie("usertoken")
         const uploadkey = enqueueSnackbar('Uploading...', {
             variant: 'info',
             persist: true
         })
-        axios({
-            method: "POST",
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Content-Type" : "application/json",
-                "Authorization": `Bearer ${cookie}`
-            },
-            data: {
-                "title": fileName,
-                "content": preSummary,
-                "email": cookie !== '' ? jwt_decode(cookie).identity.email : '',
-            },
-            url: "/api/summarise",
-            onUploadProgress: (ev) => {
-                const progress = Math.round(ev.loaded / ev.total * 100);
-                if(progress === 100) {
-                    closeSnackbar(uploadkey);
-                    enqueueSnackbar('Summarizing...', {
-                        variant: "info",
-                        persist: true,
-                    })
+        if(filetype === 'docx'){
+            const data = new FormData();
+            data.append('file', file);
+            data.append('filename', fileName);
+            axios({
+                method: 'POST',
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Content-Type" : "multipart/form-data",
+                    "Authorization": `Bearer ${cookie}`
+                },
+                data: data,
+                url: '/api/upload'
+            })
+            .then((response) => {
+                sessionStorage.setItem('summary', response.data.data);
+                closeSnackbar();
+                enqueueSnackbar('Summarization successful', {
+                    persist: false,
+                    variant: "success",
+                })
+                setActiveStep(2);
+            })
+            .catch((err) => {
+                window.alert(err);
+                closeSnackbar();
+                enqueueSnackbar('Network Error, refresh and try again!', {
+                    variant: "error",
+                })
+            })
+        } else {
+            axios({
+                method: "POST",
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Content-Type" : "application/json",
+                    "Authorization": `Bearer ${cookie}`
+                },
+                data: {
+                    "title": fileName,
+                    "content": preSummary,
+                    "email": cookie !== '' ? jwt_decode(cookie).identity.email : '',
+                },
+                url: "/api/summarise",
+                onUploadProgress: (ev) => {
+                    const progress = Math.round(ev.loaded / ev.total * 100);
+                    if(progress === 100) {
+                        closeSnackbar(uploadkey);
+                        enqueueSnackbar('Summarizing...', {
+                            variant: "info",
+                            persist: true,
+                        })
+                    }
                 }
-            }
-        })
-        .then((response) => {
-            sessionStorage.setItem('summary', response.data.data);
-            closeSnackbar();
-            enqueueSnackbar('Summarization successful', {
-                persist: false,
-                variant: "success",
             })
-            setActiveStep(2);
-        })
-        .catch((err) => {
-            closeSnackbar();
-            enqueueSnackbar('Network Error, Please try again', {
-                variant: "error",
+            .then((response) => {
+                sessionStorage.setItem('summary', response.data.data);
+                closeSnackbar();
+                enqueueSnackbar('Summarization successful', {
+                    persist: false,
+                    variant: "success",
+                })
+                setActiveStep(2);
             })
-            //console.log(err);
-        });
+            .catch((err) => {
+                closeSnackbar();
+                enqueueSnackbar('Network Error, Please try again', {
+                    variant: "error",
+                })
+                //console.log(err);
+            });
+        }
+        
     }
     
     const handleReset = () => {
@@ -209,7 +244,7 @@ function VLS() {
     function getStepContent(step) {
         switch (step) {
             case 0:
-            return `Select a text file or an image`;
+            return `Select a text file, docx file or an image`;
             case 1:
             return (
                 <>
@@ -234,7 +269,8 @@ function VLS() {
   
 
     const handleChange = (event) => {
-        const filetype = event[0].name.split('.').pop();
+        const filename = event[0].name;
+        const filetype = filename.slice((filename.lastIndexOf(".") - 1 >>> 0) + 2);
 
         if(filetype === 'txt'){
             var fileToLoad = event[0];
@@ -256,16 +292,15 @@ function VLS() {
                 variant: 'success'
             })
         }
-        // else if(filetype === 'pdf'){
-        //     console.log('pdf')
-        // }
-        // else if(filetype === 'doc' || filetype === 'docx'){
-        //     console.log('doc');
-        // }
-        // else if(filetype === 'odt'){
-        //     console.log('odt');
-        // }
-        else {
+        else if(filetype === 'docx'){
+            setFile(event[0]);
+            setFileName(event[0].name);
+            setActiveStep(1);
+            enqueueSnackbar('File added!', {
+                variant: 'success'
+            })
+        }
+        else if(filetype === 'png' || filetype === 'jpg' || filetype === 'bmp' || filetype === 'jpeg'){
             //console.log('img');
             setFileName(event[0].name);
             setAlertO(true);
@@ -286,6 +321,9 @@ function VLS() {
                     variant: "success",
                 });
             })
+        }
+        else {
+            window.alert('INVALID FILE TYPE .' + filetype + ' selected! See select file dialog for supported types!')
         }
     }
   
