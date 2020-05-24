@@ -2,6 +2,7 @@ from apis import app, bcrypt, db
 from flask import jsonify, request
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, jwt_optional
 import joblib
+import os
 
 from .models import User, Summary, IRQuery, Qna
 
@@ -10,7 +11,7 @@ from ir_title import get_info_title
 from summariser import create_summary
 from news import get_news, cosine_sim, generate_embeddings, embeddings
 
-UPLOAD_FOLDER = '/home/tanmay/Code/Flask/CDAC-Hackathon'
+UPLOAD_FOLDER = '/home/tanmay/clasp'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
@@ -129,17 +130,19 @@ def uploadfile():
     filename = secure_filename(file.filename)
     destination='/'.join([target, filename])
     if destination[-4:] != 'docx':
+		os.remove(target + '/' + filename)
         return jsonify({'error': '.docx file required!'}), 400
     file.save(destination)
     content = docx2txt.process(target + '/' + filename)
     new_content = create_summary(content)
-    os.remove(target + '/' + filename)
+    current_user = get_jwt_identity()
     try:
         summary = Summary(title=title, summary=new_content, user_email=current_user['email'])
         db.session.add(summary)
         db.session.commit()
     except TypeError:
         pass
+	os.remove(target + '/' + filename)    
     return jsonify({'data': new_content}), 200
 
 
@@ -151,7 +154,13 @@ def summarise():
     content = post_data['content']
     new_content = create_summary(content)
     current_user = get_jwt_identity()
-    
+    try:
+        summary = Summary(title=title, summary=new_content, user_email=current_user['email'])
+        db.session.add(summary)
+        db.session.commit()
+    except TypeError:
+        pass
+	  return jsonify({'data': new_content}), 200
 
 
 @app.route("/api/mysummaries", methods=['GET'])
