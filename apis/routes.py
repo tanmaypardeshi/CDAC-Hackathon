@@ -14,10 +14,8 @@ from news import get_news, cosine_sim, generate_embeddings, embeddings
 UPLOAD_FOLDER = '/home/tanmay/clasp'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-
 word_embeddings = embeddings()
 model = joblib.load('data/qna.joblib')
-
 
 
 @app.route("/api/register", methods=['POST'])
@@ -119,18 +117,17 @@ def postnews():
     return jsonify({'data': info}), 200
 
 
-
 @app.route("/api/upload", methods=['POST'])
 @jwt_optional
 def uploadfile():
-    target=os.path.join(UPLOAD_FOLDER,'folder')
+    target = os.path.join(UPLOAD_FOLDER, 'folder')
     if not os.path.isdir(target):
         os.mkdir(target)
-    file = request.files['file'] 
+    file = request.files['file']
     filename = secure_filename(file.filename)
-    destination='/'.join([target, filename])
+    destination = '/'.join([target, filename])
     if destination[-4:] != 'docx':
-		os.remove(target + '/' + filename)
+        os.remove(target + '/' + filename)
         return jsonify({'error': '.docx file required!'}), 400
     file.save(destination)
     content = docx2txt.process(target + '/' + filename)
@@ -142,7 +139,7 @@ def uploadfile():
         db.session.commit()
     except TypeError:
         pass
-	os.remove(target + '/' + filename)    
+        os.remove(target + '/' + filename)
     return jsonify({'data': new_content}), 200
 
 
@@ -160,7 +157,7 @@ def summarise():
         db.session.commit()
     except TypeError:
         pass
-	  return jsonify({'data': new_content}), 200
+        return jsonify({'data': new_content}), 200
 
 
 @app.route("/api/mysummaries", methods=['GET'])
@@ -205,39 +202,39 @@ def info_retrieval():
         current_user = get_jwt_identity()
         email = current_user['email']
     except TypeError:
-        pass
+        email = None
     if filtertype == 'Name':
         new_content = get_info_title(query)
-        info = retrieve(new_content)
+        info = retrieve(new_content, email)
         return jsonify({'data': info}), 200
 
     new_content = get_info_author(query)
-    info = retrieve(new_content)ss
+    info = retrieve(new_content, email)
     return jsonify({'data': info}), 200
-    
 
-def retrieve(new_content):
-	l = []
-	info = []
-	objects = {}
-	l = new_content.index.values
-	for i in range(20):
-		objects['is_bookmarked'] = False
-		objects['title'] = new_content['Title'][l[i]]
-		try:
-			try:
-				if objects['title'] == IRQuery.query.filter_by(title=objects['title'],user_email=email).first().title:
-					objects['is_bookmarked'] = True
-			except AttributeError:
-				objects['is_bookmarked'] = False
-		except UnboundLocalError:
-			objects['is_bookmarked'] = False
-		objects['content'] = new_content['Abstract'][l[i]]
-		objects['author_name'] = new_content['Authors'][l[i]]
-		objects['link'] = new_content['URL'][l[i]]
-		info.append(objects)
-		objects = {}
-	return info        
+
+def retrieve(new_content, email):
+    l = []
+    info = []
+    objects = {}
+    l = new_content.index.values
+    for i in range(20):
+        objects['is_bookmarked'] = False
+        objects['title'] = new_content['Title'][l[i]]
+        try:
+            try:
+                if objects['title'] == IRQuery.query.filter_by(title=objects['title'], user_email=email).first().title:
+                    objects['is_bookmarked'] = True
+            except AttributeError:
+                objects['is_bookmarked'] = False
+        except UnboundLocalError:
+            objects['is_bookmarked'] = False
+        objects['content'] = new_content['Abstract'][l[i]]
+        objects['author_name'] = new_content['Authors'][l[i]]
+        objects['link'] = new_content['URL'][l[i]]
+        info.append(objects)
+        objects = {}
+    return info
 
 
 @app.route("/api/bookmark", methods=['POST'])
@@ -294,19 +291,19 @@ def myqueries():
 def qna():
     post_data = request.get_json()
     current_user = get_jwt_identity()
-    question = post_data['question']    
+    question = post_data['question']
     answer = model.predict(question)
     data = {
-       'question': question,
-       'title': answer[1],
-       'answer': answer[0],
-       'paragraph': answer[2]
+        'question': question,
+        'title': answer[1],
+        'answer': answer[0],
+        'paragraph': answer[2]
     }
-    qa = Qna(question=question, title=answer[1], answer=answer[0], paragraph=answer[2], user_email=current_user['email'])
+    qa = Qna(question=question, title=answer[1], answer=answer[0], paragraph=answer[2],
+             user_email=current_user['email'])
     db.session.add(qa)
     db.session.commit()
     return jsonify({'data': data}), 200
-    
 
 
 @app.route("/api/myqna", methods=['GET'])
@@ -314,7 +311,7 @@ def qna():
 def myqna():
     current_user = get_jwt_identity()
     email = current_user['email']
-    qnas= Qna.query.filter_by(user_email=email).all()
+    qnas = Qna.query.filter_by(user_email=email).all()
     myqnas = []
     objects = {}
     for qna in qnas:
