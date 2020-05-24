@@ -145,7 +145,17 @@ function VLS() {
                     "Authorization": `Bearer ${cookie}`
                 },
                 data: data,
-                url: '/api/upload'
+                url: '/api/upload',
+                onUploadProgress: (ev) => {
+                    const progress = Math.round(ev.loaded / ev.total * 100);
+                    if(progress === 100) {
+                        closeSnackbar(uploadkey);
+                        enqueueSnackbar('Summarizing...', {
+                            variant: "info",
+                            persist: true,
+                        })
+                    }
+                }
             })
             .then((response) => {
                 sessionStorage.setItem('summary', response.data.data);
