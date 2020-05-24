@@ -3,7 +3,8 @@ from flask import jsonify, request
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, jwt_optional
 import joblib
 import os
-
+from wekzerg.utils import select_filename
+import docx2txt
 from .models import User, Summary, IRQuery, Qna
 
 from ir_author import get_info_author
