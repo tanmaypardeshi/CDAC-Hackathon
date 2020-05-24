@@ -3,7 +3,7 @@ from flask import jsonify, request
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, jwt_optional
 import joblib
 import os
-from wekzerg.utils import select_filename
+from werkzeug.utils import select_filename
 import docx2txt
 from .models import User, Summary, IRQuery, Qna
 
@@ -135,7 +135,7 @@ def uploadfile():
     new_content = create_summary(content)
     current_user = get_jwt_identity()
     try:
-        summary = Summary(title=title, summary=new_content, user_email=current_user['email'])
+        summary = Summary(title=filename, summary=new_content, user_email=current_user['email'])
         db.session.add(summary)
         db.session.commit()
     except TypeError:
@@ -221,7 +221,7 @@ def retrieve(new_content, email):
     l = new_content.index.values
     for i in range(20):
         objects['is_bookmarked'] = False
-        objects['title'] = new_content['Title'][l[i]]
+        objects['title'] = new_content['title'][l[i]]
         try:
             try:
                 if objects['title'] == IRQuery.query.filter_by(title=objects['title'], user_email=email).first().title:
@@ -230,9 +230,9 @@ def retrieve(new_content, email):
                 objects['is_bookmarked'] = False
         except UnboundLocalError:
             objects['is_bookmarked'] = False
-        objects['content'] = new_content['Abstract'][l[i]]
-        objects['author_name'] = new_content['Authors'][l[i]]
-        objects['link'] = new_content['URL'][l[i]]
+        objects['content'] = new_content['abstract'][l[i]]
+        objects['author_name'] = new_content['authors'][l[i]]
+        objects['link'] = new_content['url'][l[i]]
         info.append(objects)
         objects = {}
     return info
