@@ -10,7 +10,7 @@ from ir_title import get_info_title
 from summariser import create_summary
 from news import get_news, cosine_sim, generate_embeddings, embeddings
 
-UPLOAD_FOLDER = '/home/tanmay/Code/Flask/React-Flask'
+UPLOAD_FOLDER = '/home/tanmay/Code/Flask/CDAC-Hackathon'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
