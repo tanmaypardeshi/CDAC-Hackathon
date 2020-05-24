@@ -139,7 +139,7 @@ def uploadfile():
         db.session.commit()
     except TypeError:
         pass
-        os.remove(target + '/' + filename)
+	os.remove(target + '/' + filename)
     return jsonify({'data': new_content}), 200
 
 
@@ -157,7 +157,7 @@ def summarise():
         db.session.commit()
     except TypeError:
         pass
-        return jsonify({'data': new_content}), 200
+    return jsonify({'data': new_content}), 200
 
 
 @app.route("/api/mysummaries", methods=['GET'])
