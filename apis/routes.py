@@ -13,6 +13,30 @@ from news import get_news, cosine_sim, generate_embeddings, embeddings
 word_embeddings = embeddings()
 model = joblib.load('data/qna.joblib')
 
+UPLOAD_FOLDER = '/home/tanmay/Code/Flask/React-Flask'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
+@app.route("/api/upload", methods=['POST'])
+@jwt_optional
+@cross_origin()
+def uploadfile():
+    target=os.path.join(UPLOAD_FOLDER,'folder')
+    if not os.path.isdir(target):
+        os.mkdir(target)
+    file = request.files['file'] 
+    filename = secure_filename(file.filename)
+    destination="/".join([target, filename])
+    if destination[-4:] != 'docx':
+        return jsonify({'error': '.docx file required!'}), 400
+    file.save(destination)
+    print(destination)
+    content = docx2txt.process(target + '\\' + filename)
+    print(content)
+    new_content = create_summary(content)
+    #os.rmdir(target)
+    return jsonify({'data': new_content}), 200
+
 
 @app.route("/api/register", methods=['POST'])
 def register():
@@ -111,6 +135,32 @@ def postnews():
         info.append(objects)
         objects = {}
     return jsonify({'data': info}), 200
+
+
+
+@app.route("/api/upload", methods=['POST'])
+@jwt_optional
+@cross_origin()
+def uploadfile():
+    target=os.path.join(UPLOAD_FOLDER,'folder')
+    if not os.path.isdir(target):
+        os.mkdir(target)
+    file = request.files['file'] 
+    filename = secure_filename(file.filename)
+    destination="/".join([target, filename])
+    if destination[-4:] != 'docx':
+        return jsonify({'error': '.docx file required!'}), 400
+    file.save(destination)
+    content = docx2txt.process(target + '\\' + filename)
+    new_content = create_summary(content)
+    current_user = get_jwt_identity()
+    try:
+        summary = Summary(title=title, summary=new_content, user_email=current_user['email'])
+        db.session.add(summary)
+        db.session.commit()
+    except TypeError:
+        pass
+    return jsonify({'data': new_content}), 200
 
 
 @app.route("/api/summarise", methods=['POST'])
