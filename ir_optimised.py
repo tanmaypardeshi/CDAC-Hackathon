@@ -50,7 +50,7 @@ def get_info(query):
     sent1=pre_processing(str(query))
     score_title=[]
     score_keywords=[]
-    with open("keywords_list_legit.txt", "rb") as fp:
+    with open('data/keywords.txt', "rb") as fp:
         keywords_list = pickle.load(fp)
     for i in range(0,len(data)):
         ratios=process.extract(sent1,keywords_list[i])
