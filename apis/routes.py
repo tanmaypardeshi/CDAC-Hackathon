@@ -10,32 +10,13 @@ from ir_title import get_info_title
 from summariser import create_summary
 from news import get_news, cosine_sim, generate_embeddings, embeddings
 
-word_embeddings = embeddings()
-model = joblib.load('data/qna.joblib')
-
 UPLOAD_FOLDER = '/home/tanmay/Code/Flask/React-Flask'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
-@app.route("/api/upload", methods=['POST'])
-@jwt_optional
-@cross_origin()
-def uploadfile():
-    target=os.path.join(UPLOAD_FOLDER,'folder')
-    if not os.path.isdir(target):
-        os.mkdir(target)
-    file = request.files['file'] 
-    filename = secure_filename(file.filename)
-    destination="/".join([target, filename])
-    if destination[-4:] != 'docx':
-        return jsonify({'error': '.docx file required!'}), 400
-    file.save(destination)
-    print(destination)
-    content = docx2txt.process(target + '\\' + filename)
-    print(content)
-    new_content = create_summary(content)
-    #os.rmdir(target)
-    return jsonify({'data': new_content}), 200
+word_embeddings = embeddings()
+model = joblib.load('data/qna.joblib')
+
 
 
 @app.route("/api/register", methods=['POST'])
@@ -140,20 +121,19 @@ def postnews():
 
 @app.route("/api/upload", methods=['POST'])
 @jwt_optional
-@cross_origin()
 def uploadfile():
     target=os.path.join(UPLOAD_FOLDER,'folder')
     if not os.path.isdir(target):
         os.mkdir(target)
     file = request.files['file'] 
     filename = secure_filename(file.filename)
-    destination="/".join([target, filename])
+    destination='/'.join([target, filename])
     if destination[-4:] != 'docx':
         return jsonify({'error': '.docx file required!'}), 400
     file.save(destination)
-    content = docx2txt.process(target + '\\' + filename)
+    content = docx2txt.process(target + '/' + filename)
     new_content = create_summary(content)
-    current_user = get_jwt_identity()
+    os.remove(target + '/' + filename)
     try:
         summary = Summary(title=title, summary=new_content, user_email=current_user['email'])
         db.session.add(summary)
@@ -171,13 +151,7 @@ def summarise():
     content = post_data['content']
     new_content = create_summary(content)
     current_user = get_jwt_identity()
-    try:
-        summary = Summary(title=title, summary=new_content, user_email=current_user['email'])
-        db.session.add(summary)
-        db.session.commit()
-    except TypeError:
-        pass
-    return jsonify({'data': new_content}), 200
+    
 
 
 @app.route("/api/mysummaries", methods=['GET'])
@@ -225,51 +199,36 @@ def info_retrieval():
         pass
     if filtertype == 'Name':
         new_content = get_info_title(query)
-        l = []
-        info = []
-        objects = {}
-        l = new_content.index.values
-        for i in range(20):
-            objects['is_bookmarked'] = False
-            objects['title'] = new_content['Title'][l[i]]
-            try:
-                try:
-                    if objects['title'] == IRQuery.query.filter_by(title=objects['title'],
-                                                                   user_email=email).first().title:
-                        objects['is_bookmarked'] = True
-                except AttributeError:
-                    objects['is_bookmarked'] = False
-            except UnboundLocalError:
-                objects['is_bookmarked'] = False
-            objects['content'] = new_content['Abstract'][l[i]]
-            objects['author_name'] = new_content['Authors'][l[i]]
-            objects['link'] = new_content['URL'][l[i]]
-            info.append(objects)
-            objects = {}
+        info = retrieve(new_content)
         return jsonify({'data': info}), 200
 
     new_content = get_info_author(query)
-    l = []
-    info = []
-    objects = {}
-    l = new_content.index.values
-    for i in range(20):
-        objects['is_bookmarked'] = False
-        objects['title'] = new_content['title'][l[i]]
-        try:
-            try:
-                if objects['title'] == IRQuery.query.filter_by(title=objects['title'], user_email=email).first().title:
-                    objects['is_bookmarked'] = True
-            except AttributeError:
-                objects['is_bookmarked'] = False
-        except UnboundLocalError:
-            objects['is_bookmarked'] = False
-        objects['content'] = new_content['abstract'][l[i]]
-        objects['author_name'] = new_content['authors'][l[i]]
-        objects['link'] = new_content['url'][l[i]]
-        info.append(objects)
-        objects = {}
+    info = retrieve(new_content)ss
     return jsonify({'data': info}), 200
+    
+
+def retrieve(new_content):
+	l = []
+	info = []
+	objects = {}
+	l = new_content.index.values
+	for i in range(20):
+		objects['is_bookmarked'] = False
+		objects['title'] = new_content['Title'][l[i]]
+		try:
+			try:
+				if objects['title'] == IRQuery.query.filter_by(title=objects['title'],user_email=email).first().title:
+					objects['is_bookmarked'] = True
+			except AttributeError:
+				objects['is_bookmarked'] = False
+		except UnboundLocalError:
+			objects['is_bookmarked'] = False
+		objects['content'] = new_content['Abstract'][l[i]]
+		objects['author_name'] = new_content['Authors'][l[i]]
+		objects['link'] = new_content['URL'][l[i]]
+		info.append(objects)
+		objects = {}
+	return info        
 
 
 @app.route("/api/bookmark", methods=['POST'])
