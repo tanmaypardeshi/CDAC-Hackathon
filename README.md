@@ -6,7 +6,9 @@
 
 #### [Click here to open the text file used in the video recording](https://github.com/tanmaypardeshi/CDAC-Hackathon/tree/master/data)
 
-#### [Click here to access the videos](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/videos)
+#### [Click here to access the videos on GitHub](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/videos)
+
+#### [Click here to access the videos on Drive](https://drive.google.com/drive/folders/1nMDkKyIlEd9SZvwNEFZbRkCzKgbOo8aW?usp=sharing)
 
 #### [Click here for the PPT for round 1](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/PPT%20Round%201.pdf)
 
