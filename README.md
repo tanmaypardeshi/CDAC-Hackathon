@@ -10,7 +10,6 @@
 
 #### [Click here for the PPT for round 1](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/PPT%20Round%201.pdf)
 
-
 #### [Click here for the PPT for round 2](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/PPT%20Round%202.pdf)
 
 #### [Click here for the final documentation of round 2](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Documentation%20Round%202.pdf)
@@ -109,7 +108,7 @@ extractive text summarization, a pretrained BERT model is used.
     <img src="screenshots/2.png" alt="2.png" width="700" height="400">
 </p>
 
-## News
+* ### News
 
 <p float="left">
     <img src="screenshots/3.png" alt="3.png" width="700" height="400">
@@ -117,7 +116,7 @@ extractive text summarization, a pretrained BERT model is used.
 </p>
 
 
-## Login and Signup
+* ### Login and Signup
 
 <p float="left">
     <img src="screenshots/5.png" alt="5.png" width="700" height="400">
