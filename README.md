@@ -4,11 +4,16 @@
 #### [Use this link to access the google drive which contains our dataset,word embeddings, PPT for the project and the sample videos](https://drive.google.com/drive/folders/1nKAo8oWqPuq39ky15duuhpt3sWEhyV-7)
 
 
-#### [Click here to open the text file used in the video recording](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/data/Crystallization%20and%20preliminary%20crystallographic%20study%20of%20Feline%20infectious%20peritonitis%20virus%20main%20protease%20in%20complex%20with%20an%20inhibitor.txt)
+#### [Click here to open the text file used in the video recording](https://github.com/tanmaypardeshi/CDAC-Hackathon/tree/master/data)
 
 #### [Click here to access the videos](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/videos)
 
-#### [Click here for the PPT](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/PPT%20Round%201.pdf)
+#### [Click here for the PPT for round 1](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/PPT%20Round%201.pdf)
+
+
+#### [Click here for the PPT for round 2](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/PPT%20Round%202.pdf)
+
+#### [Click here for the final documentation of round 2](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Documentation%20Round%202.pdf)
 
 ### Steps to run the project:
 
@@ -37,19 +42,19 @@
 
 **1. [glove:](https://drive.google.com/drive/folders/1nKAo8oWqPuq39ky15duuhpt3sWEhyV-7)** Embeddings used to perform text summarization and information retrieval for Real Time Research News.
 
-**2. [summariser.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Code/summariser.py)** Makes use of the TextRank algorithm to summarize the input Biomedical Text.
+**2. [summariser.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/summariser.py)** Makes use of the TextRank algorithm to summarize the input Biomedical Text.
 
-**3. [ir_author.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Code/ir_author.py)** Makes use of levenshtein distance to generate a similarity score between the author based query and documents
+**3. [ir_author.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/ir_author.py)** Makes use of levenshtein distance to generate a similarity score between the author based query and documents
 
-**4. [ir_title.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Code/ir_title.py)** Makes use of levenshtein distance and keyword indexing to generate a similarity score between the title based query and documents
+**4. [ir_title.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/ir_title.py)** Makes use of levenshtein distance and keyword indexing to generate a similarity score between the title based query and documents
 
-**5. [ir_optimised.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Code/ir_optimised.py)** Makes use of levenshtein distance and keyword indexing along with a keywords pickle file  to generate a similarity score between the author based query and documents
+**5. [ir_optimised.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/ir_optimised.py)** Makes use of levenshtein distance and keyword indexing along with a keywords pickle file  to generate a similarity score between the author based query and documents
 
-**6. [news.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Code/news.py)** Makes use of scraping techniques to retrieve unstructured COVID-19 research news from the internet and makes use of info retrieval to display relevant results on the basis of a query.
+**6. [news.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/news.py)** Makes use of scraping techniques to retrieve unstructured COVID-19 research news from the internet and makes use of info retrieval to display relevant results on the basis of a query.
 
-**7. [Q&A_CDQA_Finetuning.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Code/Q&A_CDQA_Finetuning.py)** The script written to fine-tune BERT with respect to a subset of CORD-19 dataset
+**7. [Q&A_CDQA_Finetuning.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Q&A_CDQA_Finetuning.py)** The script written to fine-tune BERT with respect to a subset of CORD-19 dataset
 
-**8. [Anomaly_detection.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Code/Anomaly_detection.py)** The script written to fine-tune BERT with respect to a subset of CORD-19 dataset
+**8. [Anomaly_detection.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Anomaly_detection.py)** The script written to fine-tune BERT with respect to a subset of CORD-19 dataset
 
 **9 [qna.joblib](https://drive.google.com/drive/folders/1MAMWa5IZ9z2k_u2SpYXrVHLCoT5EMy3J)** Trained model which predicts answers on the basis of the question query
 
@@ -122,9 +127,10 @@ extractive text summarization, a pretrained BERT model is used.
 * ### Summarization and My Summaries
 
 <p float="left">
-    <img src="screenshots/5.png" alt="701.png" width="700" height="400">
-    <img src="screenshots/6.png" alt="702.png" width="700" height="400">
-    <img src="screenshots/7.png" alt="702.png" width="700" height="400">
+    <img src="screenshots/10.png" alt="10.png" width="700" height="400">
+    <img src="screenshots/11.png" alt="11.png" width="700" height="400">
+    <img src="screenshots/16.png" alt="16.png" width="700" height="400">
+    <img src="screenshots/14.png" alt="14.png" width="700" height="400">
 </p>
 
 * ### Information Retrieval and My Bookmarks
@@ -133,13 +139,20 @@ extractive text summarization, a pretrained BERT model is used.
     <img src="screenshots/8.png" alt="8.png" width="700" height="400">
     <img src="screenshots/9.png" alt="9.png" width="700" height="400">
     <img src="screenshots/7.png" alt="7.png" width="700" height="400">
-    <img src="screenshots/15.png" alt="15.png" width="700" height="400">
+    <img src="screenshots/11.png" alt="11.png" width="700" height="400">
 </p>
 
-* ### Information Retrieval by Author Name
+* ### Q & A and My Questions
 
 <p float="left">
-    <img src="screenshots/10.png" alt="701.png" width="700" height="400">
-    <img src="screenshots/11.png" alt="702.png" width="700" height="400">
+    <img src="screenshots/19.png" alt="19.png" width="700" height="400">
+    <img src="screenshots/20.png" alt="20.png" width="700" height="400">
+    <img src="screenshots/13.png" alt="13.png" width="700" height="400">
 </p>
 
+* ### Anomaly Detection Map
+
+<p float="left">
+    <img src="screenshots/17.png" alt="17.png" width="700" height="400">
+    <img src="screenshots/18.png" alt="18.png" width="700" height="400">
+</p>
