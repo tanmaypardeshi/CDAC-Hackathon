@@ -56,9 +56,9 @@
 
 **8. [Anomaly_detection.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Anomaly_detection.py)** The script written to fine-tune BERT with respect to a subset of CORD-19 dataset
 
-**9 [qna.joblib](https://drive.google.com/drive/folders/1MAMWa5IZ9z2k_u2SpYXrVHLCoT5EMy3J)** Trained model which predicts answers on the basis of the question query
+**9. [qna.joblib](https://drive.google.com/drive/folders/1MAMWa5IZ9z2k_u2SpYXrVHLCoT5EMy3J)** Trained model which predicts answers on the basis of the question query
 
-**10 [ir_old.csv](https://drive.google.com/drive/folders/1MAMWa5IZ9z2k_u2SpYXrVHLCoT5EMy3J)** Dataset created by using CORD-19 data for Information Retrieval
+**10. [ir_old.csv](https://drive.google.com/drive/folders/1MAMWa5IZ9z2k_u2SpYXrVHLCoT5EMy3J)** Dataset created by using CORD-19 data for Information Retrieval
 
 
 ### Research papers referred while working for the project:
