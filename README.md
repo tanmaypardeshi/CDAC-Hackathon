@@ -35,41 +35,28 @@
 ### Documentation about the files in the repository
 #### (Click on the links to open the folder)
 
-**1. [Covid_Data.json:](https://drive.google.com/drive/folders/1nKAo8oWqPuq39ky15duuhpt3sWEhyV-7)** Dataset in the json format.<br> 
+**1. [glove:](https://drive.google.com/drive/folders/1nKAo8oWqPuq39ky15duuhpt3sWEhyV-7)** Embeddings used to perform text summarization and information retrieval for Real Time Research News.
 
-Follow the following steps to open the file:
+**2. [summariser.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Code/summariser.py)** Makes use of the TextRank algorithm to summarize the input Biomedical Text.
 
-```
-import json
-f=open ('Covid_Data.json') 
-data = json.load(f)
-print(data)
-```
+**3. [ir_author.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Code/ir_author.py)** Makes use of levenshtein distance to generate a similarity score between the author based query and documents
 
-**2. [Data_Covid.csv:](https://drive.google.com/drive/folders/1nKAo8oWqPuq39ky15duuhpt3sWEhyV-7)** Dataset created by using Kaggle open Research data.<br> 
+**4. [ir_title.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Code/ir_title.py)** Makes use of levenshtein distance and keyword indexing to generate a similarity score between the title based query and documents
 
-Follow the following steps to open the file:
+**5. [ir_optimised.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Code/ir_optimised.py)** Makes use of levenshtein distance and keyword indexing along with a keywords pickle file  to generate a similarity score between the author based query and documents
 
-```
-import pandas as pd
-data=pd.read_csv('Data_Covid.csv') 
-print(data)
-```
+**6. [news.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Code/news.py)** Makes use of scraping techniques to retrieve unstructured COVID-19 research news from the internet and makes use of info retrieval to display relevant results on the basis of a query.
 
-**3. [glove:](https://drive.google.com/drive/folders/1nKAo8oWqPuq39ky15duuhpt3sWEhyV-7)** Embeddings used to perform text summarization
+**7. [Q&A_CDQA_Finetuning.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Code/Q&A_CDQA_Finetuning.py)** The script written to fine-tune BERT with respect to a subset of CORD-19 dataset
 
-**4. [data_script.ipynb:](data/data_script.ipynb)** The script written in order to extract data from the source data in the required format
+**8. [Anomaly_detection.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Code/Anomaly_detection.py)** The script written to fine-tune BERT with respect to a subset of CORD-19 dataset
 
-**5. [summariser.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Code/summariser.py)** Makes use of the TextRank algorithm to summarize the input Biomedical Text.
+**9 [qna.joblib](https://drive.google.com/drive/folders/1MAMWa5IZ9z2k_u2SpYXrVHLCoT5EMy3J)** Trained model which predicts answers on the basis of the question query
 
-**6. [ir_author.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Code/ir_author.py)** Makes use of levenshtein distance to generate a similarity score between the author based query and documents
-
-**7. [ir_title.py:](https://github.com/tanmaypardeshi/CDAC-Hackathon/blob/master/Code/ir_title.py)** Makes use of levenshtein distance to generate a similarity score between the title based query and documents 
-
-**9. [Info_Retrieval_Data.csv:](https://drive.google.com/drive/folders/1nKAo8oWqPuq39ky15duuhpt3sWEhyV-7)** Dataset created by using Kaggle open Research data.
+**10 [ir_old.csv](https://drive.google.com/drive/folders/1MAMWa5IZ9z2k_u2SpYXrVHLCoT5EMy3J)** Dataset created by using CORD-19 data for Information Retrieval
 
 
-### Research papers referred while working for the TextRank algorithm:
+### Research papers referred while working for the project:
 #### (Click on the links to open the research paper)
 
 * [Unsupervised Text Summarization Using Sentence Embeddings](https://www.cs.utexas.edu/~asaran/reports/summarization.pdf):
@@ -98,41 +85,61 @@ extractive text summarization, a pretrained BERT model is used.
   This research paper explores to what extent high quality training data is actually required for Extractive QA, and investigates the possibility of unsupervised Extractive QA. This problem is approached by first learning to generate context, question and answer triplets in an unsupervised manner, which we then use to synthesize Extractive QA training data automatically.
 
 
+* [A review on anomaly detection in disease outbreak detection](https://www.researchgate.net/publication/281465876_A_review_on_anomaly_detection_in_disease_outbreak_detection)
+
+   Gives a brief description about detection of pandemic like anomalies using AI
+
+* [BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding](https://arxiv.org/abs/1810.04805)
+
+  The paper explores the architecture of the current State Of The Art Language Representation Model - BERT
+
+
 ### Snippets of the platform:
 
-* ### Home page
+* ### Welcome modal
 
 <p float="left">
-    <img src="screenshots/clasp1.png" alt="701.png" width="700" height="400">
-    <img src="screenshots/clasp2.png" alt="702.png" width="700" height="400">
+    <img src="screenshots/1.png" alt="1.png" width="700" height="400">
+    <img src="screenshots/2.png" alt="2.png" width="700" height="400">
 </p>
 
-* ### Login and Signup
+## News
 
 <p float="left">
-    <img src="screenshots/clasp3.png" alt="701.png" width="700" height="400">
-    <img src="screenshots/clasp4.png" alt="702.png" width="700" height="400">
+    <img src="screenshots/3.png" alt="3.png" width="700" height="400">
+    <img src="screenshots/4.png" alt="4.png" width="700" height="400">
 </p>
+
+
+## Login and Signup
+
+<p float="left">
+    <img src="screenshots/5.png" alt="5.png" width="700" height="400">
+    <img src="screenshots/6.png" alt="6.png" width="700" height="400">
+</p>
+
 
 * ### Summarization and My Summaries
 
 <p float="left">
-    <img src="screenshots/clasp5.png" alt="701.png" width="700" height="400">
-    <img src="screenshots/clasp6.png" alt="702.png" width="700" height="400">
-    <img src="screenshots/clasp7.png" alt="702.png" width="700" height="400">
+    <img src="screenshots/5.png" alt="701.png" width="700" height="400">
+    <img src="screenshots/6.png" alt="702.png" width="700" height="400">
+    <img src="screenshots/7.png" alt="702.png" width="700" height="400">
 </p>
 
-* ### Information Retrieval by Title
+* ### Information Retrieval and My Bookmarks
 
 <p float="left">
-    <img src="screenshots/clasp8.png" alt="701.png" width="700" height="400">
-    <img src="screenshots/clasp9.png" alt="702.png" width="700" height="400">
+    <img src="screenshots/8.png" alt="8.png" width="700" height="400">
+    <img src="screenshots/9.png" alt="9.png" width="700" height="400">
+    <img src="screenshots/7.png" alt="7.png" width="700" height="400">
+    <img src="screenshots/15.png" alt="15.png" width="700" height="400">
 </p>
 
 * ### Information Retrieval by Author Name
 
 <p float="left">
-    <img src="screenshots/clasp10.png" alt="701.png" width="700" height="400">
-    <img src="screenshots/clasp11.png" alt="702.png" width="700" height="400">
+    <img src="screenshots/10.png" alt="701.png" width="700" height="400">
+    <img src="screenshots/11.png" alt="702.png" width="700" height="400">
 </p>
 
