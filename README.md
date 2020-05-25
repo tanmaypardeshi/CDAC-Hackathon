@@ -140,7 +140,7 @@ extractive text summarization, a pretrained BERT model is used.
     <img src="screenshots/8.png" alt="8.png" width="700" height="400">
     <img src="screenshots/9.png" alt="9.png" width="700" height="400">
     <img src="screenshots/7.png" alt="7.png" width="700" height="400">
-    <img src="screenshots/11.png" alt="11.png" width="700" height="400">
+    <img src="screenshots/15.png" alt="15.png" width="700" height="400">
 </p>
 
 * ### Q & A and My Questions
