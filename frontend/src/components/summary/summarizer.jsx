@@ -126,7 +126,7 @@ function VLS() {
     const [statusO, setStatusO] = useState('');
 
     const handleSubmit = () => {
-        const filetype = fileName.slice((fileName.lastIndexOf(".") - 1 >>> 0) + 2);
+        const filetype = fileName.slice((fileName.lastIndexOf(".") - 1 >>> 0) + 2).toLowerCase();
         setDisableCancel(true);
         const cookie = getCookie("usertoken")
         const uploadkey = enqueueSnackbar('Uploading...', {
