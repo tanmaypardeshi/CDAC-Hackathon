@@ -126,7 +126,7 @@ function VLS() {
     const [statusO, setStatusO] = useState('');
 
     const handleSubmit = () => {
-        const filetype = filename.slice((filename.lastIndexOf(".") - 1 >>> 0) + 2);
+        const filetype = fileName.slice((fileName.lastIndexOf(".") - 1 >>> 0) + 2);
         setDisableCancel(true);
         const cookie = getCookie("usertoken")
         const uploadkey = enqueueSnackbar('Uploading...', {
@@ -363,7 +363,7 @@ function VLS() {
                                 showPreviewsInDropzone = {false}
                                 //useChipsForPreview = {true}
                                 acceptedFiles = {
-                                    ['text/plain', /* 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.oasis.opendocument.text', 'application/pdf', */ 'image/bmp', 'image/jpeg', 'image/png']
+                                    ['text/plain', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/bmp', 'image/jpeg', 'image/png']
                                 }
                                 dropzoneClass = {themeContext.dark ? classes.dropZoneDark : classes.dropZoneLight}
                                 dropzoneParagraphClass = {classes.dZPara}
