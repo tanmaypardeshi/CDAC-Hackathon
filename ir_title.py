@@ -9,66 +9,53 @@ from nltk.tokenize import sent_tokenize,word_tokenize
 from nltk.stem import WordNetLemmatizer
 from gensim.models.doc2vec import Doc2Vec,TaggedDocument
 from gensim.models import doc2vec
-from fuzzywuzzy import process
+
+
 
 def Preprocessor(text):
-    new_sentence=""
-    complete_refined_text=""
-    refined_text = remove_stopwords(text)
-    refined_text=refined_text.lower()
-    return refined_text
-
+	new_sentence=""
+	complete_refined_text=""
+	refined_text = remove_stopwords(text)
+	refined_text=refined_text.lower()
+	return refined_text
 
 def lemmatize_text(text):
-    refined_sentences_list=[]
-    lemmatizer=WordNetLemmatizer()
-    sentences=sent_tokenize(text)
-    for i in range(len(sentences)):
-        string=" "
-        words=word_tokenize(sentences[i])
-        words1=[lemmatizer.lemmatize(word) for word in words]
-        string=string.join(words1)
-        refined_sentences_list.append(string)
-    refined_text=" "
-    return (refined_text.join(refined_sentences_list))        
-
+	refined_sentences_list=[]
+	lemmatizer=WordNetLemmatizer()
+	sentences=sent_tokenize(text)
+	for i in range(len(sentences)):
+		string=" "
+		words=word_tokenize(sentences[i])
+		words1=[lemmatizer.lemmatize(word) for word in words]
+		string=string.join(words1)
+		refined_sentences_list.append(string)
+	refined_text=" "
+	return (refined_text.join(refined_sentences_list))
 
 def remove_special_chars(text):
-    text=re.sub("([\(\[]).*?([\)\]])", "\g<1>\g<2>", text)
-    text=re.sub(r'[^A-Za-z0-9]'," ",text)
-    return text
-
+	text=re.sub("([\(\[]).*?([\)\]])", "\g<1>\g<2>", text)
+	text=re.sub(r'[^A-Za-z0-9]'," ",text)
+	return text
 
 def pre_processing(text):
-    text=Preprocessor(text)
-    text=remove_special_chars(text)
-    text=lemmatize_text(text)
-    return text
+	text=Preprocessor(text)
+	text=remove_special_chars(text)
+	text=lemmatize_text(text)
+	return text
 
+def similarity_score_title(query,data):
+	score=[]
+	sent1=pre_processing(str(query))
+	for i in range(len(data)):
+		#sent1=pre_processing(str(query))
+		sent2=pre_processing(str(data['title'][i]))
+		score.append(fuzz.token_sort_ratio(str(sent1),str(sent2)))
+	data['similarity_score']=score
 
 def get_info_title(query):
-    data=pd.read_csv('data/ir_title.csv')
-    sent1=pre_processing(str(query))
-    keywords_list=[]
-    score_title=[]
-    score_keywords=[]
-    for j in range(len(data)):
-        list2=[]
-        list1=data['keywords'][j].split(sep=',')
-        for i in range(len(list1)):
-            string=list1[i].split(sep=':')[0][2:][:-1]
-            list2.append(string)
-        keywords_list.append(list2)
-    for i in range(0,len(data)):
-        ratios=process.extract(sent1,keywords_list[i])
-        score_key=(ratios[0][1]+ratios[1][1])/2
-        score_keywords.append(score_key)
-        sent2=pre_processing(str(data['Title'][i]))
-        score_title.append(fuzz.token_sort_ratio(str(sent1),str(sent2)))
-    data['Score_Title']=score_title
-    data['Score_Keywords']=score_keywords
-    df1=data.loc[data['Score_Title']>=80]
-    df2=data.sort_values(by='Score_Keywords',ascending=False)
-    df2=df2.iloc[:20,:]
-    df=pd.concat([df1,df2])
-    return df
+	data=pd.read_csv('data/ir_old.csv')
+	similarity_score_title(query,data)
+	df=data.sort_values(by='similarity_score',ascending=False)
+	df=df.iloc[:20,:]
+	return df
+

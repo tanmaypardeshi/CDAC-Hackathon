@@ -50,7 +50,7 @@ def similarity_score(query, data):
 
 
 def get_info_author(query):
-    data = pd.read_csv('data/ir_author.csv')
+    data = pd.read_csv('data/ir_old.csv')
     similarity_score(query, data)
     df = data.sort_values(by='similarity_score', ascending=False)
     df = df.iloc[:20, :]
