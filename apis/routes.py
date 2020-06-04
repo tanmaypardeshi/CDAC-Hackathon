@@ -3,7 +3,7 @@ from flask import jsonify, request
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, jwt_optional
 import joblib
 import os
-from werkzeug.utils import select_filename
+from werkzeug.utils import secure_filename
 import docx2txt
 from .models import User, Summary, IRQuery, Qna
 
