@@ -280,7 +280,7 @@ function VLS() {
 
     const handleChange = (event) => {
         const filename = event[0].name;
-        const filetype = filename.slice((filename.lastIndexOf(".") - 1 >>> 0) + 2);
+        const filetype = filename.slice((filename.lastIndexOf(".") - 1 >>> 0) + 2).toLowerCase();
 
         if(filetype === 'txt'){
             var fileToLoad = event[0];
