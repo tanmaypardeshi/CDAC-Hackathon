@@ -140,7 +140,7 @@ def uploadfile():
         db.session.commit()
     except TypeError:
         pass
-	os.remove(target + '/' + filename)
+    os.remove(target + '/' + filename)
     return jsonify({'data': new_content}), 200
 
 
