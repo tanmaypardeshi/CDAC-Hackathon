@@ -36,7 +36,7 @@ networkx==2.4
 nltk==3.5
 numpy==1.18.4
 pandas==0.25.0
-Pillow==7.1.2
+Pillow==8.1.1
 prettytable==0.7.2
 pycparser==2.20
 PyJWT==1.7.1
